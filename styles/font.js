@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { width, height } from '@util/scale'
+import { width, height } from '../util/scale';
 
 const FontWeight = {
     Thin: '100',
