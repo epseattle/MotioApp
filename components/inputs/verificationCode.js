@@ -6,7 +6,7 @@ import {
 
 import TextInput from './text';
 
-const PhoneNumberInput = (props) => {
+const VerificationCodeInput = (props) => {
     return (
         <View style={styles.container}>
             <TextInput />
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default PhoneNumberInput;
+export default VerificationCodeInput;

@@ -10,21 +10,34 @@ import {
 } from 'react-native';
 
 import TopNavigationLayout from "../../../components/layouts/TopNavigation";
+import { height } from "../../../util/scale";
+import OvalButton from "../../../components/buttons/oval";
 
 const ProfilePictureScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     return (
-        <TopNavigationLayout>
-            <Text>Hello, ProfilePictureScreen</Text>
-            <Button title='Sign Up' onPress={() => {
-                dispatch(signIn());
-            }} />
+        <TopNavigationLayout
+            header={`Set a profile picture`}>
+            <View style={styles.footer}>
+                <OvalButton
+                    title='Next'
+                    onPress={() => {
+                        // dispatch(signIn());
+                    }} />
+            </View>
         </TopNavigationLayout>
     );
 };
 
 const styles = StyleSheet.create({
-
+    input: {
+        marginVertical: height(16)
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        marginVertical: height(16)
+    }
 });
 
 export default ProfilePictureScreen;

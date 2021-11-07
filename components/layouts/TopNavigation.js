@@ -6,7 +6,10 @@ import {
     View,
     Text,
     TouchableWithoutFeedback,
-    StyleSheet
+    StyleSheet,
+    Keyboard,
+    KeyboardAvoidingView,
+    Touchable
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Arrow from '../../assets/icons/evericons/arrow-left.svg'
@@ -17,44 +20,54 @@ import Color from '../../styles/color';
 const TopNavigationLayout = (props) => {
     const navigation = useNavigation();
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.navigation}>
-                <TouchableWithoutFeedback onPress={() => { navigation.goBack() }} >
-                    <View>
-                        <Arrow width={width(25)} height={height(25)} color="black" />
+        <SafeAreaView style={{ flex: 1 }}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <KeyboardAvoidingView
+                    behavior={'padding'}
+                    style={styles.container}>
+                    <View style={styles.navigation}>
+                        <TouchableWithoutFeedback onPress={() => { navigation.goBack() }} >
+                            <View>
+                                <Arrow width={width(25)} height={height(25)} color="black" />
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
-                </TouchableWithoutFeedback>
-            </View>
-            {
-                props.header
-                    ?
-                    <View style={styles.header}>
-                        <Text style={styles.title}>{props.header}</Text>
+                    {
+                        props.header
+                            ?
+                            <View style={styles.header}>
+                                <Text style={styles.title}>{props.header}</Text>
+                            </View>
+                            :
+                            null
+                    }
+                    <View style={styles.body}>
+                        {props.children}
                     </View>
-                    :
-                    null
-            }
-            <View>
-                {props.children}
-            </View>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         marginHorizontal: width(20)
     },
     navigation: {
-
+        marginVertical: height(16)
     },
     header: {
-        justifyContent: 'center',
-        textAlign: 'center',
-        alignContent: 'center'
+        marginBottom: height(16),
     },
     title: {
-        ...Font.H2
+        ...Font.H2,
+        textAlign: 'center'
+    },
+    body: {
+        flex: 1,
+        marginTop: height(34)
     }
 });
 

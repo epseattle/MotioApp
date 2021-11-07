@@ -14,6 +14,7 @@ const TextInput = (props) => {
         <View>
             <View style={styles.container}>
                 <TextInputReact
+                    keyboardType='phone-pad'
                     defaultValue={props.defaultValue}
                     style={styles.input} />
             </View>
@@ -32,7 +33,8 @@ const styles = StyleSheet.create({
         borderColor: Color.LightGrey,
         borderWidth: width(1),
         height: height(48),
-        paddingHorizontal: width(16)
+        paddingHorizontal: width(16),
+        borderRadius: height(3),
     },
     input: {
         flex: 1,

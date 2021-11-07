@@ -1,18 +1,25 @@
 import React from 'react';
 import {
     View,
+    Text,
     Button,
     StyleSheet
 } from 'react-native';
 
 import { width, height } from '../../util/scale';
 import Color from '../../styles/color';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import Font from '../../styles/font';
 
 const OvalButton = (props) => {
     return (
-        <View style={styles.container}>
-            <Button color={Color.White} title={props.title} onPress={props.onPress} />
-        </View>
+        <TouchableWithoutFeedback
+            onPress={props.onPress}
+            style={styles.container}>
+            <Text style={styles.label}>
+                {props.title}
+            </Text>
+        </TouchableWithoutFeedback>
     );
 };
 
@@ -24,6 +31,10 @@ const styles = StyleSheet.create({
         borderRadius: height(24),
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    label: {
+        color: Color.White,
+        ...Font.B2
     }
 });
 
