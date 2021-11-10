@@ -6,7 +6,8 @@ import auth from '@react-native-firebase/auth';
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 
 import TopNavigationLayout from "../../../components/layouts/TopNavigation";
@@ -18,12 +19,13 @@ import Font from "../../../styles/font";
 import { height } from "../../../util/scale";
 
 const PhoneNumberScreen = ({ navigation }) => {
-    const [confirm, setConfirm] = useState(null);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [valid, setValid] = useState(false);
 
-    async function signInWithPhoneNumber(phoneNumber) {
+    async function signInWithPhoneNumber() {
         // const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-        // setConfirm(confirmation);
-        navigation.navigate('PhoneNumberVerifyScreen', { confirmation: confirm })
+        // navigation.navigate('PhoneNumberVerifyScreen', { confirmation: confirmation, phoneNumber: phoneNumber });
+        navigation.navigate('PhoneNumberVerifyScreen', { confirmation: null, phoneNumber: null })
     }
 
     return (
@@ -38,13 +40,22 @@ const PhoneNumberScreen = ({ navigation }) => {
                 </Text>
             </View>
             <View style={styles.input}>
-                <PhoneNumberInput />
+                <PhoneNumberInput
+                    setPhoneNumber={(phoneNumber) => {
+                        setPhoneNumber(phoneNumber);
+                    }}
+                    setValid={(valid) => {
+                        setValid(valid);
+                    }}
+                />
             </View>
             <View style={styles.footer}>
                 <OvalButton
                     title='Send'
                     onPress={() => {
-                        signInWithPhoneNumber('+1 425-773-0854');
+                        if (valid) {
+                            signInWithPhoneNumber();
+                        }
                     }} />
             </View>
         </TopNavigationLayout>

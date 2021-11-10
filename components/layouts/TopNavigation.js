@@ -20,7 +20,7 @@ import Color from '../../styles/color';
 const TopNavigationLayout = (props) => {
     const navigation = useNavigation();
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Color.White }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <KeyboardAvoidingView
                     behavior={'padding'}
