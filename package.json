@@ -19,6 +19,7 @@
     "@types/react-redux": "^7.1.19",
     "react": "17.0.2",
     "react-native": "0.66.0",
+    "react-native-confirmation-code-field": "^7.1.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-safe-area-context": "^3.3.2",

@@ -2,14 +2,32 @@ import React from "react";
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    ScrollView,
+    TouchableWithoutFeedback
 } from 'react-native';
+import ModalLayout from "../../components/layouts/Modal";
 
 const CreateChallengeScreen = () => {
     return (
-        <View style={{ flex: 1 }}>
-            <Text>Hello, CreateChallenge</Text>
-        </View>
+        <ModalLayout>
+            <View>
+                <View>
+                    <Text>Start New Challenge</Text>
+                </View>
+                <TouchableWithoutFeedback>
+                    <Text>Cancel</Text>
+                </TouchableWithoutFeedback>
+            </View>
+            <ScrollView>
+                <View>
+
+                </View>
+                <View>
+
+                </View>
+            </ScrollView>
+        </ModalLayout>
     );
 };
 

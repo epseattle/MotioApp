@@ -18,12 +18,24 @@ const TextInput = (props) => {
                     defaultValue={props.defaultValue}
                     style={styles.input} />
             </View>
-            <View style={styles.helperLabelContainer}>
-                <Text style={styles.helperText}>Helper Text</Text>
-            </View>
-            <View style={styles.helperLabelContainer}>
-                <Text style={styles.helperTextWarning}>Helper Text</Text>
-            </View>
+            {
+                props.helper && props.enableHelper
+                    ?
+                    <View style={styles.helperLabelContainer}>
+                        <Text style={styles.helperText}>Helper Text</Text>
+                    </View>
+                    :
+                    null
+            }
+            {
+                props.warning && props.enableWarning
+                    ?
+                    <View style={styles.helperLabelContainer}>
+                        <Text style={styles.helperTextWarning}>Helper Text</Text>
+                    </View>
+                    :
+                    null
+            }
         </View>
     );
 };

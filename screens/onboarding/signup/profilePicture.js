@@ -6,23 +6,29 @@ import {
     View,
     Text,
     Button,
+    TouchableWithoutFeedback,
     StyleSheet
 } from 'react-native';
 
 import TopNavigationLayout from "../../../components/layouts/TopNavigation";
-import { height } from "../../../util/scale";
 import OvalButton from "../../../components/buttons/oval";
+import Upload from '../../../assets/icons/evericons/file-upload.svg'
+import { width, height } from "../../../util/scale";
+import Color from "../../../styles/color";
 
 const ProfilePictureScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     return (
         <TopNavigationLayout
             header={`Set a profile picture`}>
+            <TouchableWithoutFeedback>
+                <Upload width={width(150)} height={height(150)} color="black" />
+            </TouchableWithoutFeedback>
             <View style={styles.footer}>
                 <OvalButton
-                    title='Next'
+                    title='Complete'
                     onPress={() => {
-                        // dispatch(signIn());
+                        dispatch(signIn());
                     }} />
             </View>
         </TopNavigationLayout>

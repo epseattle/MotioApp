@@ -24,10 +24,13 @@ const PhoneNumberInput = (props) => {
                 disableArrowIcon={true}
                 containerStyle={styles.container}
                 textContainerStyle={{
+                    height: '100%',
                     backgroundColor: Color.White
                 }}
                 textInputProps={{ maxLength: 10 }}
-                textInputStyle={{ color: Color.LightGrey }}
+                textInputStyle={{
+                    color: Color.LightGrey
+                }}
                 codeTextStyle={{ color: Color.LightGrey }}
                 countryPickerButtonStyle={{
                     width: 0

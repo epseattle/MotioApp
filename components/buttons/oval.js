@@ -15,8 +15,8 @@ const OvalButton = (props) => {
     return (
         <TouchableWithoutFeedback
             onPress={props.onPress}
-            style={styles.container}>
-            <Text style={styles.label}>
+            style={{ ...styles.container, ...props.containerStyle }}>
+            <Text style={{...styles.label, ...props.textStyle}}>
                 {props.title}
             </Text>
         </TouchableWithoutFeedback>

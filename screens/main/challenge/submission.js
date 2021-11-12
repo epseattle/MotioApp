@@ -4,12 +4,13 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import TopNavigationLayout from "../../../components/layouts/TopNavigation";
 
 const SubmissionScreen = () => {
     return (
-        <View style={{ flex: 1 }}>
+        <TopNavigationLayout>
             <Text>Hello, Submission</Text>
-        </View>
+        </TopNavigationLayout>
     );
 };
 
