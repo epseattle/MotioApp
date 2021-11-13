@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 
 import {
@@ -17,8 +17,24 @@ import { height, width } from "../../../util/scale";
 import VerificationCodeInput from "../../../components/inputs/verificationCode";
 
 const PhoneNumberVerifyScreen = ({ route, navigation }) => {
+    const [seconds, setSeconds] = useState(30);
+    useEffect(() => {
+        let myInterval = setInterval(() => {
+            if (seconds > 0) {
+                setSeconds(seconds - 1);
+            }
+            if (seconds === 0) {
+                setExpired(true);
+            }
+        }, 1000)
+        return () => {
+            clearInterval(myInterval);
+        };
+    });
+
     const dispatch = useDispatch();
     const [code, setCode] = useState('');
+    const [expired, setExpired] = useState(false);
     const { confirmation } = route.params;
 
     async function confirmCode() {
@@ -48,26 +64,33 @@ const PhoneNumberVerifyScreen = ({ route, navigation }) => {
                         }}
                     />
                 </View>
-                <View>
-                    <OvalButton
-                        title={`Your code expires in (${'0:00'})`}
-                        onPress={() => {
-                        }}
-                        containerStyle={styles.countDownButton}
-                        textStyle={styles.countDownText} />
-                </View>
-                <View>
-                    <OvalButton
-                        title='Resend Verification Code'
-                        onPress={() => {
-                        }}
-                        containerStyle={styles.resendButton}
-                        textStyle={styles.resendButtonText} />
-                </View>
+                {
+                    expired
+                        ?
+                        <View>
+                            <OvalButton
+                                title='Resend Verification Code'
+                                onPress={() => {
+                                    setSeconds(30);
+                                    setExpired(false);
+                                }}
+                                containerStyle={styles.resendButton}
+                                textStyle={styles.resendButtonText} />
+                        </View>
+                        :
+                        <View>
+                            <OvalButton
+                                title={`Your code expires in (0:${seconds})`}
+                                disabled
+                                containerStyle={styles.countDownButton}
+                                textStyle={styles.countDownText} />
+                        </View>
+                }
             </View>
             <View style={styles.footer}>
                 <OvalButton
                     title='Verify'
+                    disabled={code.length < 6}
                     onPress={() => {
                         alert(code);
                         // confirmCode();

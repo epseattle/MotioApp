@@ -51,6 +51,7 @@ const PhoneNumberScreen = ({ navigation }) => {
             </View>
             <View style={styles.footer}>
                 <OvalButton
+                    disabled={!valid}
                     title='Send'
                     onPress={() => {
                         if (valid) {

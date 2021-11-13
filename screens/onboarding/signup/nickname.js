@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 
 import {
@@ -17,6 +17,7 @@ import Font from '../../../styles/font'
 
 const NicknameScreen = ({ navigation }) => {
     const dispatch = useDispatch();
+    const [valid, setValid] = useState(true);
     return (
         <TopNavigationLayout
             header={`Create a nickname`}>
@@ -31,6 +32,7 @@ const NicknameScreen = ({ navigation }) => {
             <View style={styles.footer}>
                 <OvalButton
                     title='Next'
+                    disabled={!valid}
                     onPress={() => {
                         // confirmCode();
                         navigation.navigate('ProfilePictureScreen')

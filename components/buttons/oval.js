@@ -14,9 +14,9 @@ import Font from '../../styles/font';
 const OvalButton = (props) => {
     return (
         <TouchableWithoutFeedback
-            onPress={props.onPress}
-            style={{ ...styles.container, ...props.containerStyle }}>
-            <Text style={{...styles.label, ...props.textStyle}}>
+            onPress={props.disabled ? null : props.onPress}
+            style={[styles.containerSize, props.negative ? styles.negativeContainer : styles.container, props.disabled ? styles.disabledContainer : null, props.containerStyle]}>
+            <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
                 {props.title}
             </Text>
         </TouchableWithoutFeedback>
@@ -24,16 +24,30 @@ const OvalButton = (props) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    containerSize: {
         height: height(48),
         width: width(343),
-        backgroundColor: Color.Primary,
         borderRadius: height(24),
         justifyContent: 'center',
         alignItems: 'center'
     },
+    container: {
+        backgroundColor: Color.Primary,
+    },
+    negativeContainer: {
+        backgroundColor: Color.White,
+        borderColor: Color.Primary,
+        borderWidth: width(2),
+    },
+    disabledContainer: {
+        backgroundColor: Color.LightGrey,
+    },
     label: {
         color: Color.White,
+        ...Font.B2
+    },
+    negativeLabel: {
+        color: Color.Primary,
         ...Font.B2
     }
 });
