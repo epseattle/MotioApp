@@ -2,14 +2,18 @@ import React from 'react';
 
 import {
     View,
-    StyleSheet
+    KeyboardAvoidingView,
+    StyleSheet,
+    Keyboard
 } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
+import Color from '../../styles/color'
 import { height, width } from '../../util/scale';
 
 const ModalLayout = (props) => {
     return (
-        <View style={styles.container}>
+        <View style={ styles.container }>
             {props.children}
         </View>
     );
@@ -17,9 +21,10 @@ const ModalLayout = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginHorizontal: width(20),
-        marginTop: height(20)
+        paddingHorizontal: width(20),
+        paddingTop: height(20),
+        height: '100%',
+        backgroundColor: Color.White
     }
 });
 

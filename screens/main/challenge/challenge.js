@@ -13,6 +13,7 @@ import { height, width } from "../../../util/scale";
 import Font from "../../../styles/font";
 import Color from "../../../styles/color";
 import ProfileButton from "../../../components/buttons/profile";
+import ChallengeCard from "../../../components/cards/challenge";
 
 const getGreeting = () => {
     const currentHour = new Date().getHours();
@@ -36,7 +37,7 @@ const getDate = () => {
 const ChallengeScreen = ({ navigation }) => {
     return (
         <BottomTabNavigationLayout>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{
                     marginBottom: height(30),
                     flexDirection: 'row',
@@ -58,7 +59,7 @@ const ChallengeScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <View>
-                        <ProfileButton />
+                        <ProfileButton onPress={() => { navigation.navigate('ProfileScreen') }} />
                     </View>
                 </View>
                 <View>
@@ -106,9 +107,15 @@ const ChallengeScreen = ({ navigation }) => {
                             <SleepingMoti />
                         </View>
                     </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <ChallengeCard onPress={() => { navigation.navigate('DetailsScreen') }} />
+                        <ChallengeCard onPress={() => { navigation.navigate('DetailsScreen') }} />
+                        <ChallengeCard onPress={() => { navigation.navigate('DetailsScreen') }} />
+                        <ChallengeCard onPress={() => { navigation.navigate('DetailsScreen') }} />
+                        <ChallengeCard onPress={() => { navigation.navigate('DetailsScreen') }} />
+                        <ChallengeCard onPress={() => { navigation.navigate('DetailsScreen') }} />
+                    </View>
                 </View>
-                <Button title='DetailsScreen' onPress={() => { navigation.navigate('DetailsScreen') }} />
-                <Button title='SubmissionScreen' onPress={() => { navigation.navigate('SubmissionScreen') }} />
             </ScrollView>
         </BottomTabNavigationLayout>
     );

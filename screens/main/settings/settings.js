@@ -9,13 +9,15 @@ import {
     StyleSheet
 } from 'react-native';
 
+import BottomTabNavigationLayout from '../../../components/layouts/BottomTabNavigation';
+
 const SettingsScreen = () => {
     const dispatch = useDispatch();
     return (
-        <View>
+        <BottomTabNavigationLayout>
             <Text>Hello, Settings</Text>
             <Button title='Sign Out' onPress={() => { dispatch(signOut()) }} />
-        </View>
+        </BottomTabNavigationLayout>
     );
 };
 

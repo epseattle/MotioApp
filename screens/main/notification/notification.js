@@ -5,11 +5,13 @@ import {
     StyleSheet
 } from 'react-native';
 
+import BottomTabNavigationLayout from '../../../components/layouts/BottomTabNavigation';
+
 const NotificationScreen = () => {
     return (
-        <View>
+        <BottomTabNavigationLayout>
             <Text>Hello, Notification</Text>
-        </View>
+        </BottomTabNavigationLayout>
     );
 };
 

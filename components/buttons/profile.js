@@ -12,7 +12,7 @@ import Color from '../../styles/color';
 
 const ProfileButton = (props) => {
     return (
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { props.onPress() }}>
             <View style={styles.container}>
                 <You color={Color.LightBlack} height={height(72)} width={width(72)} />
             </View>

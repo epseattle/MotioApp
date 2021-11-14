@@ -12,7 +12,7 @@ import Color from '../../styles/color';
 const TextInput = (props) => {
     return (
         <View>
-            <View style={styles.container}>
+            <View style={[styles.container, props.style]}>
                 <TextInputReact
                     keyboardType='phone-pad'
                     defaultValue={props.defaultValue}

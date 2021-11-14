@@ -3,11 +3,13 @@ import {
     View
 } from 'react-native';
 
-const ProfileScreen = () => {
-    return(
-        <View>
+import TopNavigationLayout from '../../components/layouts/TopNavigation';
 
-        </View>
+const ProfileScreen = () => {
+    return (
+        <TopNavigationLayout>
+            
+        </TopNavigationLayout>
     );
 }
 
