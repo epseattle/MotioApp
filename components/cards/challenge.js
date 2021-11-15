@@ -23,7 +23,7 @@ const ChallengeCard = (props) => {
                 height: height(120),
                 width: width(330),
                 alignItems: 'center',
-                marginTop: height(16),
+                marginVertical: height(8),
                 paddingVertical: height(20),
                 paddingHorizontal: width(20),
                 backgroundColor: Color.White,

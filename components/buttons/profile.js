@@ -14,7 +14,6 @@ const ProfileButton = (props) => {
     return (
         <TouchableWithoutFeedback onPress={() => { props.onPress() }}>
             <View style={styles.container}>
-                <You color={Color.LightBlack} height={height(72)} width={width(72)} />
             </View>
         </TouchableWithoutFeedback>
     );
@@ -28,7 +27,8 @@ const styles = StyleSheet.create({
         borderColor: Color.LightBlack,
         borderRadius: width(36),
         width: width(72),
-        height: height(72)
+        height: height(72),
+        backgroundColor: Color.LightGrey
     }
 });
 
