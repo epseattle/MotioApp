@@ -19,17 +19,18 @@ const PhoneNumberInput = (props) => {
             <PhoneInput
                 defaultValue=""
                 defaultCode="US"
-                countryPickerProps={{ disable: true }}
                 layout="second"
                 disableArrowIcon={true}
                 containerStyle={styles.container}
                 textContainerStyle={{
-                    height: '100%',
-                    backgroundColor: Color.White
+                    backgroundColor: Color.White,
+                    alignItems: 'center'
                 }}
                 textInputProps={{ maxLength: 10 }}
                 textInputStyle={{
-                    color: Color.LightGrey
+                    color: Color.LightGrey,
+                    height: height(40),
+                    alignItems: 'center'
                 }}
                 codeTextStyle={{ color: Color.LightGrey }}
                 countryPickerButtonStyle={{

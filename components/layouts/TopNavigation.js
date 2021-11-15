@@ -20,7 +20,7 @@ import Color from '../../styles/color';
 const TopNavigationLayout = (props) => {
     const navigation = useNavigation();
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Color.White }}>
+        <SafeAreaView style={{ flex: 1, minHeight: '100%', backgroundColor: Color.White }}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <KeyboardAvoidingView
                     behavior={'padding'}
@@ -53,13 +53,13 @@ const TopNavigationLayout = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: width(20)
+        marginHorizontal: width(16)
     },
     navigation: {
-        marginVertical: height(16)
+        marginTop: height(16)
     },
     header: {
-        marginBottom: height(16),
+        marginVertical: height(16),
     },
     title: {
         ...Font.H2,

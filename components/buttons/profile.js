@@ -13,7 +13,7 @@ import Color from '../../styles/color';
 const ProfileButton = (props) => {
     return (
         <TouchableWithoutFeedback onPress={() => { props.onPress() }}>
-            <View style={styles.container}>
+            <View style={[styles.container, props.style]}>
             </View>
         </TouchableWithoutFeedback>
     );
