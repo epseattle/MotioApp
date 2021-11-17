@@ -9,11 +9,17 @@ import { height, width } from '../../util/scale';
 
 import You from '../../assets/icons/custom/you.svg'
 import Color from '../../styles/color';
+import { useNavigation } from '@react-navigation/core';
 
 const ProfileButton = (props) => {
+    const navigation = useNavigation();
     return (
-        <TouchableWithoutFeedback onPress={() => { props.onPress() }}>
-            <View style={[styles.container, props.style]}>
+        <TouchableWithoutFeedback onPress={() => {
+            if (!props.disabled) {
+                navigation.navigate("ProfileScreen")
+            }
+        }}>
+            <View style={[styles.container, props.style, props.highlight ? styles.highlight : null]}>
             </View>
         </TouchableWithoutFeedback>
     );
@@ -23,12 +29,14 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         textAlign: 'center',
-        borderWidth: 1,
-        borderColor: Color.LightBlack,
         borderRadius: width(36),
         width: width(72),
         height: height(72),
         backgroundColor: Color.LightGrey
+    },
+    highlight: {
+        borderWidth: width(2),
+        borderColor: Color.Primary
     }
 });
 

@@ -15,10 +15,15 @@ const OvalButton = (props) => {
     return (
         <TouchableWithoutFeedback
             onPress={props.disabled ? null : props.onPress}
-            style={[styles.containerSize, props.negative ? styles.negativeContainer : styles.container, props.disabled ? styles.disabledContainer : null, props.containerStyle]}>
+            style={[
+                styles.containerSize,
+                props.title ? styles.textLabel : null,
+                props.negative ? styles.negativeContainer : styles.container,
+                props.disabled ? styles.disabledContainer : null, props.containerStyle]}>
             <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
                 {props.title}
             </Text>
+            {props.children}
         </TouchableWithoutFeedback>
     );
 };
@@ -28,8 +33,10 @@ const styles = StyleSheet.create({
         height: height(48),
         width: width(343),
         borderRadius: height(24),
-        justifyContent: 'center',
         alignItems: 'center'
+    },
+    textLabel: {
+        justifyContent: 'center'
     },
     container: {
         backgroundColor: Color.Primary,
@@ -44,11 +51,11 @@ const styles = StyleSheet.create({
     },
     label: {
         color: Color.White,
-        ...Font.B2
+        ...Font.B4
     },
     negativeLabel: {
         color: Color.Primary,
-        ...Font.B2
+        ...Font.B4
     }
 });
 

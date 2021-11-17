@@ -105,7 +105,7 @@ const LeaderBoard = (props) => {
                         {
                             DATA.map((item) => {
                                 return (
-                                    <View id={item.id} style={[styles.row]}>
+                                    <View key={item.id} style={[styles.row]}>
                                         <View style={[styles.leftColumn, {
                                             flexDirection: 'row',
                                             alignItems: 'center',
@@ -133,7 +133,7 @@ const LeaderBoard = (props) => {
                             {
                                 DATA.slice(0, 5).map((item) => {
                                     return (
-                                        <ProfileButton style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                                        <ProfileButton disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
                                     );
                                 })
                             }

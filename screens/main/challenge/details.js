@@ -18,11 +18,11 @@ import LeaderBoard from "../../../components/cards/leaderboard";
 import Health from '../../../assets/icons/categories/health.svg'
 import Arrow from '../../../assets/icons/evericons/arrow-left.svg';
 import MoreHorizontal from '../../../assets/icons/evericons/more-horizontal.svg';
-
-import CalendarChecked from '../../../assets/icons/evericons/calendar-checked.svg'
+import CircleChecked from '../../../assets/icons/evericons/circle-checked.svg'
 
 const DetailsScreen = ({ navigation }) => {
     const [enableScroll, setEnableScroll] = useState(false);
+    const [joined, setJoined] = useState(false);
 
     return (
         <BottomTabNavigationLayout>
@@ -49,17 +49,39 @@ const DetailsScreen = ({ navigation }) => {
                     <Health />
                 </View>
                 <View>
-                    <Text>
+                    <Text style={{
+                        ...Font.B3,
+                        color: Color.LightGrey
+                    }}>
                         5 / Week
                     </Text>
-                    <Text>
+                    <Text style={{
+                        ...Font.H2,
+                        color: Color.LightBlack
+                    }}>
                         Meditation
                     </Text>
-                    <Text>
+                    <Text style={{
+                        ...Font.B3,
+                        color: Color.LightGrey
+                    }}>
                         Starts tomorrow
                     </Text>
                 </View>
-                <OvalButton title='Join' containerStyle={{ width: width(92) }} />
+                {
+                    joined
+                        ?
+                        <OvalButton containerStyle={{ width: width(92) }}>
+                            <CircleChecked color={Color.White} width={width(24)} height={height(24)} />
+                        </OvalButton>
+                        :
+                        <OvalButton
+                            onPress={() => {
+                                setJoined(true);
+                            }}
+                            title='Join'
+                            containerStyle={{ width: width(92) }} />
+                }
             </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -71,6 +93,7 @@ const DetailsScreen = ({ navigation }) => {
                                 <Text style={[styles.sectionTitle]}>Host</Text>
                                 <View style={[styles.sectionContent]}>
                                     <ProfileButton
+                                        highlight
                                         style={{
                                             width: width(50),
                                             height: height(50),
