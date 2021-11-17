@@ -12,7 +12,7 @@ import {
     Touchable
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Arrow from '../../assets/icons/evericons/arrow-left.svg'
+import Arrow from '../../assets/icons/evericons/arrow-left.svg';
 import { height, width } from "../../util/scale";
 import Font from '../../styles/font';
 import Color from '../../styles/color';

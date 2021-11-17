@@ -5,7 +5,8 @@ import {
     SafeAreaView,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
-    StyleSheet
+    StyleSheet,
+    Keyboard,
 } from 'react-native';
 
 import { height, width } from '../../util/scale';
@@ -18,11 +19,13 @@ const BottomTabNavigationLayout = (props) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Color.White }}>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <KeyboardAvoidingView
                     behavior={'padding'}
                     style={styles.container}>
-                    {props.children}
+                    <View style={{ flex: 1 }}>
+                        {props.children}
+                    </View>
                 </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -32,7 +35,7 @@ const BottomTabNavigationLayout = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: width(20)
+        marginHorizontal: width(16)
     },
 });
 

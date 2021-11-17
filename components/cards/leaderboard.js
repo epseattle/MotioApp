@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     TouchableWithoutFeedback,
@@ -9,6 +9,7 @@ import { height, width } from "../../util/scale";
 import ProfileButton from "../buttons/profile";
 import CalendarChecked from '../../assets/icons/evericons/calendar-checked.svg'
 import ChevronBottom from '../../assets/icons/evericons/chevron-bottom.svg'
+import ChevronTop from '../../assets/icons/evericons/chevron-top.svg'
 import Color from "../../styles/color";
 import Font from "../../styles/font";
 
@@ -42,66 +43,132 @@ const DATA = [
         user: {
             userName: "John Terry"
         }
+    },
+    {
+        id: 5,
+        user: {
+            userName: "John Terry"
+        }
+    },
+    {
+        id: 6,
+        user: {
+            userName: "John Terry"
+        }
     }
 ]
 
-const LeaderBoard = () => {
+const LeaderBoard = (props) => {
+    const [expanded, setExpanded] = useState(false);
+
     return (
         <View style={[styles.container]}>
-            <TouchableWithoutFeedback>
-                <View>
-                    <View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <View>
-                                <Text>Player</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text>6 / 10</Text>
-                                <ChevronBottom color={Color.LightBlack} width={width(15)} height={height(15)} />
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                            <View>
-                                <CalendarChecked color={Color.LightGrey} width={width(24)} height={height(24)} />
-                            </View>
+            <View style={[styles.row]}>
+                <View style={[styles.leftColumn, { flexDirection: 'row', alignItems: 'center' }]}>
+                    <Text style={[styles.sectionTitle]}>Players</Text>
+                </View>
+                <TouchableWithoutFeedback
+                    onPress={() => {
+                        setExpanded(!expanded)
+                        props.setEnableScroll(!expanded)
+                    }}>
+                    <View style={[styles.rightColumn, { flexDirection: 'row', alignItems: 'flex-start' }]}>
+                        <Text style={[styles.sectionTitle, Font.B4, { color: Color.LightBlack }]}>{DATA.length}</Text>
+                        <Text style={[styles.sectionTitle, Font.B4]}> / 10</Text>
+                        <View style={{ marginLeft: width(5) }}>
+                            {
+                                expanded
+                                    ?
+                                    <ChevronTop color={Color.LightBlack} width={20} height={20} />
+                                    :
+                                    <ChevronBottom color={Color.LightBlack} width={20} height={20} />
+                            }
                         </View>
                     </View>
-                    {
-                        DATA.map((item) => {
-                            return (
-                                <View key={item.id} style={[styles.row]}>
-                                    <View style={[styles.name]}>
-                                        <ProfileButton style={{ width: width(50), height: height(50) }} />
-                                        <Text>{item.user.userName}</Text>
+                </TouchableWithoutFeedback>
+            </View>
+            {
+                expanded
+                    ?
+                    <View>
+                        <View style={[styles.row]}>
+                            <View style={[styles.leftColumn]}>
+                            </View>
+                            <View style={[styles.rightColumn, {
+                                height: height(50),
+                                width: width(50),
+                                justifyContent: 'center'
+                            }]}>
+                                <CalendarChecked color={Color.LightGrey} />
+                            </View>
+                        </View>
+                        {
+                            DATA.map((item) => {
+                                return (
+                                    <View id={item.id} style={[styles.row]}>
+                                        <View style={[styles.leftColumn, {
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                            height: height(50),
+                                            marginVertical: height(8)
+                                        }]}>
+                                            <ProfileButton style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                            <Text>{item.user.userName}</Text>
+                                        </View>
+                                        <View style={[styles.rightColumn, {
+                                            height: height(50),
+                                            width: width(40),
+                                            justifyContent: 'center'
+                                        }]}>
+                                            <Text>-</Text>
+                                        </View>
                                     </View>
-                                    <View style={[styles.score]}>
-                                        <Text>-</Text>
+                                );
+                            })
+                        }
+                    </View>
+                    :
+                    <View style={[styles.row, { justifyContent: 'center' }]}>
+                        <View style={{ flexDirection: 'row' }}>
+                            {
+                                DATA.slice(0, 5).map((item) => {
+                                    return (
+                                        <ProfileButton style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                                    );
+                                })
+                            }
+                            {
+                                DATA.length > 5
+                                    ?
+                                    <View style={{ justifyContent: 'center' }}>
+                                        <Text style={{
+                                            ...Font.H3,
+                                            color: Color.LightGrey
+                                        }}>+{DATA.length - 5}</Text>
                                     </View>
-                                </View>
-                            );
-                        })
-                    }
-                </View>
-            </TouchableWithoutFeedback>
+                                    :
+                                    null
+                            }
+                        </View>
+                    </View>
+            }
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: Color.Concrete,
-        paddingVertical: height(16),
-        paddingHorizontal: width(16),
-        borderRadius: width(5)
+    sectionTitle: {
+        ...Font.B4,
+        color: Color.LightGrey,
+        marginBottom: height(8)
     },
     row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    name: {
         flexDirection: 'row'
     },
-    score: {
+    leftColumn: {
+        flex: 1
+    },
+    rightColumn: {
 
     }
 });

@@ -1,120 +1,191 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    TouchableWithoutFeedback
 } from 'react-native';
-
-import TopNavigationLayout from "../../../components/layouts/TopNavigation";
 import { width, height } from "../../../util/scale";
-import Health from '../../../assets/icons/categories/health.svg'
-import OvalButton from '../../../components/buttons/oval';
-import ProfileButton from '../../../components/buttons/profile';
 import Color from "../../../styles/color";
 import Font from "../../../styles/font";
+
+import BottomTabNavigationLayout from "../../../components/layouts/BottomTabNavigation";
+import OvalButton from '../../../components/buttons/oval';
+import ProfileButton from '../../../components/buttons/profile';
 import LeaderBoard from "../../../components/cards/leaderboard";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+
+import Health from '../../../assets/icons/categories/health.svg'
+import Arrow from '../../../assets/icons/evericons/arrow-left.svg';
+import MoreHorizontal from '../../../assets/icons/evericons/more-horizontal.svg';
+
+import CalendarChecked from '../../../assets/icons/evericons/calendar-checked.svg'
 
 const DetailsScreen = ({ navigation }) => {
+    const [enableScroll, setEnableScroll] = useState(false);
+
     return (
-        <TopNavigationLayout>
-            <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                height: height(75),
-                marginBottom: height(20),
-            }}>
+        <BottomTabNavigationLayout>
+            <View style={styles.navigation}>
+                <TouchableWithoutFeedback onPress={() => { navigation.goBack() }} >
+                    <View>
+                        <Arrow width={width(25)} height={height(25)} color="black" />
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={() => { }} >
+                    <View>
+                        <MoreHorizontal width={width(25)} height={height(25)} color="black" />
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+            <View style={[styles.headerContainer]}>
                 <View style={{
-                    justifyContent: 'center',
                     width: width(75),
                     height: height(75),
-                    backgroundColor: "#F4F4F4"
+                    backgroundColor: Color.Concrete,
+                    paddingHorizontal: width(8),
+                    paddingVertical: height(8)
                 }}>
-                    <Health width={width(65)} height={height(65)} />
+                    <Health />
                 </View>
-                <View style={{ flex: 1, marginLeft: width(16) }}>
-                    <Text>5 / Week</Text>
-                    <Text>Meditation</Text>
-                    <Text>Starts Tomorrow</Text>
+                <View>
+                    <Text>
+                        5 / Week
+                    </Text>
+                    <Text>
+                        Meditation
+                    </Text>
+                    <Text>
+                        Starts tomorrow
+                    </Text>
                 </View>
                 <OvalButton title='Join' containerStyle={{ width: width(92) }} />
             </View>
             <ScrollView
-                showsVerticalScrollIndicator={false}>
-                <View style={[styles.cardRow, { flexDirection: 'row' }]}>
-                    <View style={[styles.section]}>
-                        <Text style={[styles.sectionHeader]}>Host</Text>
-                        <View style={[styles.sectionContent, { flexDirection: 'row' }]}>
-                            <ProfileButton style={{ width: width(50), height: height(50) }} />
-                            <Text style={{ marginLeft: width(8) }}>John Terry</Text>
-                        </View>
-                    </View>
-                    <View style={[styles.section]}>
-                        <Text style={[styles.sectionHeader]}>Requirement</Text>
-                        <View style={[styles.sectionContent]}>
-                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                <Text style={{ ...Font.H2 }}>5</Text>
-                                <Text style={{ ...Font.B3 }}> times</Text>
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={enableScroll}>
+                <View onStartShouldSetResponder={() => true}>
+                    <View style={[styles.card]}>
+                        <View style={[styles.row]}>
+                            <View style={[styles.section]}>
+                                <Text style={[styles.sectionTitle]}>Host</Text>
+                                <View style={[styles.sectionContent]}>
+                                    <ProfileButton
+                                        style={{
+                                            width: width(50),
+                                            height: height(50),
+                                            marginRight: width(8)
+                                        }} />
+                                    <Text style={[Font.B4]}>John Terry</Text>
+                                </View>
                             </View>
-                            <Text style={{ ...Font.B3 }}>per week</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={[styles.cardRow, { flexDirection: 'row' }]}>
-                    <View style={[styles.section]}>
-                        <Text style={[styles.sectionHeader]}>Rule</Text>
-                        <View style={[styles.sectionContent]}>
-                        </View>
-                    </View>
-                </View>
-                <View style={[styles.cardRow, { flexDirection: 'row' }]}>
-                    <View style={[styles.section]}>
-                        <Text style={[styles.sectionHeader]}>Entry fee</Text>
-                        <View style={[styles.sectionContent, { flexDirection: 'row' }]}>
-                            <ProfileButton style={{ width: width(50), height: height(50) }} />
-                            <Text style={{ marginLeft: width(8) }}>John Terry</Text>
-                        </View>
-                    </View>
-                    <View style={[styles.section]}>
-                        <Text style={[styles.sectionHeader]}>Prize</Text>
-                        <View style={[styles.sectionContent]}>
-                            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                <Text style={{ ...Font.H2 }}>5</Text>
-                                <Text style={{ ...Font.B3 }}> times</Text>
+                            <View style={[styles.section]}>
+                                <Text style={[styles.sectionTitle]}>Requirement</Text>
+                                <View style={[]}>
+                                    <View style={[styles.sectionContent, { alignItems: 'baseline' }]}>
+                                        <Text style={{
+                                            ...Font.H2,
+                                            color: Color.LightBlack,
+                                        }}>5</Text>
+                                        <Text> times</Text>
+                                    </View>
+                                    <View style={[styles.sectionContent]}>
+                                        <Text>per week</Text>
+                                    </View>
+                                </View>
                             </View>
-                            <Text style={{ ...Font.B3 }}>per week</Text>
                         </View>
                     </View>
-                </View>
-                <View>
-                    <LeaderBoard />
+                    <View style={[styles.card, { height: 'auto' }]}>
+                        <View style={[styles.section]}>
+                            <Text style={[styles.sectionTitle]}>Rule</Text>
+                        </View>
+                        <View style={[styles.sectionContent]}>
+                            <View style={{
+                                minWidth: width(50),
+                                minHeight: height(60),
+                                alignItems: 'flex-end',
+                                alignSelf: 'flex-start'
+                            }}>
+                                <Text style={{ ...Font.B3 }}>"</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                alignItems: 'center',
+                            }}>
+                                <Text
+                                    style={{ textAlign: 'center', ...Font.B3 }}>Post Screen Capture of the meditation app progress</Text>
+                            </View>
+                            <View style={{
+                                minWidth: width(50),
+                                alignSelf: 'flex-end'
+                            }}>
+                                <Text style={{ ...Font.B3 }}>"</Text>
+                            </View>
+                        </View>
+                    </View>
+                    {/* To be enabled once payment goes live */}
+                    {/* <View style={[styles.card]}>
+                        <View style={[styles.section]}>
+                            <Text>Entry fee</Text>
+                        </View>
+                        <View style={[styles.section]}>
+                            <Text>Prize</Text>
+                        </View>
+                    </View> */}
+                    <View style={[styles.card, { height: 'auto' }]}>
+                        <LeaderBoard setEnableScroll={setEnableScroll} />
+                    </View>
                 </View>
             </ScrollView>
-        </TopNavigationLayout>
+        </BottomTabNavigationLayout>
     );
 };
 
 const styles = StyleSheet.create({
-    cardRow: {
-        backgroundColor: Color.Concrete,
+    navigation: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: height(16)
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: height(34),
+        marginBottom: height(24)
+    },
+    card: {
+        flex: 1,
+        justifyContent: 'center',
         height: height(112),
+        backgroundColor: Color.Concrete,
+        marginVertical: height(8),
         borderRadius: width(5),
-        paddingVertical: height(16),
-        paddingHorizontal: width(19),
-        marginBottom: height(8)
+        paddingHorizontal: width(16),
+        paddingVertical: height(16)
     },
     section: {
         flex: 1
     },
-    sectionHeader: {
-        color: Color.LightGrey,
+    sectionTitle: {
         ...Font.B4,
+        color: Color.LightGrey,
         marginBottom: height(8)
     },
     sectionContent: {
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    row: {
+        flexDirection: 'row'
+    },
+    leftColumn: {
+        flex: 1
+    },
+    rightColumn: {
+
     }
 });
 
