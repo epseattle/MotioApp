@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         width: '100%',
         borderColor: Color.LightGrey,
         borderWidth: width(1),
-        height: height(48),
+        height: height(40),
         paddingHorizontal: width(16),
         borderRadius: height(3),
     },

@@ -15,6 +15,7 @@ import Color from '../../styles/color';
 import { height, width } from "../../util/scale";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OvalButton from '../../components/buttons/oval'
+import DatePicker from "../../components/inputs/datePicker";
 
 const CreateChallengeScreen = () => {
     const navigation = useNavigation();
@@ -61,6 +62,8 @@ const CreateChallengeScreen = () => {
                     <Text style={{ ...Font.B3 }}>How often are we going to do it?</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
+                    <TextInput style={{ width: width(40) }} />
+                    <Text style={{ color: Color.LightGrey, ...Font.B3 }}> times per </Text>
                     {/* <TextInput style={{ width: width(60) }} /> */}
                     {/* <Text style={{ color: Color.LightGrey, ...Font.B3 }}>times per</Text> */}
                     {/* <TextInput style={{ width: width(116) }} /> */}
@@ -71,13 +74,23 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.header]}>
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>The challenge will automatically end after 4 weeks</Text>
                 </View>
-                <TextInput style={{ width: width(263) }} />
+                <DatePicker style={{ width: width(263) }} />
+            </View>
+            <View style={{ marginBottom: height(30) }}>
+                <View style={[styles.header]}>
+                    <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
+                    <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 people</Text>
+                </View>
+                <View style={[styles.inputContainer]}>
+                    <TextInput style={{ width: width(60) }} />
+                    <Text style={{ color: Color.LightGrey, ...Font.B3 }}> people</Text>
+                </View>
             </View>
             <View style={{
             }}>
                 <OvalButton title='Create' />
             </View>
-        </ModalLayout>
+        </ModalLayout >
     );
 };
 
