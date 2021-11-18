@@ -68,7 +68,11 @@ const WelcomeScreen = ({ navigation }) => {
                 bottom: 60,
                 alignSelf: 'center'
             }}>
-                <OvalButton title='Get Started' onPress={() => { navigation.navigate('SignUpNavigator') }} />
+                <OvalButton
+                    negative
+                    containerStyle={{ borderWidth: 0 }}
+                    title='Get Started'
+                    onPress={() => { navigation.navigate('SignUpNavigator') }} />
             </View>
         </View>
     );

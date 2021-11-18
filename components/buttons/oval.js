@@ -19,7 +19,8 @@ const OvalButton = (props) => {
                 styles.containerSize,
                 props.title ? styles.textLabel : null,
                 props.negative ? styles.negativeContainer : styles.container,
-                props.disabled ? styles.disabledContainer : null, props.containerStyle]}>
+                props.disabled ? styles.disabledContainer : null,
+                props.containerStyle]}>
             <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
                 {props.title}
             </Text>
