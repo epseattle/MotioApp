@@ -9,6 +9,7 @@ import { width, height } from "../../util/scale";
 import Color from '../../styles/color';
 import Font from "../../styles/font";
 import RectangleButton from "../buttons/rectangle";
+import ProfileButton from "../buttons/profile";
 
 const NotificationCard = (props) => {
     return (
@@ -19,10 +20,7 @@ const NotificationCard = (props) => {
                         ?
                         <View>
                             <View style={[styles.itemContainer]}>
-                                <TouchableWithoutFeedback>
-                                    <View style={[styles.icon]}>
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                <ProfileButton style={{ width: width(75), height: height(75) }} />
                                 <View style={[styles.textContainer]}>
                                     <Text style={[styles.text]}>Your submission got denied</Text>
                                     <Text style={[styles.text]}>Please re-submit.</Text>

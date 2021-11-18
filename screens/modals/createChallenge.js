@@ -16,6 +16,8 @@ import { height, width } from "../../util/scale";
 import { SafeAreaView } from "react-native-safe-area-context";
 import OvalButton from '../../components/buttons/oval'
 import DatePicker from "../../components/inputs/datePicker";
+import Picker from '../../components/inputs/picker';
+import Categories from "../../constants/categories";
 
 const CreateChallengeScreen = () => {
     const navigation = useNavigation();
@@ -28,6 +30,7 @@ const CreateChallengeScreen = () => {
     const createChallenge = () => {
         navigation.goBack();
     };
+
     return (
         <ModalLayout>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: height(30) }}>
@@ -49,13 +52,17 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.header]}>
                     <Text style={{ ...Font.B3 }}>What kind of goal is it?</Text>
                 </View>
-                <TextInput style={{ width: width(263) }} />
+                <Picker data={[
+                    'Health',
+                    'Excercise'
+                ]} />
+                {/* <TextInput style={{ width: width(263) }} /> */}
             </View>
             <View style={{ marginBottom: height(30) }}>
                 <View style={[styles.header]}>
                     <Text style={{ ...Font.B3 }}>Set the rule</Text>
                 </View>
-                <TextInput style={{}} />
+                <TextInput multiline={true} style={{}} />
             </View>
             <View style={{ marginBottom: height(30) }}>
                 <View style={[styles.header]}>
@@ -64,9 +71,7 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.inputContainer]}>
                     <TextInput style={{ width: width(40) }} />
                     <Text style={{ color: Color.LightGrey, ...Font.B3 }}> times per </Text>
-                    {/* <TextInput style={{ width: width(60) }} /> */}
-                    {/* <Text style={{ color: Color.LightGrey, ...Font.B3 }}>times per</Text> */}
-                    {/* <TextInput style={{ width: width(116) }} /> */}
+                    <TextInput style={{ width: width(116) }} />
                 </View>
             </View>
             <View style={{ marginBottom: height(30) }}>
@@ -74,7 +79,7 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.header]}>
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>The challenge will automatically end after 4 weeks</Text>
                 </View>
-                <DatePicker style={{ width: width(263) }} />
+                <DatePicker />
             </View>
             <View style={{ marginBottom: height(30) }}>
                 <View style={[styles.header]}>
@@ -82,7 +87,8 @@ const CreateChallengeScreen = () => {
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 people</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
-                    <TextInput style={{ width: width(60) }} />
+                    <Picker data={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />
+                    {/* <TextInput style={{ width: width(60) }} /> */}
                     <Text style={{ color: Color.LightGrey, ...Font.B3 }}> people</Text>
                 </View>
             </View>
@@ -90,7 +96,7 @@ const CreateChallengeScreen = () => {
             }}>
                 <OvalButton title='Create' />
             </View>
-        </ModalLayout >
+        </ModalLayout>
     );
 };
 

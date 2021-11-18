@@ -8,14 +8,13 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Picker as RNPicker } from '@react-native-picker/picker';
 import Color from '../../styles/color';
 import { width, height } from '../../util/scale';
-
-import { default as RNDatePicker } from 'react-native-date-picker'
 import Font from '../../styles/font';
 
-const DatePicker = (props) => {
-    const [date, setDate] = useState(new Date());
+const MPicker = (props) => {
+    const [item, setItem] = useState(props.data ? props.data[0] : '');
     const [visible, setVisible] = useState(false);
 
     return (
@@ -29,14 +28,21 @@ const DatePicker = (props) => {
                     <View style={{ flex: 1 }}>
                     </View>
                     <View style={[styles.modalCotainer, styles.inputContainer]}>
-                        <View>
-                            <RNDatePicker
-                                date={date}
-                                minimumDate={new Date()}
-                                onDateChange={setDate}
-                                mode={'date'}
-                            />
-                        </View>
+                        <RNPicker
+                            mode={'dialog'}
+                            selectedValue={item}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setItem(itemValue)
+                            }
+                            style={styles.picker}>
+                            {props.data.map((item) => {
+                                return (
+                                    <RNPicker.Item
+                                        label={item}
+                                        value={item} />
+                                );
+                            })}
+                        </RNPicker>
                     </View>
                     <View style={[styles.modalCotainer, styles.modalButtonContainer]}>
                         <View style={[styles.buttonContainer]}>
@@ -59,7 +65,7 @@ const DatePicker = (props) => {
             <TouchableWithoutFeedback
                 onPress={() => { setVisible(true) }}>
                 <View style={[styles.container]}>
-                    <Text>{date.toString()}</Text>
+                    <Text>{item}</Text>
                 </View>
             </TouchableWithoutFeedback>
         </View>
@@ -96,7 +102,10 @@ const styles = StyleSheet.create({
     buttonLabel: {
         ...Font.B3,
         color: Color.LightBlack
+    },
+    picker: {
+        width: '100%'
     }
 });
 
-export default DatePicker;
+export default MPicker;

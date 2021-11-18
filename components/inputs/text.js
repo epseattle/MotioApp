@@ -2,8 +2,8 @@ import React from 'react';
 import {
     View,
     Text,
-    TextInput as TextInputReact,
-    StyleSheet
+    TextInput as RNTextInput,
+    StyleSheet,
 } from 'react-native';
 
 import { width, height } from '../../util/scale';
@@ -12,12 +12,10 @@ import Color from '../../styles/color';
 const TextInput = (props) => {
     return (
         <View>
-            <View style={[styles.container, props.style]}>
-                <TextInputReact
-                    keyboardType='phone-pad'
-                    defaultValue={props.defaultValue}
-                    style={styles.input} />
-            </View>
+            <RNTextInput
+                multiline={props.multiline}
+                style={[styles.container, props.style]}
+            />
             {
                 props.helper && props.enableHelper
                     ?

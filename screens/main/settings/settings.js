@@ -68,7 +68,7 @@ const SettingsScreen = () => {
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => {
                     alert('sign out?')
-                    // dispatch(signOut())
+                    dispatch(signOut())
                 }} >
                     <View style={[styles.logoutContainer]}>
                         <View style={[styles.itemIcon]}>

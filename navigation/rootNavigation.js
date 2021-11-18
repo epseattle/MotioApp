@@ -11,7 +11,7 @@ const RootNavigation = () => {
     return (
         <NavigationContainer>
             {
-                isSignedIn ? (
+                true ? (
                     <MainStackNavigator />
                 ) : (
                     <OnboardingStackNavigator />
