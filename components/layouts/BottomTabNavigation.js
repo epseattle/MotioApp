@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     View,
@@ -7,6 +7,8 @@ import {
     KeyboardAvoidingView,
     StyleSheet,
     Keyboard,
+    Modal,
+    Text,
 } from 'react-native';
 
 import { height, width } from '../../util/scale';
@@ -15,6 +17,7 @@ import Font from '../../styles/font';
 import { useNavigation } from '@react-navigation/core';
 
 const BottomTabNavigationLayout = (props) => {
+    // const [visible, setVisible] = useState(true);
     const navigation = useNavigation();
 
     return (
@@ -28,6 +31,7 @@ const BottomTabNavigationLayout = (props) => {
                     </View>
                 </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
+            {props.modal}
         </SafeAreaView>
     );
 }

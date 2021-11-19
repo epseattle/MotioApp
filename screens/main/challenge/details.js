@@ -4,7 +4,9 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    TouchableWithoutFeedback
+    Modal,
+    TouchableWithoutFeedback,
+    TouchableWithoutFeedbackBase
 } from 'react-native';
 import { width, height } from "../../../util/scale";
 import Color from "../../../styles/color";
@@ -19,20 +21,128 @@ import Health from '../../../assets/icons/categories/health.svg'
 import Arrow from '../../../assets/icons/evericons/arrow-left.svg';
 import MoreHorizontal from '../../../assets/icons/evericons/more-horizontal.svg';
 import CircleChecked from '../../../assets/icons/evericons/circle-checked.svg'
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DetailsScreen = ({ navigation }) => {
     const [enableScroll, setEnableScroll] = useState(false);
     const [joined, setJoined] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [joinVisible, setJoinVisible] = useState(false);
+
+    const modals = (
+        <>
+            <Modal
+                visible={joinVisible}
+                animationType={'fade'}
+                presentationStyle={'overFullScreen'}
+                transparent={true}>
+                <SafeAreaView style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                }}>
+                    <View
+                        style={{
+                            backgroundColor: Color.White,
+                            width: width(300),
+                            height: height(500),
+                            borderRadius: width(3),
+                        }}>
+                        <Text>Request has been sent!</Text>
+                        <TouchableWithoutFeedback
+                            onPress={() => {
+                                setJoinVisible(false);
+                                setJoined(true);
+                            }}>
+                            <View>
+                                <Text>Close</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                </SafeAreaView>
+            </Modal>
+            <Modal
+                visible={visible}
+                animationType={'fade'}
+                presentationStyle={'overFullScreen'}
+                transparent={true}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <View style={{ flex: 1 }}>
+                    </View>
+                    <View style={{
+                        marginHorizontal: width(16),
+                        backgroundColor: Color.White,
+                        paddingHorizontal: width(8),
+                        paddingVertical: height(8),
+                        borderRadius: width(5),
+                        marginTop: height(8),
+                        justifyContent: 'center'
+                    }}>
+                        <TouchableWithoutFeedback
+                            onPress={() => { setVisible(false) }}>
+                            <View style={{
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: (48)
+                            }}>
+                                <Text style={[styles.buttonLabel]}>Quit</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={() => { setVisible(false) }}>
+                            <View style={{
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: (48)
+                            }}>
+                                <Text style={[styles.buttonLabel]}>Turn Off Notification</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={() => { setVisible(false) }}>
+                            <View style={{
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: (48)
+                            }}>
+                                <Text style={[styles.buttonLabel]}>Share</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                    <View style={{
+                        marginHorizontal: width(16),
+                        backgroundColor: Color.White,
+                        paddingHorizontal: width(8),
+                        paddingVertical: height(8),
+                        borderRadius: width(5),
+                        marginTop: height(8),
+                        height: height(48),
+                        justifyContent: 'center'
+                    }}>
+                        <TouchableWithoutFeedback
+                            onPress={() => { setVisible(false) }}>
+                            <View style={{
+                                alignItems: 'center'
+                            }}>
+                                <Text style={[styles.buttonLabel]}>Cancel</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                </SafeAreaView>
+            </Modal>
+        </>
+    );
 
     return (
-        <BottomTabNavigationLayout>
+        <BottomTabNavigationLayout modal={modals}>
             <View style={styles.navigation}>
                 <TouchableWithoutFeedback onPress={() => { navigation.goBack() }} >
                     <View>
                         <Arrow width={width(25)} height={height(25)} color="black" />
                     </View>
                 </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback onPress={() => { }} >
+                <TouchableWithoutFeedback onPress={() => { setVisible(true) }} >
                     <View>
                         <MoreHorizontal width={width(25)} height={height(25)} color="black" />
                     </View>
@@ -77,7 +187,10 @@ const DetailsScreen = ({ navigation }) => {
                         :
                         <OvalButton
                             onPress={() => {
-                                setJoined(true);
+                                if(!joined)
+                                {
+                                    setJoinVisible(true);
+                                }
                             }}
                             title='Join'
                             containerStyle={{ width: width(92) }} />

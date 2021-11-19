@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/core';
 
 const ChallengeCard = (props) => {
     const navigation = useNavigation();
+
     return (
         <TouchableWithoutFeedback onPress={() => props.onPress()}>
             <View style={{
@@ -55,15 +56,30 @@ const ChallengeCard = (props) => {
                         <Text style={{
                             ...Font.H3
                         }}>Meditating</Text>
-                        <Text style={{
-                            ...Font.B2,
-                            marginTop: height(15)
-                        }}>45%</Text>
+                        {
+                            props.ongoing || !props.upcoming
+                                ?
+                                <Text style={{
+                                    ...Font.B2,
+                                    marginTop: height(15)
+                                }}>45%</Text>
+                                :
+                                <Text style={{
+                                    ...Font.B2,
+                                    marginTop: height(15)
+                                }}>Starting in 5 days</Text>
+                        }
                     </View>
                 </View>
-                <View>
-                    <CameraButton onPress={() => { navigation.navigate('SubmissionScreen') }} />
-                </View>
+                {
+                    props.ongoing || !props.upcoming
+                        ?
+                        <View>
+                            <CameraButton onPress={() => { navigation.navigate('SubmissionScreen') }} />
+                        </View>
+                        :
+                        null
+                }
             </View>
         </TouchableWithoutFeedback>
     );
