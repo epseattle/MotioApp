@@ -18,6 +18,7 @@ import OvalButton from '../../components/buttons/oval'
 import DatePicker from "../../components/inputs/datePicker";
 import Picker from '../../components/inputs/picker';
 import Categories from "../../constants/categories";
+import CategoriesIcon from '../../assets/icons/categories/categoriesIcon';
 
 const CreateChallengeScreen = () => {
     const navigation = useNavigation();
@@ -46,32 +47,51 @@ const CreateChallengeScreen = () => {
                     <Text style={{ ...Font.B3 }}>Challenge Name</Text>
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text>
                 </View>
-                <TextInput />
+                <TextInput setValue={setTitle} />
             </View>
-            <View style={{ marginBottom: height(30) }}>
-                <View style={[styles.header]}>
-                    <Text style={{ ...Font.B3 }}>What kind of goal is it?</Text>
+            <View style={{
+                marginBottom: height(30),
+                flexDirection: 'row',
+                alignItems: 'flex-end'
+            }}>
+                <View style={{
+                    width: width(263)
+                }}>
+                    <View style={[styles.header]}>
+                        <Text style={{ ...Font.B3 }}>What kind of goal is it?</Text>
+                    </View>
+                    <Picker data={Categories} />
                 </View>
-                <Picker data={[
-                    'Health',
-                    'Excercise'
-                ]} />
-                {/* <TextInput style={{ width: width(263) }} /> */}
+                <View style={{
+                    width: width(63),
+                    height: height(63),
+                    backgroundColor: Color.LightGrey,
+                    marginHorizontal: width(8),
+                    borderRadius: width(5)
+                }}>
+                    <CategoriesIcon category='health' width={width(60)} height={height(60)} />
+                </View>
             </View>
             <View style={{ marginBottom: height(30) }}>
                 <View style={[styles.header]}>
                     <Text style={{ ...Font.B3 }}>Set the rule</Text>
                 </View>
-                <TextInput multiline={true} style={{}} />
+                <TextInput multiline={false} setVelu={setRule} style={{}} />
             </View>
             <View style={{ marginBottom: height(30) }}>
                 <View style={[styles.header]}>
                     <Text style={{ ...Font.B3 }}>How often are we going to do it?</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
-                    <TextInput style={{ width: width(40) }} />
-                    <Text style={{ color: Color.LightGrey, ...Font.B3 }}> times per </Text>
-                    <TextInput style={{ width: width(116) }} />
+                    <Picker data={['1', '2', '3', '4', '5', '6', '7', '8', '9']} />
+                    <View style={{ justifyContent: 'flex-end' }}>
+                        <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> times per </Text>
+                    </View>
+                    <Picker data={[
+                        'Day',
+                        'Week',
+                        'Month'
+                    ]} />
                 </View>
             </View>
             <View style={{ marginBottom: height(30) }}>
@@ -87,9 +107,12 @@ const CreateChallengeScreen = () => {
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 people</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
-                    <Picker data={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />
-                    {/* <TextInput style={{ width: width(60) }} /> */}
-                    <Text style={{ color: Color.LightGrey, ...Font.B3 }}> people</Text>
+                    <Picker data={['1', '2', '3', '4', '5', '6', '7', '8', '9']} />
+                    <View style={{
+                        justifyContent: 'flex-end'
+                    }}>
+                        <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> people</Text>
+                    </View>
                 </View>
             </View>
             <View style={{
@@ -108,8 +131,7 @@ const styles = StyleSheet.create({
         marginBottom: height(8)
     },
     inputContainer: {
-        flexDirection: 'row',
-        alignItems: 'baseline'
+        flexDirection: 'row'
     }
 });
 

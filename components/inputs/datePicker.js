@@ -14,6 +14,8 @@ import { width, height } from '../../util/scale';
 import { default as RNDatePicker } from 'react-native-date-picker'
 import Font from '../../styles/font';
 
+import Months from '../../constants/months';
+
 const DatePicker = (props) => {
     const [date, setDate] = useState(new Date());
     const [visible, setVisible] = useState(false);
@@ -59,7 +61,7 @@ const DatePicker = (props) => {
             <TouchableWithoutFeedback
                 onPress={() => { setVisible(true) }}>
                 <View style={[styles.container]}>
-                    <Text>{date.toString()}</Text>
+                    <Text>{Months[date.getMonth()]} {date.getDate()}, {date.getFullYear()}</Text>
                 </View>
             </TouchableWithoutFeedback>
         </View>
@@ -73,6 +75,7 @@ const styles = StyleSheet.create({
         height: height(40),
         paddingHorizontal: width(16),
         borderRadius: height(3),
+        justifyContent: 'center'
     },
     modalCotainer: {
         marginHorizontal: width(16),

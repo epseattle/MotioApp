@@ -2,7 +2,6 @@ import React from "react";
 import {
     View,
     Text,
-    Button,
     StyleSheet,
     ScrollView
 } from 'react-native';
@@ -14,8 +13,9 @@ import Font from "../../../styles/font";
 import Color from "../../../styles/color";
 import ProfileButton from "../../../components/buttons/profile";
 import ChallengeCard from "../../../components/cards/challenge";
-import { FlatList } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
+import Months from '../../../constants/months';
+import Days from '../../../constants/days';
 
 const getGreeting = () => {
     const currentHour = new Date().getHours();
@@ -28,20 +28,23 @@ const getGreeting = () => {
     }
 }
 
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 const getDate = () => {
     const date = new Date();
-    return `${months[date.getMonth()]} ${date.getDate()}, ${days[date.getDay()]}`;
+    return `${Months[date.getMonth()]} ${date.getDate()}, ${Days[date.getDay()]}`;
 }
 
 const ONGOING_CHALLENGES = [
     {
-        id: 0
+        id: 0,
+        state: 'Approved'
     },
     {
-        id: 1
+        id: 1,
+        state: 'Pending'
+    },
+    {
+        id: 2,
+        state: 'Incomplete'
     }
 ];
 
@@ -56,7 +59,7 @@ const UPCOMING_CHALLENGES = [
 
 const SectionHeader = (props) => {
     const navigation = useNavigation();
-    
+
     return (
         <View style={{
             flexDirection: 'row',
@@ -122,7 +125,7 @@ const ChallengeScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <View>
-                    <ProfileButton onPress={() => { navigation.navigate('ProfileScreen') }} />
+                    <ProfileButton style={{ width: width(72), height: height(72) }} onPress={() => { navigation.navigate('ProfileScreen') }} />
                 </View>
             </View>
             <View style={{ flex: 1 }}>
@@ -145,16 +148,17 @@ const ChallengeScreen = ({ navigation }) => {
                                     <ChallengeCard
                                         key={item.id}
                                         ongoing
-                                        onPress={() => { navigation.navigate('DetailsScreen') }} />
+                                        state={item.state}
+                                        onPress={() => { navigation.navigate('DetailsOngoingScreen') }} />
                                 );
                             })}
-                            <SectionHeader title={'Upcoming Challenges'} />
+                            <SectionHeader title={'Upcoming Challenges'} buttonLabel={'Join'}/>
                             {UPCOMING_CHALLENGES.map((item) => {
                                 return (
                                     <ChallengeCard
                                         upcoming
                                         key={item.id}
-                                        onPress={() => { navigation.navigate('DetailsScreen') }} />
+                                        onPress={() => { navigation.navigate('DetailsPendingScreen') }} />
                                 );
                             })}
                         </ScrollView>

@@ -1,7 +1,13 @@
 const Categories = 
 [
+    'Creativity',
+    'Diet',
+    'Exercise',
+    'Finance',
     'Health',
-    'Excercise'
+    'Learning',
+    'Lifestyle',
+    'Selfcare'
 ]
 
 export default Categories;

@@ -58,6 +58,75 @@ const DATA = [
     }
 ]
 
+const ExpandedLeaderboard = () => {
+    return (
+        <View>
+            <View style={[styles.row]}>
+                <View style={[styles.leftColumn]}>
+                </View>
+                <View style={[styles.rightColumn, {
+                    height: height(50),
+                    width: width(50),
+                    justifyContent: 'center'
+                }]}>
+                    <CalendarChecked color={Color.LightGrey} />
+                </View>
+            </View>
+            {
+                DATA.map((item) => {
+                    return (
+                        <View key={item.id} style={[styles.row]}>
+                            <View style={[styles.leftColumn, {
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                height: height(50),
+                                marginVertical: height(8)
+                            }]}>
+                                <ProfileButton style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                <Text>{item.user.userName}</Text>
+                            </View>
+                            <View style={[styles.rightColumn, {
+                                height: height(50),
+                                width: width(40),
+                                justifyContent: 'center'
+                            }]}>
+                                <Text>-</Text>
+                            </View>
+                        </View>
+                    );
+                })
+            }
+        </View>
+    );
+}
+
+const CollapsedLeaderBoard = () => {
+    return (
+        <View style={[styles.row, { justifyContent: 'center' }]}>
+            <View style={{ flexDirection: 'row' }}>
+                {
+                    DATA.slice(0, 5).map((item) => {
+                        return (
+                            <ProfileButton disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                        );
+                    })
+                }
+                {
+                    DATA.length > 5
+                        ?
+                        <View style={{ justifyContent: 'center' }}>
+                            <Text style={{
+                                ...Font.H3,
+                                color: Color.LightGrey
+                            }}>+{DATA.length - 5}</Text>
+                        </View>
+                        :
+                        null
+                }
+            </View>
+        </View>);
+}
+
 const LeaderBoard = (props) => {
     const [expanded, setExpanded] = useState(false);
 
@@ -90,67 +159,9 @@ const LeaderBoard = (props) => {
             {
                 expanded
                     ?
-                    <View>
-                        <View style={[styles.row]}>
-                            <View style={[styles.leftColumn]}>
-                            </View>
-                            <View style={[styles.rightColumn, {
-                                height: height(50),
-                                width: width(50),
-                                justifyContent: 'center'
-                            }]}>
-                                <CalendarChecked color={Color.LightGrey} />
-                            </View>
-                        </View>
-                        {
-                            DATA.map((item) => {
-                                return (
-                                    <View key={item.id} style={[styles.row]}>
-                                        <View style={[styles.leftColumn, {
-                                            flexDirection: 'row',
-                                            alignItems: 'center',
-                                            height: height(50),
-                                            marginVertical: height(8)
-                                        }]}>
-                                            <ProfileButton style={{ width: width(50), height: height(50), marginRight: width(8) }} />
-                                            <Text>{item.user.userName}</Text>
-                                        </View>
-                                        <View style={[styles.rightColumn, {
-                                            height: height(50),
-                                            width: width(40),
-                                            justifyContent: 'center'
-                                        }]}>
-                                            <Text>-</Text>
-                                        </View>
-                                    </View>
-                                );
-                            })
-                        }
-                    </View>
+                    <ExpandedLeaderboard />
                     :
-                    <View style={[styles.row, { justifyContent: 'center' }]}>
-                        <View style={{ flexDirection: 'row' }}>
-                            {
-                                DATA.slice(0, 5).map((item) => {
-                                    return (
-                                        <ProfileButton disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
-                                    );
-                                })
-                            }
-                            {
-                                DATA.length > 5
-                                    ?
-                                    <View style={{ justifyContent: 'center' }}>
-                                        <Text style={{
-                                            ...Font.H3,
-                                            color: Color.LightGrey
-                                        }}>+{DATA.length - 5}</Text>
-                                    </View>
-                                    :
-                                    null
-                            }
-                        </View>
-                    </View>
+                    <CollapsedLeaderBoard />
             }
         </View>
     );

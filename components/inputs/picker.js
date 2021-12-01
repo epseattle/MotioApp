@@ -12,6 +12,7 @@ import { Picker as RNPicker } from '@react-native-picker/picker';
 import Color from '../../styles/color';
 import { width, height } from '../../util/scale';
 import Font from '../../styles/font';
+import ChevronBottom from '../../assets/icons/evericons/chevron-bottom.svg'
 
 const MPicker = (props) => {
     const [item, setItem] = useState(props.data ? props.data[0] : '');
@@ -65,7 +66,11 @@ const MPicker = (props) => {
             <TouchableWithoutFeedback
                 onPress={() => { setVisible(true) }}>
                 <View style={[styles.container]}>
-                    <Text>{item}</Text>
+                    <Text style={{
+                    }}>{item}</Text>
+                    <View style={{ marginLeft: width(8) }}>
+                        <ChevronBottom color={Color.LightGrey} width={width(20)} height={height(20)} />
+                    </View>
                 </View>
             </TouchableWithoutFeedback>
         </View>
@@ -79,6 +84,9 @@ const styles = StyleSheet.create({
         height: height(40),
         paddingHorizontal: width(16),
         borderRadius: height(3),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     modalCotainer: {
         marginHorizontal: width(16),

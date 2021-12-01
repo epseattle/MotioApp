@@ -14,6 +14,9 @@ const TextInput = (props) => {
         <View>
             <RNTextInput
                 multiline={props.multiline}
+                onChangeText={(text) => {
+                    props.setValue(text)
+                }}
                 style={[styles.container, props.style]}
             />
             {

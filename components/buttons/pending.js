@@ -7,25 +7,21 @@ import {
     StyleSheet
 } from 'react-native';
 
-import Camera from '../../assets/icons/evericons/camera.svg';
+import MoreHorizontal from '../../assets/icons/evericons/more-horizontal.svg';
 import Color from '../../styles/color';
 import Font from '../../styles/font';
 import { width, height } from '../../util/scale';
 
-const color = Color.Primary;
+const color = Color.LightGrey;
 
-const CameraButton = (props) => {
-    const navigation = useNavigation();
-
+const PendingButton = (props) => {
     return (
-        <TouchableWithoutFeedback onPress={() => {
-            navigation.navigate('SubmissionScreen');
-        }}>
+        <TouchableWithoutFeedback onPress={() => props.onPress()}>
             <View style={{ alignItems: 'center' }}>
                 <View style={styles.container}>
-                    <Camera color={Color.White} width={width(26)} height={height(26)} />
+                    <MoreHorizontal color={Color.White} width={width(26)} height={height(26)} />
                 </View>
-                <Text style={{ color: color, ...Font.B3 }}>Submit</Text>
+                <Text style={{ color: color, ...Font.B3 }}>Pending</Text>
             </View>
         </TouchableWithoutFeedback>
     );
@@ -43,4 +39,4 @@ styles = StyleSheet.create({
     }
 });
 
-export default CameraButton;
+export default PendingButton;

@@ -17,18 +17,22 @@ import { FlatList } from "react-native-gesture-handler";
 const DATA = [
     {
         id: 0,
+        group: 'Challenge',
         type: 'SubmissionRejection'
     },
     {
         id: 1,
+        group: 'Challenge',
         type: 'SubmissionApproval'
     },
     {
         id: 2,
+        group: 'Host',
         type: 'JoinRequest'
     },
     {
         id: 3,
+        group: 'Challenge',
         type: 'SubmissionRequest'
     }
 ]
@@ -76,9 +80,11 @@ const NotificationScreen = () => {
                     }}
                     data={DATA}
                     renderItem={({ item }) => {
-                        return (
-                            <NotificationCard type={item.type} />
-                        );
+                        if (item.group == selected || selected == 'All') {
+                            return (
+                                <NotificationCard type={item.type} />
+                            );
+                        }
                     }}
                     keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}

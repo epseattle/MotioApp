@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {
     View,
@@ -7,25 +6,21 @@ import {
     StyleSheet
 } from 'react-native';
 
-import Camera from '../../assets/icons/evericons/camera.svg';
+import CheckMark from '../../assets/icons/evericons/check-mark.svg';
 import Color from '../../styles/color';
 import Font from '../../styles/font';
 import { width, height } from '../../util/scale';
 
-const color = Color.Primary;
+const color = Color.Secondary;
 
-const CameraButton = (props) => {
-    const navigation = useNavigation();
-
+const ApprovedButton = (props) => {
     return (
-        <TouchableWithoutFeedback onPress={() => {
-            navigation.navigate('SubmissionScreen');
-        }}>
+        <TouchableWithoutFeedback onPress={() => props.onPress()}>
             <View style={{ alignItems: 'center' }}>
                 <View style={styles.container}>
-                    <Camera color={Color.White} width={width(26)} height={height(26)} />
+                    <CheckMark color={Color.White} width={width(26)} height={height(26)} />
                 </View>
-                <Text style={{ color: color, ...Font.B3 }}>Submit</Text>
+                <Text style={{ color: color, ...Font.B3 }}>Done</Text>
             </View>
         </TouchableWithoutFeedback>
     );
@@ -43,4 +38,4 @@ styles = StyleSheet.create({
     }
 });
 
-export default CameraButton;
+export default ApprovedButton;

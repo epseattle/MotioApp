@@ -11,8 +11,12 @@ import Health from '../../assets/icons/categories/health.svg'
 import { height, width } from '../../util/scale';
 import Color from '../../styles/color';
 import Font from '../../styles/font';
-import CameraButton from '../buttons/camera';
 import { useNavigation } from '@react-navigation/core';
+
+import CameraButton from '../buttons/camera';
+import PendingButton from '../buttons/pending';
+import ApprovedButton from '../buttons/approved';
+import CategoriesIcon from '../../assets/icons/categories/categoriesIcon';
 
 const ChallengeCard = (props) => {
     const navigation = useNavigation();
@@ -47,7 +51,7 @@ const ChallengeCard = (props) => {
                         height: height(75),
                         backgroundColor: "#F4F4F4"
                     }}>
-                        <Health width={width(65)} height={height(65)} />
+                        <CategoriesIcon category='health' width={width(65)} height={height(65)} />
                     </View>
                     <View style={{
                         marginLeft: width(15),
@@ -74,9 +78,11 @@ const ChallengeCard = (props) => {
                 {
                     props.ongoing || !props.upcoming
                         ?
-                        <View>
-                            <CameraButton onPress={() => { navigation.navigate('SubmissionScreen') }} />
-                        </View>
+                        {
+                            'Pending': <PendingButton />,
+                            'Approved': <ApprovedButton />,
+                            'Incomplete': <CameraButton />,
+                        }[props.state]
                         :
                         null
                 }
