@@ -7,10 +7,12 @@ export const userSlice = createSlice({
         isSignedIn: false,
     },
     reducers: {
-        signIn: (state) => {
+        signIn: (state, action) => {
+            state.fireBaseUser = action.user;
             state.isSignedIn = true
         },
         signOut: (state) => {
+            state.fireBaseUser = {};
             state.isSignedIn = false
         }
     }

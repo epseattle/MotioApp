@@ -32,13 +32,15 @@ const MPicker = (props) => {
                         <RNPicker
                             mode={'dialog'}
                             selectedValue={item}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setItem(itemValue)
-                            }
+                            onValueChange={(itemValue, itemIndex) => {
+                                setItem(itemValue);
+                                props.onValueChange(itemValue);
+                            }}
                             style={styles.picker}>
-                            {props.data.map((item) => {
+                            {props.data.map((item,index) => {
                                 return (
                                     <RNPicker.Item
+                                        key={item+index}
                                         label={item}
                                         value={item} />
                                 );

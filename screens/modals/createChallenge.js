@@ -1,115 +1,139 @@
-import { useNavigation } from "@react-navigation/core";
-import React, { useState } from "react";
+import { useNavigation } from '@react-navigation/core';
+import React, { useState } from 'react';
 import {
     View,
     Text,
     StyleSheet,
-    ScrollView,
-    KeyboardAvoidingView,
     TouchableWithoutFeedback
 } from 'react-native';
-import ModalLayout from "../../components/layouts/Modal";
-import TextInput from '../../components/inputs/text';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { createChallenge as createChallengeAction } from '../../redux/challengeSlice';
+
+import { createChallenge as createChallengeRequest } from '../../clients/challengeClient';
+
 import Font from '../../styles/font';
 import Color from '../../styles/color';
-import { height, width } from "../../util/scale";
-import { SafeAreaView } from "react-native-safe-area-context";
-import OvalButton from '../../components/buttons/oval'
-import DatePicker from "../../components/inputs/datePicker";
-import Picker from '../../components/inputs/picker';
-import Categories from "../../constants/categories";
+import { height, width } from '../../util/scale';
+
+import Categories from '../../constants/categories';
+
 import CategoriesIcon from '../../assets/icons/categories/categoriesIcon';
 
+import ModalLayout from '../../components/layouts/Modal';
+import TextInput from '../../components/inputs/text';
+import OvalButton from '../../components/buttons/oval'
+import DatePicker from '../../components/inputs/datePicker';
+import Picker from '../../components/inputs/picker';
+
+const FrequencyUnits = [
+    'Day',
+    'Week',
+    'Month'
+];
+
 const CreateChallengeScreen = () => {
+    const dispatch = useDispatch();
     const navigation = useNavigation();
+    const ongoingChallenges = useSelector(state => state.challenge.ongoingChallenges);
+
     const [title, setTitle] = useState('');
-    const [category, setCategory] = useState('');
-    const [frequency, setFrequency] = useState('');
-    const [schedule, setSchedule] = useState('');
+    const [category, setCategory] = useState(Categories[0]);
     const [rule, setRule] = useState('');
+    const [frequency, setFrequency] = useState(1);
+    const [frequencyUnit, setFrequencyUnit] = useState(FrequencyUnits[0]);
+    const [startDate, setStartDate] = useState(new Date());
+    const [memberCount, setMemberCount] = useState(1);
 
     const createChallenge = () => {
-        navigation.goBack();
+        var challenge = {
+            'title': title,
+            'category': category,
+            'rule': rule,
+            'frequency': frequency,
+            'frequencyUnit': frequencyUnit,
+            'startDate': startDate.toString(),
+            'memberCount': memberCount
+        };
+        createChallengeRequest(challenge)
+            .then((res) => {
+                console.log(ongoingChallenges);
+                // dispatch(createChallengeAction())
+            });
     };
 
     return (
         <ModalLayout>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: height(30) }}>
+            <View style={[styles.inputSectionContainer, styles.headerSectionContainer]}>
                 <View>
-                    <Text style={{ ...Font.H2 }}>Start New Challenge</Text>
+                    <Text style={[Font.H2]}>Start New Challenge</Text>
                 </View>
                 <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
-                    <Text style={{ color: Color.Primary, ...Font.B2 }}>Cancel</Text>
+                    <Text style={[Font.B2, { color: Color.Primary }]}>Cancel</Text>
                 </TouchableWithoutFeedback>
             </View>
-            <View style={{ marginBottom: height(30) }}>
-                <View style={[styles.header]}>
+            <View style={[styles.inputSectionContainer]}>
+                <View style={[styles.inputSectionHeaderContainer]}>
                     <Text style={{ ...Font.B3 }}>Challenge Name</Text>
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text>
                 </View>
                 <TextInput setValue={setTitle} />
             </View>
-            <View style={{
-                marginBottom: height(30),
+            <View style={[styles.inputSectionContainer, {
                 flexDirection: 'row',
                 alignItems: 'flex-end'
-            }}>
+            }]}>
                 <View style={{
                     width: width(263)
                 }}>
-                    <View style={[styles.header]}>
-                        <Text style={{ ...Font.B3 }}>What kind of goal is it?</Text>
+                    <View style={[styles.inputSectionHeaderContainer]}>
+                        <Text style={[Font.B3]}>What kind of goal is it?</Text>
                     </View>
-                    <Picker data={Categories} />
+                    <Picker data={Categories} onValueChange={setCategory} />
                 </View>
-                <View style={{
-                    width: width(63),
-                    height: height(63),
-                    backgroundColor: Color.LightGrey,
-                    marginHorizontal: width(8),
-                    borderRadius: width(5),
-                    paddingHorizontal: width(10),
-                    paddingVertical: height(10)
-                }}>
-                    <CategoriesIcon category='health'/>
+                <View style={[styles.categoryIconContainer]}>
+                    <CategoriesIcon category={category} />
                 </View>
             </View>
-            <View style={{ marginBottom: height(30) }}>
-                <View style={[styles.header]}>
+            <View style={[styles.inputSectionContainer]}>
+                <View style={[styles.inputSectionHeaderContainer]}>
                     <Text style={{ ...Font.B3 }}>Set the rule</Text>
                 </View>
-                <TextInput multiline={false} setVelu={setRule} style={{}} />
+                <TextInput multiline={false} setValue={setRule} style={{}} />
             </View>
-            <View style={{ marginBottom: height(30) }}>
-                <View style={[styles.header]}>
+            <View style={[styles.inputSectionContainer]}>
+                <View style={[styles.inputSectionHeaderContainer]}>
                     <Text style={{ ...Font.B3 }}>How often are we going to do it?</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
-                    <Picker data={['1', '2', '3', '4', '5', '6', '7', '8', '9']} />
+                    <Picker
+                        data={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
+                        onValueChange={setFrequency} />
                     <View style={{ justifyContent: 'flex-end' }}>
                         <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> times per </Text>
                     </View>
-                    <Picker data={[
-                        'Day',
-                        'Week',
-                        'Month'
-                    ]} />
+                    <Picker
+                        data={FrequencyUnits}
+                        onValueChange={setFrequencyUnit} />
                 </View>
             </View>
-            <View style={{ marginBottom: height(30) }}>
+            <View style={[styles.inputSectionContainer]}>
                 <Text style={{ ...Font.B3 }}>When are we starting it?</Text>
-                <View style={[styles.header]}>
+                <View style={[styles.inputSectionHeaderContainer]}>
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>The challenge will automatically end after 4 weeks</Text>
                 </View>
-                <DatePicker />
+                <DatePicker setDate={setStartDate} />
             </View>
-            <View style={{ marginBottom: height(30) }}>
-                <View style={[styles.header]}>
+            <View style={[styles.inputSectionContainer]}>
+                <View style={[styles.inputSectionHeaderContainer]}>
                     <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
                     <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 people</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
-                    <Picker data={['1', '2', '3', '4', '5', '6', '7', '8', '9']} />
+                    <Picker
+                        data={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
+                        onValueChange={setMemberCount}
+                    />
                     <View style={{
                         justifyContent: 'flex-end'
                     }}>
@@ -117,16 +141,24 @@ const CreateChallengeScreen = () => {
                     </View>
                 </View>
             </View>
-            <View style={{
-            }}>
-                <OvalButton title='Create' />
-            </View>
+            <OvalButton title='Create' onPress={() => {
+                createChallenge();
+                // navigation.goBack();
+            }} />
         </ModalLayout>
     );
 };
 
 const styles = StyleSheet.create({
-    header: {
+    headerSectionContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'baseline'
+    },
+    inputSectionContainer: {
+        marginBottom: height(30)
+    },
+    inputSectionHeaderContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'baseline',
@@ -134,6 +166,15 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         flexDirection: 'row'
+    },
+    categoryIconContainer: {
+        width: width(63),
+        height: height(63),
+        backgroundColor: Color.LightGrey,
+        marginHorizontal: width(8),
+        borderRadius: width(5),
+        paddingHorizontal: width(10),
+        paddingVertical: height(10)
     }
 });
 

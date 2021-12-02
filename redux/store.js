@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './userSlice';
+
+import UserReducer from './userSlice';
+import ChallengeReducer from './challengeSlice';
 
 export default configureStore({
     reducer: {
-        user: userReducer,
-    },
+        user: UserReducer,
+        challenge: ChallengeReducer,
+    }
 });

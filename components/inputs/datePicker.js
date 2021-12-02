@@ -35,7 +35,10 @@ const DatePicker = (props) => {
                             <RNDatePicker
                                 date={date}
                                 minimumDate={new Date()}
-                                onDateChange={setDate}
+                                onDateChange={(date) => {
+                                    setDate(date);
+                                    props.setDate(date);
+                                }}
                                 mode={'date'}
                             />
                         </View>
