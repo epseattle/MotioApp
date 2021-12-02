@@ -16,14 +16,14 @@ const CategoriesIcon = (props) => {
         <>
             {
                 {
-                    'creativity': <Creativity color={props.color} width={props.width} height={props.height} />,
-                    'diet': <Diet color={props.color} width={props.width} height={props.height} />,
-                    'exercise': <Exercise color={props.color} width={props.width} height={props.height} />,
-                    'finance': <Finance color={props.color} width={props.width} height={props.height} />,
-                    'health': <Health color={props.color} width={props.width} height={props.height} />,
-                    'learning': <Learning color={props.color} width={props.width} height={props.height} />,
-                    'lifestyle': <Lifestyle color={props.color} width={props.width} height={props.height} />,
-                    'selfcare': <Selfcare color={props.color} width={props.width} height={props.height} />
+                    'creativity': <Creativity width={'100%'} height={'100%'} />,
+                    'diet': <Diet width={'100%'} height={'100%'} />,
+                    'exercise': <Exercise width={'100%'} height={'100%'} />,
+                    'finance': <Finance width={'100%'} height={'100%'} />,
+                    'health': <Health width={'100%'} height={'100%'} />,
+                    'learning': <Learning width={'100%'} height={'100%'} />,
+                    'lifestyle': <Lifestyle width={'100%'} height={'100%'} />,
+                    'selfcare': <Selfcare width={'100%'} height={'100%'} />
                 }[category]
             }
         </>

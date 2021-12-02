@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import Blue1 from './blue1.svg'
 import Blue2 from './blue2.svg'
@@ -15,13 +16,13 @@ const ProfileIcon = (props) => {
         <>
             {
                 {
-                    'blue1': <Blue1 width={props.width} height={props.height} />,
-                    'blue2': <Blue2 width={props.width} height={props.height} />,
-                    'blue3': <Blue3 width={props.width} height={props.height} />,
-                    'pink1': <Pink1 width={props.width} height={props.height} />,
-                    'pink2': <Pink2 width={props.width} height={props.height} />,
-                    'pink3': <Pink3 width={props.width} height={props.height} />,
-                    'pink4': <Pink4 width={props.width} height={props.height} />
+                    'blue1': <Blue1 width={'100%'} height={'100%'} />,
+                    'blue2': <Blue2 width={'100%'} height={'100%'} />,
+                    'blue3': <Blue3 width={'100%'} height={'100%'} />,
+                    'pink1': <Pink1 width={'100%'} height={'100%'} />,
+                    'pink2': <Pink2 width={'100%'} height={'100%'} />,
+                    'pink3': <Pink3 width={'100%'} height={'100%'} />,
+                    'pink4': <Pink4 width={'100%'} height={'100%'} />
                 }[profile]
             }
         </>

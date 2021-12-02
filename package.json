@@ -20,6 +20,7 @@
     "@types/react-redux": "^7.1.19",
     "react": "17.0.2",
     "react-native": "0.66.0",
+    "react-native-camera": "^4.2.1",
     "react-native-confirmation-code-field": "^7.1.0",
     "react-native-date-picker": "^4.1.1",
     "react-native-gesture-handler": "^1.10.3",

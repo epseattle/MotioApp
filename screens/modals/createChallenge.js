@@ -67,9 +67,11 @@ const CreateChallengeScreen = () => {
                     height: height(63),
                     backgroundColor: Color.LightGrey,
                     marginHorizontal: width(8),
-                    borderRadius: width(5)
+                    borderRadius: width(5),
+                    paddingHorizontal: width(10),
+                    paddingVertical: height(10)
                 }}>
-                    <CategoriesIcon category='health' width={width(60)} height={height(60)} />
+                    <CategoriesIcon category='health'/>
                 </View>
             </View>
             <View style={{ marginBottom: height(30) }}>

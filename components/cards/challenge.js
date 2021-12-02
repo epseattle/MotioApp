@@ -49,9 +49,11 @@ const ChallengeCard = (props) => {
                         justifyContent: 'center',
                         width: width(75),
                         height: height(75),
-                        backgroundColor: "#F4F4F4"
+                        backgroundColor: "#F4F4F4",
+                        paddingHorizontal: height(10),
+                        paddingVertical: width(10)
                     }}>
-                        <CategoriesIcon category='health' width={width(65)} height={height(65)} />
+                        <CategoriesIcon category='creativity'/>
                     </View>
                     <View style={{
                         marginLeft: width(15),
