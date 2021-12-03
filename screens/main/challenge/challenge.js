@@ -118,7 +118,7 @@ const ChallengeScreen = ({ navigation }) => {
                         <Text style={{
                             ...Font.H2,
                             color: Color.LightBlack
-                        }}>{getGreeting()}, {'rhsl'}!</Text>
+                        }}>{getGreeting()}, {auth().currentUser.displayName}!</Text>
                     </View>
                     <View>
                         <Text style={{
@@ -142,7 +142,7 @@ const ChallengeScreen = ({ navigation }) => {
                     style={{
                         flex: 1,
                     }}>
-                    <SectionHeader title={'Ongoing Challenges'} buttonLabel={'Start New'} setModalVisible={setModalVisible} />
+                    <SectionHeader title={'Ongoing Challenges'} buttonLabel={'+ Add New'} setModalVisible={setModalVisible} />
                     {
                         challengeCount > 0
                             ?

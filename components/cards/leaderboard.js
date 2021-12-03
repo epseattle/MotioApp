@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     TouchableWithoutFeedback,
@@ -17,24 +17,9 @@ import Color from "../../styles/color";
 import Font from "../../styles/font";
 
 const LeaderBoard = (props) => {
-    console.log(props.challenge.id);
-    console.log(props.challenge.maxMemberCount);
-    console.log(props.challenge.ownerId);
-
     const [expanded, setExpanded] = useState(false);
-    const [members, setMembers] = useState([]);
-
-    const challengeId = props.challenge.id;
+    const members = props.members;
     const maxMemberCount = props.challenge.maxMemberCount;
-    getChallengeMembersRequest(challengeId)
-        .then((res) => {
-            return res.json();
-        })
-        .then((json) => {
-            console.log(JSON.parse(json));
-            setMembers(JSON.parse(json));
-            console.log(members[0]);
-        });
 
     const ExpandedLeaderboard = () => {
         return (
@@ -60,7 +45,7 @@ const LeaderBoard = (props) => {
                                     height: height(50),
                                     marginVertical: height(8)
                                 }]}>
-                                    <ProfileButton style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                    <ProfileButton key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
                                     <Text>{item.displayName}</Text>
                                 </View>
                                 <View style={[styles.rightColumn, {
@@ -85,7 +70,7 @@ const LeaderBoard = (props) => {
                     {
                         members.slice(0, 5).map((item) => {
                             return (
-                                <ProfileButton disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                                <ProfileButton key={item.id} disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
                             );
                         })
                     }

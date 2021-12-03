@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
     StyleSheet,
     ScrollView,
     Modal,
-    TouchableWithoutFeedback,
-    TouchableWithoutFeedbackBase
+    TouchableWithoutFeedback
 } from 'react-native';
+
+import { getChallengeMembersRequest } from "../../../clients/challengeClient";
+
 import { width, height } from "../../../util/scale";
 import Color from "../../../styles/color";
 import Font from "../../../styles/font";
@@ -31,6 +33,8 @@ const DetailsPendingScreen = ({ route, navigation }) => {
     const [JoinRequestSent, setJoinRequestSent] = useState(false);
     const [menuModalvisible, setMenuModalvisible] = useState(false);
     const [joinModalVisible, setJoinModalVisible] = useState(false);
+    const [members, setMembers] = useState([]);
+    const [ownerDisplayName, setOwnerDisplayName] = useState();
 
     const modals = (
         <>
@@ -38,6 +42,24 @@ const DetailsPendingScreen = ({ route, navigation }) => {
             <DetailsContextMenuModal visible={menuModalvisible} setVisible={setMenuModalvisible} />
         </>
     );
+
+    useEffect(() => {
+        getChallengeMembersRequest(challenge.id)
+            .then((res) => {
+                return res.json();
+            })
+            .then((json) => {
+                var members = JSON.parse(json);
+                setMembers(members)
+                return members;
+            })
+            .then((members) => {
+                var index = members.findIndex(member => member.id === challenge.ownerId);
+                console.log(members);
+                console.log(index);
+                setOwnerDisplayName(members[index].displayName);
+            });
+    }, [])
 
     return (
         <BottomTabNavigationLayout modal={modals}>
@@ -116,7 +138,7 @@ const DetailsPendingScreen = ({ route, navigation }) => {
                                             height: height(50),
                                             marginRight: width(8)
                                         }} />
-                                    <Text style={[Font.B4]}>John Terry</Text>
+                                    <Text style={[Font.B4]}>{ownerDisplayName}</Text>
                                 </View>
                             </View>
                             <View style={[styles.section]}>
@@ -174,7 +196,7 @@ const DetailsPendingScreen = ({ route, navigation }) => {
                         </View>
                     </View> */}
                     <View style={[styles.card, { height: 'auto' }]}>
-                        <LeaderBoard setEnableScroll={setEnableScroll} challenge={challenge}/>
+                        <LeaderBoard setEnableScroll={setEnableScroll} challenge={challenge} members={members} />
                     </View>
                 </View>
             </ScrollView>

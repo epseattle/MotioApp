@@ -3,28 +3,30 @@ import {
     View,
     Text,
     Button,
-    StyleSheet
+    StyleSheet,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 import { width, height } from '../../util/scale';
 import Color from '../../styles/color';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Font from '../../styles/font';
 
 const OvalButton = (props) => {
     return (
         <TouchableWithoutFeedback
-            onPress={props.disabled ? null : props.onPress}
-            style={[
-                styles.containerSize,
-                props.title ? styles.textLabel : null,
-                props.negative ? styles.negativeContainer : styles.container,
-                props.disabled ? styles.disabledContainer : null,
-                props.containerStyle]}>
-            <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
-                {props.title}
-            </Text>
-            {props.children}
+            onPress={props.disabled ? null : props.onPress}>
+            <View
+                style={[
+                    styles.containerSize,
+                    props.title ? styles.textLabel : null,
+                    props.negative ? styles.negativeContainer : styles.container,
+                    props.disabled ? styles.disabledContainer : null,
+                    props.containerStyle]}>
+                <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
+                    {props.title}
+                </Text>
+                {props.children}
+            </View>
         </TouchableWithoutFeedback>
     );
 };

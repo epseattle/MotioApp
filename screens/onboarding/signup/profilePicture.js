@@ -21,16 +21,18 @@ const ProfilePictureScreen = ({ navigation }) => {
     return (
         <TopNavigationLayout
             header={`Set a profile picture`}>
-            <TouchableWithoutFeedback>
-                <Upload width={width(150)} height={height(150)} color="black" />
-            </TouchableWithoutFeedback>
-            <View style={styles.footer}>
-                <OvalButton
-                    title='Complete'
-                    onPress={() => {
-                        console.log('complete')
-                        dispatch(signIn());
-                    }} />
+            <View>
+                <TouchableWithoutFeedback>
+                    <Upload width={width(150)} height={height(150)} color="black" />
+                </TouchableWithoutFeedback>
+                <View style={styles.footer}>
+                    <OvalButton
+                        title='Complete'
+                        onPress={() => {
+                            console.log('complete')
+                            dispatch(signIn());
+                        }} />
+                </View>
             </View>
         </TopNavigationLayout>
     );

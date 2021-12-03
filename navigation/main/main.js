@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import MainTabsNavigator from "./mainTabs";
 import CreateChallengeScreen from "../../screens/modals/createChallenge";
+import JoinChallengeScreen from "../../screens/modals/joinChallenge";
 import ProfileScreen from "../../screens/main/profile";
 import SubmissionScreen from "../../screens/main/challenge/submission";
 
@@ -23,6 +24,7 @@ const MainStackNavigator = () => {
             </MainStack.Group>
             <MainStack.Group screenOptions={{ presentation: 'modal' }}>
                 <MainStack.Screen name="CreateChallengeScreen" component={CreateChallengeScreen} />
+                <MainStack.Screen name="JoinChallengeScreen" component={JoinChallengeScreen} />
             </MainStack.Group>
         </MainStack.Navigator>
     );

@@ -44,7 +44,7 @@ const Font = StyleSheet.create({
         fontWeight: FontWeight.Bold
     },
     B5: {
-        fontSize: height(12),
+        fontSize: height(14),
         fontWeight: FontWeight.Light
     }
 });

@@ -4,26 +4,30 @@ import {
     View,
     KeyboardAvoidingView,
     StyleSheet,
-    Keyboard
+    Keyboard,
+    TouchableWithoutFeedback
 } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import Color from '../../styles/color'
 import { height, width } from '../../util/scale';
 
 const ModalLayout = (props) => {
     return (
-        <View style={ styles.container }>
-            {props.children}
+        <View style={styles.container}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <View>
+                    {props.children}
+                </View>
+            </TouchableWithoutFeedback>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         paddingHorizontal: width(20),
         paddingTop: height(20),
-        height: '100%',
         backgroundColor: Color.White
     }
 });
