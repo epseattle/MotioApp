@@ -17,7 +17,7 @@ import OvalButton from '../../../components/buttons/oval';
 import ProfileButton from '../../../components/buttons/profile';
 import LeaderBoard from "../../../components/cards/leaderboard";
 
-import Health from '../../../assets/icons/categories/health.svg'
+import CategoriesIcon from "../../../assets/icons/categories/categoriesIcon";
 import Arrow from '../../../assets/icons/evericons/arrow-left.svg';
 import MoreHorizontal from '../../../assets/icons/evericons/more-horizontal.svg';
 import CircleChecked from '../../../assets/icons/evericons/circle-checked.svg'
@@ -25,7 +25,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import JoinConfirmationModal from "../../../components/modals/joinConfirmation";
 import DetailsContextMenuModal from "../../../components/modals/detailsContextMenu";
 
-const DetailsPendingScreen = ({ navigation }) => {
+const DetailsPendingScreen = ({ route, navigation }) => {
+    const { challenge } = route.params;
     const [enableScroll, setEnableScroll] = useState(false);
     const [JoinRequestSent, setJoinRequestSent] = useState(false);
     const [menuModalvisible, setMenuModalvisible] = useState(false);
@@ -60,20 +61,20 @@ const DetailsPendingScreen = ({ navigation }) => {
                     paddingHorizontal: width(8),
                     paddingVertical: height(8)
                 }}>
-                    <Health />
+                    <CategoriesIcon category={challenge.category} />
                 </View>
                 <View>
                     <Text style={{
                         ...Font.B3,
                         color: Color.LightGrey
                     }}>
-                        5 / Week
+                        {challenge.schedule.frequency.count} / {challenge.schedule.frequency.unit}
                     </Text>
                     <Text style={{
                         ...Font.H2,
                         color: Color.LightBlack
                     }}>
-                        Meditation
+                        {challenge.title}
                     </Text>
                     <Text style={{
                         ...Font.B3,
@@ -125,11 +126,11 @@ const DetailsPendingScreen = ({ navigation }) => {
                                         <Text style={{
                                             ...Font.H2,
                                             color: Color.LightBlack,
-                                        }}>5</Text>
-                                        <Text> times</Text>
+                                        }}>{challenge.schedule.frequency.count}</Text>
+                                        <Text> time{challenge.schedule.frequency.count > 1 ? 's' : null}</Text>
                                     </View>
                                     <View style={[styles.sectionContent]}>
-                                        <Text>per week</Text>
+                                        <Text>per {challenge.schedule.frequency.unit}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -153,7 +154,7 @@ const DetailsPendingScreen = ({ navigation }) => {
                                 alignItems: 'center',
                             }}>
                                 <Text
-                                    style={{ textAlign: 'center', ...Font.B3 }}>Post Screen Capture of the meditation app progress</Text>
+                                    style={{ textAlign: 'center', ...Font.B3 }}>{challenge.rules[0]}</Text>
                             </View>
                             <View style={{
                                 minWidth: width(50),
@@ -173,7 +174,7 @@ const DetailsPendingScreen = ({ navigation }) => {
                         </View>
                     </View> */}
                     <View style={[styles.card, { height: 'auto' }]}>
-                        <LeaderBoard setEnableScroll={setEnableScroll} />
+                        <LeaderBoard setEnableScroll={setEnableScroll} challenge={challenge}/>
                     </View>
                 </View>
             </ScrollView>

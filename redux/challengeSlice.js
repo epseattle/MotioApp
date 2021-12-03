@@ -8,6 +8,26 @@ export const challengeSlice = createSlice({
         completedChallenge: {},
     },
     reducers: {
+        initializeChallenges: (state, action) => {
+            var challenges = action.payload;
+            console.log(challenges);
+            challenges.forEach((challenge) => {
+                var startDate = new Date(challenge.schedule.startDate);
+                var today = new Date();
+                if(startDate > today)
+                {
+                    var upcomingChallenges = state.upcomingChallenges;
+                    upcomingChallenges[challenge.id] = challenge;
+                    state.upcomingChallenges = upcomingChallenges;
+                }
+                else
+                {
+                    var ongoingChallenges = state.ongoingChallenges;
+                    ongoingChallenges[challenge.id] = challenge;
+                    state.ongoingChallenges = ongoingChallenges;
+                }
+            })
+        },
         createChallenge: (state, action) => {
             var challenge = action.payload;
             var challengeId = challenge.id;
@@ -20,13 +40,13 @@ export const challengeSlice = createSlice({
         startChallenge: (state, action) => {
             var challenge = action.challenge;
             var challengeId = action.challenge.id;
-            
+
             var upcomingChallenges = { ...state.upcomingChallenges };
             delete upcomingChallenges[challengeId];
             state.upcomingChallenges = {
                 ...state.upcomingChallenges
             };
-            
+
             state.ongoingChallenges = {
                 ...state.ongoingChallenges,
                 challengeId: challenge
@@ -70,5 +90,5 @@ export const challengeSlice = createSlice({
     }
 });
 
-export const { createChallenge, startChallenge, completeChallenge, quitOngoingChallenge, quitUpcomingChallenge } = challengeSlice.actions;
+export const { createChallenge, startChallenge, completeChallenge, quitOngoingChallenge, quitUpcomingChallenge, initializeChallenges } = challengeSlice.actions;
 export default challengeSlice.reducer;

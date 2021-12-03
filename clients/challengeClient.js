@@ -14,6 +14,34 @@ export const createChallenge = async (challenge) => {
     return res;
 };
 
+export const getUserChallenges = async (userId) => {
+    var res = await fetch(
+        MotiServiceUrl + `user/${userId}`,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        }
+    )
+    return res;
+}
+
+export const getChallengeMembersRequest = async (challengeId) => {
+    var res = await fetch(
+        MotiServiceUrl + `${challengeId}/members`,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        }
+    );
+    return res;
+}
+
 export const joinChallenge = async (challenge) => {
 
 };

@@ -8,15 +8,13 @@ export const userSlice = createSlice({
     },
     reducers: {
         signIn: (state, action) => {
-            state.fireBaseUser = action.user;
             state.isSignedIn = true
         },
         signOut: (state) => {
-            state.fireBaseUser = {};
             state.isSignedIn = false
         }
     }
 });
 
-export const { signIn, signOut } = userSlice.actions;
+export const { signIn, signOut, setUser } = userSlice.actions;
 export default userSlice.reducer;

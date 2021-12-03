@@ -28,6 +28,7 @@ const ProfilePictureScreen = ({ navigation }) => {
                 <OvalButton
                     title='Complete'
                     onPress={() => {
+                        console.log('complete')
                         dispatch(signIn());
                     }} />
             </View>

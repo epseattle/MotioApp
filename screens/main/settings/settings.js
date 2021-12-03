@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { signOut } from '../../../redux/userSlice';
+import auth from '@react-native-firebase/auth';
 
 import {
     View,
@@ -67,8 +68,12 @@ const SettingsScreen = () => {
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => {
-                    alert('sign out?')
                     dispatch(signOut())
+                    auth()
+                        .signOut()
+                        .then(() => {
+                            console.log('user has been signed out.')
+                        });
                 }} >
                     <View style={[styles.logoutContainer]}>
                         <View style={[styles.itemIcon]}>

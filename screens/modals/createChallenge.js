@@ -7,6 +7,8 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 
+import auth from '@react-native-firebase/auth';
+
 import { useDispatch } from 'react-redux';
 import { createChallenge as createChallengeAction } from '../../redux/challengeSlice';
 
@@ -36,6 +38,8 @@ const CreateChallengeScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
+    const [creating, setCreating] = useState(false);
+
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState(Categories[0]);
     const [rule, setRule] = useState('');
@@ -45,10 +49,12 @@ const CreateChallengeScreen = () => {
     const [memberCount, setMemberCount] = useState(1);
 
     const createChallenge = () => {
+        setCreating(true);
+
         var challenge = {
             'title': title,
             'category': category,
-            'ownerId': 'yopa',
+            'ownerId': auth().currentUser.uid,
             'rules': [
                 rule
             ],
@@ -60,7 +66,7 @@ const CreateChallengeScreen = () => {
                 'startDate': startDate,
                 'durationInDays': 28
             },
-            'maxMemberCount': memberCount
+            'maxMemberCount': memberCount + 1 // including the owner
         };
         createChallengeRequest(challenge)
             .then((res) => {
@@ -71,6 +77,7 @@ const CreateChallengeScreen = () => {
             })
             .then(() => {
                 navigation.goBack();
+                setCreating(false);
             });
     };
 
@@ -139,7 +146,7 @@ const CreateChallengeScreen = () => {
             <View style={[styles.inputSectionContainer]}>
                 <View style={[styles.inputSectionHeaderContainer]}>
                     <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
-                    <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 people</Text>
+                    <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 members</Text>
                 </View>
                 <View style={[styles.inputContainer]}>
                     <Picker
@@ -153,10 +160,12 @@ const CreateChallengeScreen = () => {
                     </View>
                 </View>
             </View>
-            <OvalButton title='Create' onPress={() => {
-                createChallenge();
-                // navigation.goBack();
-            }} />
+            <OvalButton
+                title='Create'
+                onPress={() => {
+                    disabled={creating}
+                    createChallenge();
+                }} />
         </ModalLayout>
     );
 };

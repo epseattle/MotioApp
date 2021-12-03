@@ -39,7 +39,11 @@ const PhoneNumberVerifyScreen = ({ route, navigation }) => {
 
     async function confirmCode() {
         try {
-            await confirmation.confirm(code);
+            await confirmation
+                .confirm(code)
+                .then((userCredentials) => {
+                    navigation.navigate('NicknameScreen', { userCredentials: userCredentials });
+                })
         } catch (error) {
             console.log('Invalid code.');
         }
@@ -92,9 +96,7 @@ const PhoneNumberVerifyScreen = ({ route, navigation }) => {
                     title='Verify'
                     disabled={code.length < 6}
                     onPress={() => {
-                        alert(code);
-                        // confirmCode();
-                        navigation.navigate('NicknameScreen');
+                        confirmCode();
                     }} />
             </View>
         </TopNavigationLayout>

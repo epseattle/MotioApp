@@ -23,9 +23,11 @@ const PhoneNumberScreen = ({ navigation }) => {
     const [valid, setValid] = useState(false);
 
     async function signInWithPhoneNumber() {
-        // const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-        // navigation.navigate('PhoneNumberVerifyScreen', { confirmation: confirmation, phoneNumber: phoneNumber });
-        navigation.navigate('PhoneNumberVerifyScreen', { confirmation: null, phoneNumber: null })
+        await auth()
+            .signInWithPhoneNumber(phoneNumber)
+            .then((confirmation) => {
+                navigation.navigate('PhoneNumberVerifyScreen', { confirmation: confirmation, phoneNumber: phoneNumber });
+            });
     }
 
     return (

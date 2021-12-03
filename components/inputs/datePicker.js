@@ -19,6 +19,9 @@ import Months from '../../constants/months';
 const DatePicker = (props) => {
     const [date, setDate] = useState(new Date());
     const [visible, setVisible] = useState(false);
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
 
     return (
         <View>
@@ -34,7 +37,7 @@ const DatePicker = (props) => {
                         <View>
                             <RNDatePicker
                                 date={date}
-                                minimumDate={new Date()}
+                                minimumDate={tomorrow}
                                 onDateChange={(date) => {
                                     setDate(date);
                                     props.setDate(date);

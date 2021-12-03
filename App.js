@@ -21,7 +21,6 @@ import Auth from './auth';
 import RootNavigation from './navigation/rootNavigation';
 
 const App = () => {
-
     return (
         <Provider store={store}>
             <Auth>

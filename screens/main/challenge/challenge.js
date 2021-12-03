@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
     StyleSheet,
     ScrollView
 } from 'react-native';
-import { useSelector } from "react-redux";
-import BottomTabNavigationLayout from "../../../components/layouts/BottomTabNavigation";
-import SleepingMoti from '../../../assets/images/dashboard/sleeping_moti.svg';
-import OvalButton from "../../../components/buttons/oval";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeChallenges } from '../../../redux/challengeSlice';
+
+import { useNavigation } from "@react-navigation/core";
+
+import auth from '@react-native-firebase/auth';
+
+import { getUserChallenges } from "../../../clients/challengeClient";
+
 import { height, width } from "../../../util/scale";
 import Font from "../../../styles/font";
 import Color from "../../../styles/color";
+
+import BottomTabNavigationLayout from "../../../components/layouts/BottomTabNavigation";
+import SleepingMoti from '../../../assets/images/dashboard/sleeping_moti.svg';
+import OvalButton from "../../../components/buttons/oval";
 import ProfileButton from "../../../components/buttons/profile";
 import ChallengeCard from "../../../components/cards/challenge";
-import { useNavigation } from "@react-navigation/core";
+
 import Months from '../../../constants/months';
 import Days from '../../../constants/days';
+
+import StartNewContextMenu from "../../../components/modals/startNewContextMenu";
 
 const getGreeting = () => {
     const currentHour = new Date().getHours();
@@ -33,21 +44,6 @@ const getDate = () => {
     const date = new Date();
     return `${Months[date.getMonth()]} ${date.getDate()}, ${Days[date.getDay()]}`;
 }
-
-const ONGOING_CHALLENGES = [
-    {
-        id: 0,
-        state: 'Approved'
-    },
-    {
-        id: 1,
-        state: 'Pending'
-    },
-    {
-        id: 2,
-        state: 'Incomplete'
-    }
-];
 
 const SectionHeader = (props) => {
     const navigation = useNavigation();
@@ -70,7 +66,7 @@ const SectionHeader = (props) => {
                     {props.title}
                 </Text>
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
                 {
                     props.buttonLabel
                         ?
@@ -82,7 +78,8 @@ const SectionHeader = (props) => {
                                 ...Font.B3
                             }}
                             onPress={() => {
-                                navigation.navigate('CreateChallengeScreen')
+                                props.setModalVisible(true)
+                                // navigation.navigate('CreateChallengeScreen')
                             }}
                         />
                         : null
@@ -93,8 +90,21 @@ const SectionHeader = (props) => {
 }
 
 const ChallengeScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getUserChallenges(auth().currentUser.uid)
+            .then((res) => {
+                return res.json();
+            })
+            .then((json) => {
+                dispatch(initializeChallenges(json));
+            });
+    }, []);
+
     const UPCOMING_CHALLENGES = useSelector(state => state.challenge.upcomingChallenges);
-    const challengeCount = ONGOING_CHALLENGES.length + Object.keys(UPCOMING_CHALLENGES).length;
+    const ONGOING_CHALLENGES = useSelector(state => state.challenge.ongoingChallenges);
+    const challengeCount = Object.keys(ONGOING_CHALLENGES).length + Object.keys(UPCOMING_CHALLENGES).length;
+    const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <BottomTabNavigationLayout>
@@ -122,58 +132,77 @@ const ChallengeScreen = ({ navigation }) => {
                 </View>
             </View>
             <View style={{ flex: 1 }}>
-                {
-                    (challengeCount > 0) > 0
-                        ?
-                        <ScrollView
-                            scrollEnabled={challengeCount > 3}
-                            showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{
-                                alignItems: 'center',
-                                paddingVertical: height(12)
-                            }}
-                            style={{
-                                flex: 1,
-                            }}>
-                            <SectionHeader title={'Ongoing Challenges'} buttonLabel={'Start New'} />
-                            {ONGOING_CHALLENGES.map((item) => {
-                                return (
-                                    <ChallengeCard
-                                        key={item.id}
-                                        ongoing
-                                        state={item.state}
-                                        onPress={() => { navigation.navigate('DetailsOngoingScreen') }} />
-                                );
-                            })}
-                            <SectionHeader title={'Upcoming Challenges'} buttonLabel={'Join'} />
-                            {Object.values(UPCOMING_CHALLENGES).map((item) => {
-                                return (
-                                    <ChallengeCard
-                                        upcoming
-                                        challenge={item}
-                                        key={item.id}
-                                        onPress={() => { navigation.navigate('DetailsPendingScreen') }} />
-                                );
-                            })}
-                        </ScrollView>
-                        :
-                        <View>
-                            <View style={{
-                                alignItems: 'center',
-                                marginTop: height(38),
-                                marginBottom: height(50)
-                            }}>
-                                <Text style={{
-                                    ...Font.B4,
-                                    color: Color.LightGrey
-                                }}>You don't have any challenges yet.</Text>
+                <ScrollView
+                    scrollEnabled={challengeCount > 3}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{
+                        alignItems: 'center',
+                        paddingVertical: height(8)
+                    }}
+                    style={{
+                        flex: 1,
+                    }}>
+                    <SectionHeader title={'Ongoing Challenges'} buttonLabel={'Start New'} setModalVisible={setModalVisible} />
+                    {
+                        challengeCount > 0
+                            ?
+                            <>
+                                {
+                                    Object.values(ONGOING_CHALLENGES).length > 0
+                                        ?
+                                        <>
+                                            {Object.values(ONGOING_CHALLENGES).map((item) => {
+                                                return (
+                                                    <ChallengeCard
+                                                        key={item.id}
+                                                        ongoing
+                                                        state={item.state}
+                                                        onPress={() => { navigation.navigate('DetailsOngoingScreen', { challenge: item }) }} />
+                                                );
+                                            })}
+                                        </>
+                                        :
+                                        null
+                                }
+                                {
+                                    Object.values(UPCOMING_CHALLENGES).length > 0
+                                        ?
+                                        <>
+                                            <SectionHeader title={'Upcoming Challenges'} />
+                                            {Object.values(UPCOMING_CHALLENGES).map((item) => {
+                                                return (
+                                                    <ChallengeCard
+                                                        upcoming
+                                                        challenge={item}
+                                                        key={item.id}
+                                                        onPress={() => { navigation.navigate('DetailsPendingScreen', { challenge: item }) }} />
+                                                );
+                                            })}
+                                        </>
+                                        :
+                                        null
+                                }
+                            </>
+                            :
+                            <View>
+                                <View style={{
+                                    alignItems: 'center',
+                                    marginTop: height(38),
+                                    marginBottom: height(50)
+                                }}>
+                                    <Text style={{
+                                        ...Font.B4,
+                                        color: Color.LightGrey
+                                    }}>You don't have any challenges yet.</Text>
+                                </View>
+                                <View style={{ width: width(343), height: height(148) }}>
+                                    <SleepingMoti />
+                                </View>
                             </View>
-                            <View style={{ width: width(343), height: height(148) }}>
-                                <SleepingMoti />
-                            </View>
-                        </View>
-                }
+                    }
+                </ScrollView>
             </View>
+            <StartNewContextMenu visible={modalVisible} setVisible={setModalVisible} />
         </BottomTabNavigationLayout>
     );
 };

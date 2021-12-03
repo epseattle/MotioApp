@@ -3,15 +3,20 @@ import { useSelector } from 'react-redux';
 
 import { NavigationContainer } from '@react-navigation/native';
 
+import auth from '@react-native-firebase/auth';
+
 import OnboardingStackNavigator from './onboarding/onboarding';
 import MainStackNavigator from './main/main';
 
 const RootNavigation = () => {
-    const isSignedIn = useSelector((state) => state.user.isSignedIn);
+    const signedIn = useSelector(state => state.user.isSignedIn);
+    console.log(signedIn);
+    console.log(auth().currentUser);
+
     return (
         <NavigationContainer>
             {
-                true ? (
+                auth().currentUser || signedIn ? (
                     <MainStackNavigator />
                 ) : (
                     <OnboardingStackNavigator />

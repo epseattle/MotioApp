@@ -5,6 +5,9 @@ import {
     StyleSheet,
     Text
 } from 'react-native';
+
+import { getChallengeMembersRequest } from "../../clients/challengeClient";
+
 import { height, width } from "../../util/scale";
 import ProfileButton from "../buttons/profile";
 import CalendarChecked from '../../assets/icons/evericons/calendar-checked.svg'
@@ -13,122 +16,94 @@ import ChevronTop from '../../assets/icons/evericons/chevron-top.svg'
 import Color from "../../styles/color";
 import Font from "../../styles/font";
 
-const DATA = [
-    {
-        id: 0,
-        user: {
-            userName: "John Terry"
-        }
-    },
-    {
-        id: 1,
-        user: {
-            userName: "John Terry"
-        }
-    },
-    {
-        id: 2,
-        user: {
-            userName: "John Terry"
-        }
-    },
-    {
-        id: 3,
-        user: {
-            userName: "John Terry"
-        }
-    },
-    {
-        id: 4,
-        user: {
-            userName: "John Terry"
-        }
-    },
-    {
-        id: 5,
-        user: {
-            userName: "John Terry"
-        }
-    },
-    {
-        id: 6,
-        user: {
-            userName: "John Terry"
-        }
-    }
-]
+const LeaderBoard = (props) => {
+    console.log(props.challenge.id);
+    console.log(props.challenge.maxMemberCount);
+    console.log(props.challenge.ownerId);
 
-const ExpandedLeaderboard = () => {
-    return (
-        <View>
-            <View style={[styles.row]}>
-                <View style={[styles.leftColumn]}>
-                </View>
-                <View style={[styles.rightColumn, {
-                    height: height(50),
-                    width: width(50),
-                    justifyContent: 'center'
-                }]}>
-                    <CalendarChecked color={Color.LightGrey} />
-                </View>
-            </View>
-            {
-                DATA.map((item) => {
-                    return (
-                        <View key={item.id} style={[styles.row]}>
-                            <View style={[styles.leftColumn, {
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                height: height(50),
-                                marginVertical: height(8)
-                            }]}>
-                                <ProfileButton style={{ width: width(50), height: height(50), marginRight: width(8) }} />
-                                <Text>{item.user.userName}</Text>
-                            </View>
-                            <View style={[styles.rightColumn, {
-                                height: height(50),
-                                width: width(40),
-                                justifyContent: 'center'
-                            }]}>
-                                <Text>-</Text>
-                            </View>
-                        </View>
-                    );
-                })
-            }
-        </View>
-    );
-}
+    const [expanded, setExpanded] = useState(false);
+    const [members, setMembers] = useState([]);
 
-const CollapsedLeaderBoard = () => {
-    return (
-        <View style={[styles.row, { justifyContent: 'center' }]}>
-            <View style={{ flexDirection: 'row' }}>
+    const challengeId = props.challenge.id;
+    const maxMemberCount = props.challenge.maxMemberCount;
+    getChallengeMembersRequest(challengeId)
+        .then((res) => {
+            return res.json();
+        })
+        .then((json) => {
+            console.log(JSON.parse(json));
+            setMembers(JSON.parse(json));
+            console.log(members[0]);
+        });
+
+    const ExpandedLeaderboard = () => {
+        return (
+            <View>
+                <View style={[styles.row]}>
+                    <View style={[styles.leftColumn]}>
+                    </View>
+                    <View style={[styles.rightColumn, {
+                        height: height(50),
+                        width: width(50),
+                        justifyContent: 'center'
+                    }]}>
+                        <CalendarChecked color={Color.LightGrey} />
+                    </View>
+                </View>
                 {
-                    DATA.slice(0, 5).map((item) => {
+                    members.map((item) => {
                         return (
-                            <ProfileButton disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                            <View key={item.id} style={[styles.row]}>
+                                <View style={[styles.leftColumn, {
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    height: height(50),
+                                    marginVertical: height(8)
+                                }]}>
+                                    <ProfileButton style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                    <Text>{item.displayName}</Text>
+                                </View>
+                                <View style={[styles.rightColumn, {
+                                    height: height(50),
+                                    width: width(40),
+                                    justifyContent: 'center'
+                                }]}>
+                                    <Text>-</Text>
+                                </View>
+                            </View>
                         );
                     })
                 }
-                {
-                    DATA.length > 5
-                        ?
-                        <View style={{ justifyContent: 'center' }}>
-                            <Text style={{
-                                ...Font.H3,
-                                color: Color.LightGrey
-                            }}>+{DATA.length - 5}</Text>
-                        </View>
-                        :
-                        null
-                }
             </View>
-        </View>);
-}
+        );
+    }
 
-const LeaderBoard = (props) => {
-    const [expanded, setExpanded] = useState(false);
+    const CollapsedLeaderBoard = () => {
+        return (
+            <View style={[styles.row, { justifyContent: 'center' }]}>
+                <View style={{ flexDirection: 'row' }}>
+                    {
+                        members.slice(0, 5).map((item) => {
+                            return (
+                                <ProfileButton disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                            );
+                        })
+                    }
+                    {
+                        members.length > 5
+                            ?
+                            <View style={{ justifyContent: 'center' }}>
+                                <Text style={{
+                                    ...Font.H3,
+                                    color: Color.LightGrey
+                                }}>+{members.length - 5}</Text>
+                            </View>
+                            :
+                            null
+                    }
+                </View>
+            </View>);
+    }
 
     return (
         <View style={[styles.container]}>
@@ -142,8 +117,8 @@ const LeaderBoard = (props) => {
                         props.setEnableScroll(!expanded)
                     }}>
                     <View style={[styles.rightColumn, { flexDirection: 'row', alignItems: 'flex-start' }]}>
-                        <Text style={[styles.sectionTitle, Font.B4, { color: Color.LightBlack }]}>{DATA.length}</Text>
-                        <Text style={[styles.sectionTitle, Font.B4]}> / 10</Text>
+                        <Text style={[styles.sectionTitle, Font.B4, { color: Color.LightBlack }]}>{members.length}</Text>
+                        <Text style={[styles.sectionTitle, Font.B4]}> / {maxMemberCount}</Text>
                         <View style={{ marginLeft: width(5) }}>
                             {
                                 expanded

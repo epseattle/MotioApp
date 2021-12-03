@@ -7,7 +7,7 @@ import { View } from "react-native";
 
 const Auth = (props) => {
     const dispatch = useDispatch();
-    const [initializing, setInitializing] = useState(true);
+    const [initializing, setInitializing] = useState(false);
     const [user, setUser] = useState();
 
     // Handle user state changes
@@ -15,7 +15,7 @@ const Auth = (props) => {
         console.log(user);
         setUser(user);
         if (initializing) {
-            setInitializing(false);
+            setInitializing(true);
         }
     }
 

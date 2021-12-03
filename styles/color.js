@@ -9,6 +9,6 @@ const Color = {
     Concrete: '#F4F4F4',
     White: '#FFFFFF',
     Green: '#47BF33',
-    Red: '#E81515'
+    Red: '#E81515',
 }
 export default Color;

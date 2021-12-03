@@ -8,6 +8,8 @@ import {
     StyleSheet
 } from 'react-native';
 
+import auth from '@react-native-firebase/auth';
+
 import TopNavigationLayout from "../../../components/layouts/TopNavigation";
 import TextInput from "../../../components/inputs/text";
 import OvalButton from "../../../components/buttons/oval";
@@ -15,9 +17,17 @@ import { height } from "../../../util/scale";
 import Color from "../../../styles/color";
 import Font from '../../../styles/font'
 
-const NicknameScreen = ({ navigation }) => {
+const NicknameScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const [valid, setValid] = useState(true);
+    const [nickName, setNickName] = useState('');
+    const user = auth().currentUser;
+
+    if(user.displayName != null)
+    {
+        navigation.navigate('ProfilePictureScreen')
+    }
+
     return (
         <TopNavigationLayout
             header={`Create a nickname`}>
@@ -27,14 +37,16 @@ const NicknameScreen = ({ navigation }) => {
                 </Text>
             </View>
             <View style={styles.input}>
-                <TextInput />
+                <TextInput setValue={setNickName} />
             </View>
             <View style={styles.footer}>
                 <OvalButton
                     title='Next'
                     disabled={!valid}
                     onPress={() => {
-                        // confirmCode();
+                        user.updateProfile({
+                            displayName: nickName
+                        })
                         navigation.navigate('ProfilePictureScreen')
                     }} />
             </View>
