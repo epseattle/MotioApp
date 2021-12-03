@@ -33,8 +33,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderRadius: width(36),
         width: width(50),
-        height: height(50),
-        backgroundColor: Color.LightGrey
+        height: height(50)
     },
     highlight: {
         borderWidth: width(2),

@@ -204,11 +204,9 @@ const styles = StyleSheet.create({
     categoryIconContainer: {
         width: width(63),
         height: height(63),
-        backgroundColor: Color.LightGrey,
-        marginHorizontal: width(8),
-        borderRadius: width(5),
-        paddingHorizontal: width(10),
-        paddingVertical: height(10)
+        backgroundColor: Color.Concrete,
+        marginLeft: width(8),
+        borderRadius: width(5)
     }
 });
 

@@ -68,10 +68,10 @@ const SettingsScreen = () => {
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={() => {
-                    dispatch(signOut())
                     auth()
                         .signOut()
                         .then(() => {
+                            dispatch(signOut())
                             console.log('user has been signed out.')
                         });
                 }} >

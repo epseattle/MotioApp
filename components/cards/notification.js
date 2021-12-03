@@ -15,7 +15,10 @@ const SubmissionRejection = () => {
     return (
         <View>
             <View style={[styles.itemContainer]}>
-                <ProfileButton style={{ width: width(75), height: height(75) }} />
+                <TouchableWithoutFeedback>
+                    <View style={[styles.icon]}>
+                    </View>
+                </TouchableWithoutFeedback>
                 <View style={[styles.textContainer]}>
                     <Text style={[styles.text]}>Your submission got denied</Text>
                     <Text style={[styles.text]}>Please re-submit.</Text>
@@ -53,10 +56,7 @@ const JoinRequest = () => {
     return (
         <View>
             <View style={[styles.itemContainer]}>
-                <TouchableWithoutFeedback>
-                    <View style={[styles.icon]}>
-                    </View>
-                </TouchableWithoutFeedback>
+                <ProfileButton style={{ width: width(75), height: height(75) }} />
                 <View style={[styles.textContainer]}>
                     <Text style={[styles.text]}>Steve Nash wants to join your</Text>
                     <Text style={[styles.text]}>Drink Water challenge.</Text>
