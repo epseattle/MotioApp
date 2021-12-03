@@ -5,7 +5,8 @@ import {
     KeyboardAvoidingView,
     StyleSheet,
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    SafeAreaView
 } from 'react-native';
 
 import Color from '../../styles/color'
@@ -13,12 +14,19 @@ import { height, width } from '../../util/scale';
 
 const ModalLayout = (props) => {
     return (
-        <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View>
-                    {props.children}
+        <View style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }}>
+                <View style={styles.container}>
+                    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                        <View style={{
+                            flex: 1
+                        }}>
+                            {props.children}
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
-            </TouchableWithoutFeedback>
+            </SafeAreaView>
+            <SafeAreaView style={{ backgroundColor: 'white' }} />
         </View>
     );
 }
@@ -26,9 +34,9 @@ const ModalLayout = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: width(20),
-        paddingTop: height(20),
-        backgroundColor: Color.White
+        // paddingHorizontal: width(20),
+        // paddingTop: height(20),
+        backgroundColor: 'rgba(52, 52, 52, 0.0)'
     }
 });
 

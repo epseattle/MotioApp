@@ -22,7 +22,11 @@ const MainStackNavigator = () => {
                 <MainStack.Screen name="ProfileScreen" component={ProfileScreen} />
                 <MainStack.Screen name="SubmissionScreen" component={SubmissionScreen} />
             </MainStack.Group>
-            <MainStack.Group screenOptions={{ presentation: 'modal' }}>
+            <MainStack.Group screenOptions={{
+                presentation: 'modal',
+                cardStyle: { backgroundColor: 'transparent' },
+                cardOverlayEnabled: true,
+            }}>
                 <MainStack.Screen name="CreateChallengeScreen" component={CreateChallengeScreen} />
                 <MainStack.Screen name="JoinChallengeScreen" component={JoinChallengeScreen} />
             </MainStack.Group>

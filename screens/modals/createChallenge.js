@@ -4,7 +4,9 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    SafeAreaView,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
@@ -83,89 +85,100 @@ const CreateChallengeScreen = () => {
 
     return (
         <ModalLayout>
-            <View style={[styles.inputSectionContainer, styles.headerSectionContainer]}>
-                <View>
-                    <Text style={[Font.H2]}>Start New Challenge</Text>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{
+                    backgroundColor: Color.White,
+                    paddingHorizontal: width(20),
+                    paddingTop: height(20),
+                    borderTopLeftRadius: width(10),
+                    borderTopRightRadius: width(10),
+                }}
+            >
+                <View style={[styles.inputSectionContainer, styles.headerSectionContainer]}>
+                    <View>
+                        <Text style={[Font.H2]}>Start New Challenge</Text>
+                    </View>
+                    <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
+                        <Text style={[Font.B2, { color: Color.Primary }]}>Cancel</Text>
+                    </TouchableWithoutFeedback>
                 </View>
-                <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
-                    <Text style={[Font.B2, { color: Color.Primary }]}>Cancel</Text>
-                </TouchableWithoutFeedback>
-            </View>
-            <View style={[styles.inputSectionContainer]}>
-                <View style={[styles.inputSectionHeaderContainer]}>
-                    <Text style={{ ...Font.B3 }}>Challenge Name</Text>
-                    <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text>
-                </View>
-                <TextInput setValue={setTitle} />
-            </View>
-            <View style={[styles.inputSectionContainer, {
-                flexDirection: 'row',
-                alignItems: 'flex-end'
-            }]}>
-                <View style={{
-                    width: width(263)
-                }}>
+                <View style={[styles.inputSectionContainer]}>
                     <View style={[styles.inputSectionHeaderContainer]}>
-                        <Text style={[Font.B3]}>What kind of goal is it?</Text>
+                        <Text style={{ ...Font.B3 }}>Challenge Name</Text>
+                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text>
                     </View>
-                    <Picker data={Categories} onValueChange={setCategory} />
+                    <TextInput setValue={setTitle} />
                 </View>
-                <View style={[styles.categoryIconContainer]}>
-                    <CategoriesIcon category={category} />
-                </View>
-            </View>
-            <View style={[styles.inputSectionContainer]}>
-                <View style={[styles.inputSectionHeaderContainer]}>
-                    <Text style={{ ...Font.B3 }}>Set the rule</Text>
-                </View>
-                <TextInput multiline={false} setValue={setRule} style={{}} />
-            </View>
-            <View style={[styles.inputSectionContainer]}>
-                <View style={[styles.inputSectionHeaderContainer]}>
-                    <Text style={{ ...Font.B3 }}>How often are we going to do it?</Text>
-                </View>
-                <View style={[styles.inputContainer]}>
-                    <Picker
-                        data={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
-                        onValueChange={setFrequency} />
-                    <View style={{ justifyContent: 'flex-end' }}>
-                        <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> times per </Text>
-                    </View>
-                    <Picker
-                        data={FrequencyUnits}
-                        onValueChange={setFrequencyUnit} />
-                </View>
-            </View>
-            <View style={[styles.inputSectionContainer]}>
-                <Text style={{ ...Font.B3 }}>When are we starting it?</Text>
-                <View style={[styles.inputSectionHeaderContainer]}>
-                    <Text style={{ color: Color.LightGrey, ...Font.B5 }}>The challenge will automatically end after 4 weeks</Text>
-                </View>
-                <DatePicker setDate={setStartDate} />
-            </View>
-            <View style={[styles.inputSectionContainer]}>
-                <View style={[styles.inputSectionHeaderContainer]}>
-                    <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
-                    <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 members</Text>
-                </View>
-                <View style={[styles.inputContainer]}>
-                    <Picker
-                        data={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
-                        onValueChange={setMemberCount}
-                    />
+                <View style={[styles.inputSectionContainer, {
+                    flexDirection: 'row',
+                    alignItems: 'flex-end'
+                }]}>
                     <View style={{
-                        justifyContent: 'flex-end'
+                        width: width(263)
                     }}>
-                        <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> people</Text>
+                        <View style={[styles.inputSectionHeaderContainer]}>
+                            <Text style={[Font.B3]}>What kind of goal is it?</Text>
+                        </View>
+                        <Picker data={Categories} onValueChange={setCategory} />
+                    </View>
+                    <View style={[styles.categoryIconContainer]}>
+                        <CategoriesIcon category={category} />
                     </View>
                 </View>
-            </View>
-            <OvalButton
-                title='Create'
-                onPress={() => {
-                    disabled={creating}
-                    createChallenge();
-                }} />
+                <View style={[styles.inputSectionContainer]}>
+                    <View style={[styles.inputSectionHeaderContainer]}>
+                        <Text style={{ ...Font.B3 }}>Set the rule</Text>
+                    </View>
+                    <TextInput multiline={false} setValue={setRule} style={{}} />
+                </View>
+                <View style={[styles.inputSectionContainer]}>
+                    <View style={[styles.inputSectionHeaderContainer]}>
+                        <Text style={{ ...Font.B3 }}>How often are we going to do it?</Text>
+                    </View>
+                    <View style={[styles.inputContainer]}>
+                        <Picker
+                            data={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
+                            onValueChange={setFrequency} />
+                        <View style={{ justifyContent: 'flex-end' }}>
+                            <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> times per </Text>
+                        </View>
+                        <Picker
+                            data={FrequencyUnits}
+                            onValueChange={setFrequencyUnit} />
+                    </View>
+                </View>
+                <View style={[styles.inputSectionContainer]}>
+                    <Text style={{ ...Font.B3 }}>When are we starting it?</Text>
+                    <View style={[styles.inputSectionHeaderContainer]}>
+                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>The challenge will automatically end after 4 weeks</Text>
+                    </View>
+                    <DatePicker setDate={setStartDate} />
+                </View>
+                <View style={[styles.inputSectionContainer]}>
+                    <View style={[styles.inputSectionHeaderContainer]}>
+                        <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
+                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 members</Text>
+                    </View>
+                    <View style={[styles.inputContainer]}>
+                        <Picker
+                            data={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
+                            onValueChange={setMemberCount}
+                        />
+                        <View style={{
+                            justifyContent: 'flex-end'
+                        }}>
+                            <Text style={{ marginHorizontal: width(8), color: Color.LightGrey, ...Font.B3 }}> people</Text>
+                        </View>
+                    </View>
+                </View>
+                <OvalButton
+                    title='Create'
+                    onPress={() => {
+                        disabled = { creating }
+                        createChallenge();
+                    }} />
+            </KeyboardAvoidingView>
         </ModalLayout>
     );
 };

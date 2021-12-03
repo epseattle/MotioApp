@@ -4,7 +4,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
@@ -41,26 +42,39 @@ const JoinChallengeScreen = () => {
 
     return (
         <ModalLayout>
-            <View style={[styles.inputSectionContainer, styles.headerSectionContainer]}>
-                <View>
-                    <Text style={[Font.H2]}>Join Existing Challenge</Text>
-                </View>
-                <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
-                    <Text style={[Font.B2, { color: Color.Primary }]}>Cancel</Text>
-                </TouchableWithoutFeedback>
+            <View style={{ flex: 1, backgroundColor: 'transparent' }}>
             </View>
-            <View style={[styles.inputSectionContainer]}>
-                <View style={[styles.inputSectionHeaderContainer]}>
-                    <Text style={{ ...Font.B3 }}>Challenge Code</Text>
-                    {/* <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text> */}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{
+                    backgroundColor: Color.White,
+                    paddingHorizontal: width(20),
+                    paddingTop: height(20),
+                    borderTopLeftRadius: width(10),
+                    borderTopRightRadius: width(10),
+                }}
+            >
+                <View style={[styles.inputSectionContainer, styles.headerSectionContainer]}>
+                    <View>
+                        <Text style={[Font.H2]}>Join Challenge</Text>
+                    </View>
+                    <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
+                        <Text style={[Font.B2, { color: Color.Primary }]}>Cancel</Text>
+                    </TouchableWithoutFeedback>
                 </View>
-                <TextInput setValue={setChallengeCode} />
-            </View>
-            <OvalButton
-                title='Join'
-                onPress={() => {
-                    createChallenge();
-                }} />
+                <View style={[styles.inputSectionContainer]}>
+                    <View style={[styles.inputSectionHeaderContainer]}>
+                        <Text style={{ ...Font.B3 }}>Challenge Code</Text>
+                        {/* <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text> */}
+                    </View>
+                    <TextInput setValue={setChallengeCode} />
+                </View>
+                <OvalButton
+                    title='Join'
+                    onPress={() => {
+                        createChallenge();
+                    }} />
+            </KeyboardAvoidingView>
         </ModalLayout>
     );
 };
