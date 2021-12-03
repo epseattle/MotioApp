@@ -1,5 +1,5 @@
 const MotiServiceUrl = 'http://localhost:19516/challenge/';
-const MotiServiceUrlProd = 'https://motiservice.azurewebsites.net/challenge'
+const MotiServiceUrlProd = 'https://motiservice.azurewebsites.net/challenge/'
 
 export const createChallenge = async (challenge) => {
     var res = await fetch(

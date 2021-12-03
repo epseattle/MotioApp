@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../../redux/userSlice';
+import auth from '@react-native-firebase/auth';
 
 import {
     View,
@@ -21,6 +22,9 @@ import ProfileIcon from "../../../assets/icons/profile/profileIcon";
 
 const ProfilePictureScreen = ({ navigation }) => {
     const dispatch = useDispatch();
+    const [selected, setSelected] = useState('');
+    console.log(auth().curentUser);
+
     return (
         <TopNavigationLayout
             header={`Set a profile picture`}>
@@ -29,91 +33,47 @@ const ProfilePictureScreen = ({ navigation }) => {
                     You can choose among our default characters or choose your own profile picture.
                 </Text>
             </View>
-            <View style={styles.input}>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='blue1' />
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='blue2' />
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='blue3' />
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='pink1' />
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='pink2' />
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='pink3' />
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            borderRadius: width(36),
-                            width: width(50),
-                            height: height(50)
-                        }}>
-                        <ProfileIcon profile='pink4' />
-                    </View>
-                </TouchableWithoutFeedback>
+            {
+                ['blue', 'pink'].map((item) => {
+                    return (
+                        <View style={styles.input}>
+                            {[1, 2, 3, 4].map((index) => {
+                                return (
+                                    <TouchableWithoutFeedback onPress={() => {
+                                        console.log(selected);
+                                        if (selected == item + index) {
+                                            setSelected('');
+                                        }
+                                        else {
+                                            setSelected(item + index);
+                                        }
+                                    }}>
+                                        <View
+                                            style={[{
+                                                alignItems: 'center',
+                                                textAlign: 'center',
+                                                borderRadius: width(36),
+                                                width: width(50),
+                                                height: height(50)
+                                            }, selected == item + index ? styles.selected : null]}>
+                                            <ProfileIcon profile={item + index} />
+                                        </View>
+                                    </TouchableWithoutFeedback>
+                                );
+                            })}
+                        </View>
+                    );
+                })
+            }
+            <View style={{ flexDirection: 'row', marginTop: height(36), justifyContent: 'center' }}>
+                <Text style={{ color: Color.LightGrey, ...Font.B3 }}>
+                    or ...
+                </Text>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                <Text style={{ color: Color.LightGrey, ...Font.B3 }}>
+                    Upload your own profile picture!
+                </Text>
             </View>
             <View style={{ ...styles.input, justifyContent: 'center' }}>
                 <TouchableWithoutFeedback>
@@ -134,7 +94,8 @@ const ProfilePictureScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     input: {
-        marginVertical: height(16),
+        marginTop: height(32),
+        marginVertical: height(0),
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
@@ -142,6 +103,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         marginVertical: height(16)
+    },
+    selected: {
+        borderColor: Color.Primary,
+        borderWidth: width(3)
     }
 });
 

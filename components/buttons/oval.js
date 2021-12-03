@@ -36,9 +36,11 @@ const OvalButton = (props) => {
                 <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
                     {props.title}
                 </Text>
-                {props.children}
+                <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                    {props.children}
+                </View>
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback >
     );
 };
 
@@ -48,7 +50,9 @@ const styles = StyleSheet.create({
         height: height(48),
         width: width(343),
         borderRadius: height(24),
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center'
     },
     textLabel: {
         justifyContent: 'center'

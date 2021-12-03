@@ -6,6 +6,7 @@ import {
     StyleSheet,
     SafeAreaView,
     TouchableWithoutFeedback,
+    Share
 } from 'react-native';
 
 import { width, height } from '../../util/scale';
@@ -56,7 +57,12 @@ const DetailsContextMenuModal = (props) => {
                         </View>
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback
-                        onPress={() => { props.setVisible(false) }}>
+                        onPress={async () => {
+                            const result = await Share.share({
+                                url: 'deep link to join Moti',
+                                message: 'You are now sharing a moti challenge',
+                            })
+                        }}>
                         <View style={{
                             alignItems: 'center',
                             justifyContent: 'center',

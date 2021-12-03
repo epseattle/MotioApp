@@ -17,11 +17,11 @@ import Font from '../../styles/font';
 import Months from '../../constants/months';
 
 const DatePicker = (props) => {
-    const [date, setDate] = useState(new Date());
     const [visible, setVisible] = useState(false);
     const today = new Date();
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
+    const [date, setDate] = useState(tomorrow);
 
     return (
         <View>

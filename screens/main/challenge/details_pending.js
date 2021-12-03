@@ -8,6 +8,8 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 
+import { useSelector } from "react-redux";
+
 import { getChallengeMembersRequest } from "../../../clients/challengeClient";
 
 import { width, height } from "../../../util/scale";
@@ -28,7 +30,7 @@ import JoinConfirmationModal from "../../../components/modals/joinConfirmation";
 import DetailsContextMenuModal from "../../../components/modals/detailsContextMenu";
 
 const DetailsPendingScreen = ({ route, navigation }) => {
-    const { challenge } = route.params;
+    const challenge = useSelector(state => state.challenge.selectedChallenge);
     const [enableScroll, setEnableScroll] = useState(false);
     const [JoinRequestSent, setJoinRequestSent] = useState(false);
     const [menuModalvisible, setMenuModalvisible] = useState(false);
@@ -80,8 +82,7 @@ const DetailsPendingScreen = ({ route, navigation }) => {
                     width: width(75),
                     height: height(75),
                     backgroundColor: Color.Concrete,
-                    paddingHorizontal: width(8),
-                    paddingVertical: height(8)
+                    borderRadius: width(8),
                 }}>
                     <CategoriesIcon category={challenge.category} />
                 </View>
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: height(34),
-        marginBottom: height(24)
+        marginBottom: height(8)
     },
     card: {
         flex: 1,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
         height: height(112),
         backgroundColor: Color.Concrete,
         marginVertical: height(8),
-        borderRadius: width(5),
+        borderRadius: width(8),
         paddingHorizontal: width(16),
         paddingVertical: height(16)
     },

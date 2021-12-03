@@ -39,7 +39,8 @@ const ChallengeCard = (props) => {
                 },
                 shadowOpacity: 0.25,
                 shadowRadius: 3,
-                paddingVertical: 10
+                paddingVertical: 10,
+                borderRadius: width(8)
             }}>
                 <View style={{
                     flexDirection: 'row',
@@ -49,9 +50,8 @@ const ChallengeCard = (props) => {
                         justifyContent: 'center',
                         width: width(75),
                         height: height(75),
-                        backgroundColor: "#F4F4F4",
-                        paddingHorizontal: height(10),
-                        paddingVertical: width(10)
+                        borderRadius: width(8),
+                        backgroundColor: Color.Concrete
                     }}>
                         <CategoriesIcon category={category ? category : ''} />
                     </View>

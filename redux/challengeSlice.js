@@ -86,9 +86,12 @@ export const challengeSlice = createSlice({
             state.upcomingChallenges = {
                 ...state.upcomingChallenges
             };
+        },
+        selectChallenge: (state, action) => {
+            state.selectedChallenge = action.payload;
         }
     }
 });
 
-export const { createChallenge, startChallenge, completeChallenge, quitOngoingChallenge, quitUpcomingChallenge, initializeChallenges } = challengeSlice.actions;
+export const { createChallenge, startChallenge, completeChallenge, quitOngoingChallenge, quitUpcomingChallenge, initializeChallenges, selectChallenge } = challengeSlice.actions;
 export default challengeSlice.reducer;

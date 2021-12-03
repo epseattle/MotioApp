@@ -39,6 +39,9 @@ const FrequencyUnits = [
 const CreateChallengeScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
 
     const [creating, setCreating] = useState(false);
 
@@ -47,7 +50,7 @@ const CreateChallengeScreen = () => {
     const [rule, setRule] = useState('');
     const [frequency, setFrequency] = useState(1);
     const [frequencyUnit, setFrequencyUnit] = useState(FrequencyUnits[0]);
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(tomorrow);
     const [memberCount, setMemberCount] = useState(1);
 
     const createChallenge = () => {
@@ -70,6 +73,7 @@ const CreateChallengeScreen = () => {
             },
             'maxMemberCount': memberCount + 1 // including the owner
         };
+
         createChallengeRequest(challenge)
             .then((res) => {
                 return res.json();
@@ -174,8 +178,8 @@ const CreateChallengeScreen = () => {
                 </View>
                 <OvalButton
                     title='Create'
+                    disabled={creating}
                     onPress={() => {
-                        disabled = { creating }
                         createChallenge();
                     }} />
             </KeyboardAvoidingView>

@@ -6,7 +6,7 @@ import {
     ScrollView
 } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
-import { initializeChallenges } from '../../../redux/challengeSlice';
+import { initializeChallenges, selectChallenge } from '../../../redux/challengeSlice';
 
 import { useNavigation } from "@react-navigation/core";
 
@@ -67,13 +67,7 @@ const SectionHeader = (props) => {
                     }}>
                     {props.title}
                 </Text>
-                <Text style={{
-                    ...Font.B3,
-                    color: Color.LightGrey,
-                    marginLeft: width(8)
-                }}>
-                    (0 / 5)
-                </Text>
+                {props.sublabel}
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 {
@@ -81,10 +75,11 @@ const SectionHeader = (props) => {
                         ?
                         <OvalButton
                             icon={
-                                <Plus color={Color.Primary}/>
+                                <Plus color={Color.Primary} />
                             }
                             title={props.buttonLabel}
                             negative
+                            disabled={props.buttonDisabled}
                             containerStyle={{ width: width(124), height: height(45) }}
                             textStyle={{
                                 ...Font.B3
@@ -110,6 +105,9 @@ const ChallengeScreen = ({ navigation }) => {
             })
             .then((json) => {
                 dispatch(initializeChallenges(json));
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }, []);
 
@@ -154,7 +152,19 @@ const ChallengeScreen = ({ navigation }) => {
                     style={{
                         flex: 1,
                     }}>
-                    <SectionHeader title={'Ongoing'} buttonLabel={'Add'} setModalVisible={setModalVisible} />
+                    <SectionHeader
+                        title={'Ongoing'}
+                        sublabel={
+                            <Text style={{
+                                ...Font.B3,
+                                color: Color.LightGrey,
+                                marginLeft: width(8)
+                            }}>
+                                ({challengeCount} / 5)
+                            </Text>}
+                        buttonLabel={'Add'}
+                        buttonDisabled={challengeCount > 5}
+                        setModalVisible={setModalVisible} />
                     {
                         challengeCount > 0
                             ?
@@ -166,10 +176,14 @@ const ChallengeScreen = ({ navigation }) => {
                                             {Object.values(ONGOING_CHALLENGES).map((item) => {
                                                 return (
                                                     <ChallengeCard
-                                                        key={item.id}
                                                         ongoing
+                                                        key={item.id}
+                                                        challenge={item}
                                                         state={item.state}
-                                                        onPress={() => { navigation.navigate('DetailsOngoingScreen', { challenge: item }) }} />
+                                                        onPress={() => {
+                                                            dispatch(selectChallenge(item));
+                                                            navigation.navigate('DetailsOngoingScreen', { challenge: item })
+                                                        }} />
                                                 );
                                             })}
                                         </>
@@ -180,14 +194,17 @@ const ChallengeScreen = ({ navigation }) => {
                                     Object.values(UPCOMING_CHALLENGES).length > 0
                                         ?
                                         <>
-                                            <SectionHeader title={'Upcoming Challenges'} />
+                                            <SectionHeader title={'Upcoming'} />
                                             {Object.values(UPCOMING_CHALLENGES).map((item) => {
                                                 return (
                                                     <ChallengeCard
                                                         upcoming
-                                                        challenge={item}
                                                         key={item.id}
-                                                        onPress={() => { navigation.navigate('DetailsPendingScreen', { challenge: item }) }} />
+                                                        challenge={item}
+                                                        onPress={() => {
+                                                            dispatch(selectChallenge(item));
+                                                            navigation.navigate('DetailsPendingScreen', { challenge: item })
+                                                        }} />
                                                 );
                                             })}
                                         </>

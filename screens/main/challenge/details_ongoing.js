@@ -22,12 +22,17 @@ import CircleChecked from '../../../assets/icons/evericons/circle-checked.svg'
 import JoinConfirmationModal from "../../../components/modals/joinConfirmation";
 import DetailsContextMenuModal from "../../../components/modals/detailsContextMenu";
 import CalendarCard from '../../../components/cards/calendar';
+import { useSelector } from "react-redux";
 
-const DetailsOngoingScreen = ({ navigation }) => {
+const DetailsOngoingScreen = ({ route, navigation }) => {
+    const reduxChallenge = useSelector(state => state.challenge.selectedChallenge);
+    console.log(reduxChallenge);
+    const { challenge } = route.params;
     const [enableScroll, setEnableScroll] = useState(false);
     const [JoinRequestSent, setJoinRequestSent] = useState(true);
     const [menuModalvisible, setMenuModalvisible] = useState(false);
     const [joinModalVisible, setJoinModalVisible] = useState(false);
+    const [members, setMembers] = useState([]);
 
     const modals = (
         <>
@@ -55,8 +60,7 @@ const DetailsOngoingScreen = ({ navigation }) => {
                     width: width(75),
                     height: height(75),
                     backgroundColor: Color.Concrete,
-                    paddingHorizontal: width(8),
-                    paddingVertical: height(8)
+                    borderRadius: width(8),
                 }}>
                     <Health />
                 </View>
@@ -180,7 +184,7 @@ const DetailsOngoingScreen = ({ navigation }) => {
                         </View>
                     </View> */}
                     <View style={[styles.card, { height: 'auto' }]}>
-                        <LeaderBoard setEnableScroll={setEnableScroll} />
+                        <LeaderBoard setEnableScroll={setEnableScroll} challenge={challenge} members={members} />
                     </View>
                 </View>
             </ScrollView>
@@ -199,7 +203,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: height(34),
-        marginBottom: height(24)
+        marginBottom: height(8)
     },
     card: {
         flex: 1,
@@ -207,7 +211,7 @@ const styles = StyleSheet.create({
         height: height(112),
         backgroundColor: Color.Concrete,
         marginVertical: height(8),
-        borderRadius: width(5),
+        borderRadius: width(8),
         paddingHorizontal: width(16),
         paddingVertical: height(16)
     },

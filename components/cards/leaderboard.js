@@ -6,6 +6,8 @@ import {
     Text
 } from 'react-native';
 
+import { useSelector } from "react-redux";
+
 import { getChallengeMembersRequest } from "../../clients/challengeClient";
 
 import { height, width } from "../../util/scale";
@@ -17,9 +19,21 @@ import Color from "../../styles/color";
 import Font from "../../styles/font";
 
 const LeaderBoard = (props) => {
+    const challenge = useSelector(state => state.challenge.selectedChallenge);
     const [expanded, setExpanded] = useState(false);
-    const members = props.members;
+    const [members, setMembers] = useState([]);
     const maxMemberCount = props.challenge.maxMemberCount;
+    useEffect(() => {
+        getChallengeMembersRequest(challenge.id)
+            .then((res) => {
+                return res.json();
+            })
+            .then((json) => {
+                var members = JSON.parse(json);
+                setMembers(members)
+                return members;
+            });
+    }, [])
 
     const ExpandedLeaderboard = () => {
         return (
