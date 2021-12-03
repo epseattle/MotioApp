@@ -16,34 +16,42 @@ const FontWeight = {
 
 const Font = StyleSheet.create({
     H1: {
+        fontFamily: 'Roboto-Bold',
         fontSize: height(28),
         fontWeight: FontWeight.Bold
     },
     H2: {
+        fontFamily: 'Roboto-Bold',
         fontSize: height(24),
         fontWeight: FontWeight.Bold
     },
     H3: {
+        fontFamily: 'Roboto-Black',
         fontSize: height(22),
         fontWeight: FontWeight.Regular
     },
     B1: {
+        fontFamily: 'Roboto-Black',
         fontSize: height(20),
         fontWeight: FontWeight.Regular
     },
     B2: {
+        fontFamily: 'Roboto-Black',
         fontSize: height(18),
         fontWeight: FontWeight.Regular
     },
     B3: {
+        fontFamily: 'Roboto-Black',
         fontSize: height(16),
         fontWeight: FontWeight.Regular
     },
     B4: {
+        fontFamily: 'Roboto-Bold',
         fontSize: height(16),
         fontWeight: FontWeight.Bold
     },
     B5: {
+        fontFamily: 'Roboto-Thin',
         fontSize: height(14),
         fontWeight: FontWeight.Light
     }

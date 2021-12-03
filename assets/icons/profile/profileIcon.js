@@ -9,8 +9,23 @@ import Pink2 from './pink2.svg'
 import Pink3 from './pink3.svg'
 import Pink4 from './pink4.svg'
 
+const profiles = [
+    'blue1',
+    'blue2',
+    'blue3',
+    'pink1',
+    'pink2',
+    'pink3',
+    'pink4',
+]
+
 const ProfileIcon = (props) => {
-    const profile = props.profile
+    var profile = props.profile
+    if(props.random)
+    {
+        var index = Math.floor(Math.random() * profiles.length);
+        profile = profiles[index]
+    }
 
     return (
         <>

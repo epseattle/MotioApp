@@ -22,6 +22,17 @@ const OvalButton = (props) => {
                     props.negative ? styles.negativeContainer : styles.container,
                     props.disabled ? styles.disabledContainer : null,
                     props.containerStyle]}>
+                {
+                    props.icon
+                        ?
+                        <View style={{ marginRight: width(16) }}>
+                            {
+                                props.icon
+                            }
+                        </View>
+                        :
+                        null
+                }
                 <Text style={[props.negative ? styles.negativeLabel : styles.label, props.textStyle]}>
                     {props.title}
                 </Text>
@@ -33,6 +44,7 @@ const OvalButton = (props) => {
 
 const styles = StyleSheet.create({
     containerSize: {
+        flexDirection: 'row',
         height: height(48),
         width: width(343),
         borderRadius: height(24),

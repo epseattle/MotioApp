@@ -10,6 +10,7 @@ import { height, width } from '../../util/scale';
 import You from '../../assets/icons/custom/you.svg'
 import Color from '../../styles/color';
 import { useNavigation } from '@react-navigation/core';
+import ProfileIcon from '../../assets/icons/profile/profileIcon';
 
 const ProfileButton = (props) => {
     const navigation = useNavigation();
@@ -20,6 +21,7 @@ const ProfileButton = (props) => {
             }
         }}>
             <View style={[styles.container, props.style, props.highlight ? styles.highlight : null]}>
+                <ProfileIcon random />
             </View>
         </TouchableWithoutFeedback>
     );

@@ -23,6 +23,7 @@ import SleepingMoti from '../../../assets/images/dashboard/sleeping_moti.svg';
 import OvalButton from "../../../components/buttons/oval";
 import ProfileButton from "../../../components/buttons/profile";
 import ChallengeCard from "../../../components/cards/challenge";
+import Plus from '../../../assets/icons/evericons/plus.svg'
 
 import Months from '../../../constants/months';
 import Days from '../../../constants/days';
@@ -51,19 +52,27 @@ const SectionHeader = (props) => {
     return (
         <View style={{
             flexDirection: 'row',
-            marginVertical: height(8),
-            marginLeft: width(8)
+            marginVertical: height(8)
         }}>
             <View style={{
+                flexDirection: 'row',
                 justifyContent: 'center',
+                alignItems: 'center',
                 paddingRight: width(16)
             }}>
                 <Text
                     style={{
-                        ...Font.H3,
+                        ...Font.B1,
                         color: Color.LightBlack
                     }}>
                     {props.title}
+                </Text>
+                <Text style={{
+                    ...Font.B3,
+                    color: Color.LightGrey,
+                    marginLeft: width(8)
+                }}>
+                    (0 / 5)
                 </Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -71,9 +80,12 @@ const SectionHeader = (props) => {
                     props.buttonLabel
                         ?
                         <OvalButton
+                            icon={
+                                <Plus color={Color.Primary}/>
+                            }
                             title={props.buttonLabel}
                             negative
-                            containerStyle={{ width: width(104) }}
+                            containerStyle={{ width: width(124), height: height(45) }}
                             textStyle={{
                                 ...Font.B3
                             }}
@@ -118,7 +130,7 @@ const ChallengeScreen = ({ navigation }) => {
                         <Text style={{
                             ...Font.H2,
                             color: Color.LightBlack
-                        }}>{getGreeting()}, {auth().currentUser.displayName}!</Text>
+                        }}>{getGreeting()}!</Text>
                     </View>
                     <View>
                         <Text style={{
@@ -128,7 +140,7 @@ const ChallengeScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <View>
-                    <ProfileButton style={{ width: width(72), height: height(72) }} onPress={() => { navigation.navigate('ProfileScreen') }} />
+                    <ProfileButton style={{ width: width(70), height: height(70) }} onPress={() => { navigation.navigate('ProfileScreen') }} />
                 </View>
             </View>
             <View style={{ flex: 1 }}>
@@ -142,7 +154,7 @@ const ChallengeScreen = ({ navigation }) => {
                     style={{
                         flex: 1,
                     }}>
-                    <SectionHeader title={'Ongoing Challenges'} buttonLabel={'+ Add New'} setModalVisible={setModalVisible} />
+                    <SectionHeader title={'Ongoing'} buttonLabel={'Add'} setModalVisible={setModalVisible} />
                     {
                         challengeCount > 0
                             ?
@@ -187,13 +199,18 @@ const ChallengeScreen = ({ navigation }) => {
                             <View>
                                 <View style={{
                                     alignItems: 'center',
-                                    marginTop: height(38),
+                                    marginTop: height(80),
                                     marginBottom: height(50)
                                 }}>
                                     <Text style={{
-                                        ...Font.B4,
+                                        ...Font.B5,
                                         color: Color.LightGrey
-                                    }}>You don't have any challenges yet.</Text>
+                                    }}>We couldn’t find any challenges that you are a part of.</Text>
+                                    <Text style={{
+                                        ...Font.B5,
+                                        color: Color.LightGrey,
+                                        marginTop: height(8)
+                                    }}>Create or join a new challenge.</Text>
                                 </View>
                                 <View style={{ width: width(343), height: height(148) }}>
                                     <SleepingMoti />
