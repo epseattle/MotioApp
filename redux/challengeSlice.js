@@ -9,11 +9,12 @@ export const challengeSlice = createSlice({
     },
     reducers: {
         createChallenge: (state, action) => {
-            var challenge = action.challenge;
-            var challengeId = action.challenge.id;
-            state.ongoingChallenges = {
-                ...state.ongoingChallenges,
-                challengeId: challenge
+            var challenge = action.payload;
+            var challengeId = challenge.id;
+            var upcomingChallenges = state.upcomingChallenges;
+            upcomingChallenges[challengeId] = challenge;
+            state.upcomingChallenges = {
+                ...upcomingChallenges
             };
         },
         startChallenge: (state, action) => {

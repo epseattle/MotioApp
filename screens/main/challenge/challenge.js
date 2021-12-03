@@ -5,6 +5,7 @@ import {
     StyleSheet,
     ScrollView
 } from 'react-native';
+import { useSelector } from "react-redux";
 import BottomTabNavigationLayout from "../../../components/layouts/BottomTabNavigation";
 import SleepingMoti from '../../../assets/images/dashboard/sleeping_moti.svg';
 import OvalButton from "../../../components/buttons/oval";
@@ -45,15 +46,6 @@ const ONGOING_CHALLENGES = [
     {
         id: 2,
         state: 'Incomplete'
-    }
-];
-
-const UPCOMING_CHALLENGES = [
-    {
-        id: 0
-    },
-    {
-        id: 1
     }
 ];
 
@@ -101,7 +93,8 @@ const SectionHeader = (props) => {
 }
 
 const ChallengeScreen = ({ navigation }) => {
-    const challengeCount = ONGOING_CHALLENGES.length + UPCOMING_CHALLENGES.length;
+    const UPCOMING_CHALLENGES = useSelector(state => state.challenge.upcomingChallenges);
+    const challengeCount = ONGOING_CHALLENGES.length + Object.keys(UPCOMING_CHALLENGES).length;
 
     return (
         <BottomTabNavigationLayout>
@@ -152,11 +145,12 @@ const ChallengeScreen = ({ navigation }) => {
                                         onPress={() => { navigation.navigate('DetailsOngoingScreen') }} />
                                 );
                             })}
-                            <SectionHeader title={'Upcoming Challenges'} buttonLabel={'Join'}/>
-                            {UPCOMING_CHALLENGES.map((item) => {
+                            <SectionHeader title={'Upcoming Challenges'} buttonLabel={'Join'} />
+                            {Object.values(UPCOMING_CHALLENGES).map((item) => {
                                 return (
                                     <ChallengeCard
                                         upcoming
+                                        challenge={item}
                                         key={item.id}
                                         onPress={() => { navigation.navigate('DetailsPendingScreen') }} />
                                 );

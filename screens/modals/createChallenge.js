@@ -7,7 +7,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createChallenge as createChallengeAction } from '../../redux/challengeSlice';
 
 import { createChallenge as createChallengeRequest } from '../../clients/challengeClient';
@@ -35,7 +35,6 @@ const FrequencyUnits = [
 const CreateChallengeScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const ongoingChallenges = useSelector(state => state.challenge.ongoingChallenges);
 
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState(Categories[0]);
@@ -49,16 +48,29 @@ const CreateChallengeScreen = () => {
         var challenge = {
             'title': title,
             'category': category,
-            'rule': rule,
-            'frequency': frequency,
-            'frequencyUnit': frequencyUnit,
-            'startDate': startDate.toString(),
-            'memberCount': memberCount
+            'ownerId': 'yopa',
+            'rules': [
+                rule
+            ],
+            'schedule': {
+                'frequency': {
+                    'count': frequency,
+                    'unit': frequencyUnit,
+                },
+                'startDate': startDate,
+                'durationInDays': 28
+            },
+            'maxMemberCount': memberCount
         };
         createChallengeRequest(challenge)
             .then((res) => {
-                console.log(ongoingChallenges);
-                // dispatch(createChallengeAction())
+                return res.json();
+            })
+            .then((json) => {
+                dispatch(createChallengeAction(json))
+            })
+            .then(() => {
+                navigation.goBack();
             });
     };
 

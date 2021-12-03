@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     Text,
@@ -6,8 +6,6 @@ import {
     StyleSheet
 } from 'react-native';
 
-import Creativity from '../../assets/icons/categories/creativity.svg'
-import Health from '../../assets/icons/categories/health.svg'
 import { height, width } from '../../util/scale';
 import Color from '../../styles/color';
 import Font from '../../styles/font';
@@ -20,6 +18,8 @@ import CategoriesIcon from '../../assets/icons/categories/categoriesIcon';
 
 const ChallengeCard = (props) => {
     const navigation = useNavigation();
+    const title = props.challenge?.title;
+    const category = props.challenge?.category;
 
     return (
         <TouchableWithoutFeedback onPress={() => props.onPress()}>
@@ -53,7 +53,7 @@ const ChallengeCard = (props) => {
                         paddingHorizontal: height(10),
                         paddingVertical: width(10)
                     }}>
-                        <CategoriesIcon category='creativity'/>
+                        <CategoriesIcon category={category ? category : ''} />
                     </View>
                     <View style={{
                         marginLeft: width(15),
@@ -61,7 +61,9 @@ const ChallengeCard = (props) => {
                     }}>
                         <Text style={{
                             ...Font.H3
-                        }}>Meditating</Text>
+                        }}>
+                            {title}
+                        </Text>
                         {
                             props.ongoing || !props.upcoming
                                 ?

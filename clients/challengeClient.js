@@ -11,7 +11,6 @@ export const createChallenge = async (challenge) => {
             method: 'POST',
             body: JSON.stringify(challenge)
         });
-    console.log(res);
     return res;
 };
 
