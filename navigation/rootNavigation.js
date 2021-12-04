@@ -20,11 +20,12 @@ const RootNavigation = (props) => {
     }
     console.log(auth().currentUser);
     console.log(signedIn);
+    console.log(auth().currentUser?.displayName);
 
     return (
         <NavigationContainer>
             {
-                auth().currentUser || signedIn ? (
+                (auth().currentUser  && auth().currentUser.displayName ) || signedIn ? (
                     <MainStackNavigator />
                 ) : (
                     <OnboardingStackNavigator />
