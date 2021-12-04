@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
     View,
     ScrollView,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    RefreshControl
 } from 'react-native';
 
 import BottomTabNavigationLayout from '../../../components/layouts/BottomTabNavigation';
@@ -39,6 +40,13 @@ const DATA = [
 
 const NotificationScreen = () => {
     const [selected, setSelected] = useState('All');
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setRefreshing(false);
+    }, []);
+
     return (
         <BottomTabNavigationLayout>
             <View style={[styles.filterButtonsContainer]}>
@@ -78,6 +86,12 @@ const NotificationScreen = () => {
                     contentContainerStyle={{
                         paddingVertical: height(12)
                     }}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }
                     data={DATA}
                     renderItem={({ item }) => {
                         if (item.group == selected || selected == 'All') {

@@ -10,7 +10,6 @@ export const challengeSlice = createSlice({
     reducers: {
         initializeChallenges: (state, action) => {
             var challenges = action.payload;
-            console.log(challenges);
             challenges.forEach((challenge) => {
                 var startDate = new Date(challenge.schedule.startDate);
                 var today = new Date();

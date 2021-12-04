@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
     View,
     Text,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { initializeChallenges, selectChallenge } from '../../../redux/challengeSlice';
@@ -95,7 +96,6 @@ const SectionHeader = (props) => {
         </View>
     );
 }
-
 const ChallengeScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -115,6 +115,12 @@ const ChallengeScreen = ({ navigation }) => {
     const ONGOING_CHALLENGES = useSelector(state => state.challenge.ongoingChallenges);
     const challengeCount = Object.keys(ONGOING_CHALLENGES).length + Object.keys(UPCOMING_CHALLENGES).length;
     const [modalVisible, setModalVisible] = useState(false);
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setRefreshing(false);
+    }, []);
 
     return (
         <BottomTabNavigationLayout>
@@ -143,7 +149,13 @@ const ChallengeScreen = ({ navigation }) => {
             </View>
             <View style={{ flex: 1 }}>
                 <ScrollView
-                    scrollEnabled={challengeCount > 3}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }
+                    scrollEnabled={challengeCount > 0}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         alignItems: 'center',
