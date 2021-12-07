@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/core';
 import ChallengeBodySectionHeader from './header';
 import ChallengeCard from '../../../../../components/cards/challenge';
 
-const ChallengeBodyChallengeList = (props) => {
+const ChallengeBodyUpcomingChallengeList = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const title = props.title;
@@ -23,14 +23,13 @@ const ChallengeBodyChallengeList = (props) => {
                 Object.values(challenges).length > 0
                     ?
                     <>
-                        <ChallengeBodySectionHeader title={title} />
+                        <ChallengeBodySectionHeader title={'Upcoming'} />
                         {Object.values(challenges).map((item) => {
                             return (
                                 <ChallengeCard
                                     upcoming
                                     key={item.id}
                                     challenge={item}
-                                    state={item.state}
                                     onPress={() => {
                                         console.log(item);
                                         dispatch(selectChallenge(item))
@@ -50,4 +49,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ChallengeBodyChallengeList;
+export default ChallengeBodyUpcomingChallengeList;

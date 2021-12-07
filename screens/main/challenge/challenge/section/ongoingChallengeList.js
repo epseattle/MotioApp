@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/core';
 import ChallengeBodySectionHeader from './header';
 import ChallengeCard from '../../../../../components/cards/challenge';
 
-const ChallengeBodyChallengeList = (props) => {
+const ChallengeBodyOngoingChallengeList = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const title = props.title;
@@ -23,11 +23,11 @@ const ChallengeBodyChallengeList = (props) => {
                 Object.values(challenges).length > 0
                     ?
                     <>
-                        <ChallengeBodySectionHeader title={title} />
+                        <ChallengeBodySectionHeader title={'Ongoing'} />
                         {Object.values(challenges).map((item) => {
                             return (
                                 <ChallengeCard
-                                    upcoming
+                                    ongoing
                                     key={item.id}
                                     challenge={item}
                                     state={item.state}
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ChallengeBodyChallengeList;
+export default ChallengeBodyOngoingChallengeList;

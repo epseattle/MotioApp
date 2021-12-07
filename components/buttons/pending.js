@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {
     View,
@@ -18,7 +17,15 @@ const PendingButton = (props) => {
     return (
         <TouchableWithoutFeedback onPress={() => props.onPress()}>
             <View style={{ alignItems: 'center' }}>
-                <View style={styles.container}>
+                <View style={{
+                    backgroundColor: color,
+                    width: width(60),
+                    height: height(60),
+                    borderRadius: width(30),
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: height(5)
+                }}>
                     <MoreHorizontal color={Color.White} width={width(26)} height={height(26)} />
                 </View>
                 <Text style={{ color: color, ...Font.B3 }}>Pending</Text>
@@ -29,9 +36,9 @@ const PendingButton = (props) => {
 
 styles = StyleSheet.create({
     container: {
+        backgroundColor: color,
         width: width(60),
         height: height(60),
-        backgroundColor: color,
         borderRadius: width(30),
         justifyContent: 'center',
         alignItems: 'center',

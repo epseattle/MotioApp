@@ -9,7 +9,6 @@ import {
 import { height, width } from '../../util/scale';
 import Color from '../../styles/color';
 import Font from '../../styles/font';
-import { useNavigation } from '@react-navigation/core';
 
 import CameraButton from '../buttons/camera';
 import PendingButton from '../buttons/pending';
@@ -17,7 +16,6 @@ import ApprovedButton from '../buttons/approved';
 import CategoriesIcon from '../../assets/icons/categories/categoriesIcon';
 
 const ChallengeCard = (props) => {
-    const navigation = useNavigation();
     const title = props.challenge?.title;
     const category = props.challenge?.category;
 
@@ -32,7 +30,7 @@ const ChallengeCard = (props) => {
                 paddingVertical: height(20),
                 paddingHorizontal: width(20),
                 backgroundColor: Color.White,
-                shadowColor: "black",
+                shadowColor: Color.LightBlack,
                 shadowOffset: {
                     width: 0,
                     height: 2,
@@ -51,21 +49,23 @@ const ChallengeCard = (props) => {
                         width: width(75),
                         height: height(75),
                         borderRadius: width(8),
-                        backgroundColor: Color.Concrete
+                        backgroundColor: Color.Fog
                     }}>
                         <CategoriesIcon category={category ? category : ''} />
                     </View>
-                    <View style={{
-                        marginLeft: width(15),
-                        justifyContent: 'center'
-                    }}>
-                        <Text style={{
-                            ...Font.H3
-                        }}>
+                    <View style={[
+                        props.ongoing ? styles.ongoingCardText : null,
+                        props.upcoming ? styles.upcomingCardText : null
+                    ]}>
+                        <Text
+                            numberOfLines={1}
+                            style={{
+                                ...Font.H3
+                            }}>
                             {title}
                         </Text>
                         {
-                            props.ongoing || !props.upcoming
+                            props.ongoing
                                 ?
                                 <Text style={{
                                     ...Font.B2,
@@ -80,7 +80,7 @@ const ChallengeCard = (props) => {
                     </View>
                 </View>
                 {
-                    props.ongoing || !props.upcoming
+                    props.ongoing
                         ?
                         {
                             'Pending': <PendingButton />,
@@ -97,6 +97,16 @@ const ChallengeCard = (props) => {
 
 const styles = StyleSheet.create({
     container: {
+    },
+    ongoingCardText: {
+        marginLeft: width(15),
+        width: width(130), //width: width(130)
+        justifyContent: 'center'
+    },
+    upcomingCardText: {
+        marginLeft: width(15),
+        width: width(200), //width: width(130)
+        justifyContent: 'center'
     }
 });
 

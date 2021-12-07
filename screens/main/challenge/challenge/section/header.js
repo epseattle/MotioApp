@@ -61,13 +61,14 @@ const ChallengeBodySectionHeader = (props) => {
 const styles = new StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
-        marginVertical: height(8)
+        marginTop: height(8),
+        height: height(45),
     },
     headerLabelContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingRight: width(16)
+        paddingRight: width(16),
     },
     headerButtonContainer: {
         flex: 1,

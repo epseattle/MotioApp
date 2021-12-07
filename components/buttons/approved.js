@@ -17,7 +17,15 @@ const ApprovedButton = (props) => {
     return (
         <TouchableWithoutFeedback onPress={() => props.onPress()}>
             <View style={{ alignItems: 'center' }}>
-                <View style={styles.container}>
+                <View style={{
+                    backgroundColor: color,
+                    width: width(60),
+                    height: height(60),
+                    borderRadius: width(30),
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: height(5)
+                }}>
                     <CheckMark color={Color.White} width={width(26)} height={height(26)} />
                 </View>
                 <Text style={{ color: color, ...Font.B3 }}>Done</Text>

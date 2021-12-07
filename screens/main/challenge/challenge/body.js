@@ -19,8 +19,9 @@ import Font from '../../../../styles/font';
 import Color from '../../../../styles/color';
 
 import ChallengeBodySectionHeader from './section/header';
-import ChallengeBodyChallengeList from './section/challengeList';
 import ChallengeBodyEmpty from './section/empty';
+import ChallengeBodyOngoingChallengeList from './section/ongoingChallengeList';
+import ChallengeBodyUpcomingChallengeList from './section/upcomingChallengeList';
 
 const ChallengeBody = () => {
     const dispatch = useDispatch();
@@ -70,14 +71,14 @@ const ChallengeBody = () => {
                             }}>
                                 ({challengeCount} / 5)
                             </Text>}
-                        buttonLabel={'Add'}
+                        buttonLabel={challengeCount > 5 ? null : 'Add' }
                         buttonDisabled={challengeCount > 5} />
                     {
                         challengeCount > 0
                             ?
                             <>
-                                <ChallengeBodyChallengeList title='Ongoing' challenges={ONGOING_CHALLENGES} />
-                                <ChallengeBodyChallengeList title='Upcoming' challenges={UPCOMING_CHALLENGES} />
+                                <ChallengeBodyOngoingChallengeList challenges={UPCOMING_CHALLENGES}/>
+                                <ChallengeBodyUpcomingChallengeList challenges={UPCOMING_CHALLENGES} />
                             </>
                             :
                             <ChallengeBodyEmpty />
