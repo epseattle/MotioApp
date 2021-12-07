@@ -31,15 +31,30 @@ const JoinConfirmationModal = (props) => {
                         width: width(300),
                         height: height(500),
                         borderRadius: width(3),
+                        padding: width(24)
                     }}>
-                    <Text>Request has been sent!</Text>
+                    <View style={{
+                        alignItems: 'center'
+                    }}>
+                        <Text style={{
+                            ...Font.B2
+                        }}>Request has been sent!</Text>
+                    </View>
+                    <View style={{
+                        flex: 1
+                    }}>
+                    </View>
                     <TouchableWithoutFeedback
                         onPress={() => {
                             props.setVisible(false);
                             props.setJoinRequestSent(true);
                         }}>
-                        <View>
-                            <Text>Close</Text>
+                        <View style={{
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                ...Font.B2
+                            }}>Close</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>

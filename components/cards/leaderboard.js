@@ -22,7 +22,8 @@ const LeaderBoard = (props) => {
     const challenge = useSelector(state => state.challenge.selectedChallenge);
     const [expanded, setExpanded] = useState(false);
     const [members, setMembers] = useState([]);
-    const maxMemberCount = props.challenge.maxMemberCount;
+    const maxMemberCount = challenge.maxMemberCount;
+    
     useEffect(() => {
         getChallengeMembersRequest(challenge.id)
             .then((res) => {
@@ -113,7 +114,6 @@ const LeaderBoard = (props) => {
                 <TouchableWithoutFeedback
                     onPress={() => {
                         setExpanded(!expanded)
-                        props.setEnableScroll(!expanded)
                     }}>
                     <View style={[styles.rightColumn, { flexDirection: 'row', alignItems: 'flex-start' }]}>
                         <Text style={[styles.sectionTitle, Font.B4, { color: Color.LightBlack }]}>{members.length}</Text>

@@ -12,10 +12,13 @@ import auth from '@react-native-firebase/auth';
 
 import TopNavigationLayout from '../../components/layouts/TopNavigation';
 import ProfileIcon from '../../assets/icons/profile/profileIcon';
+import ProfileButton from '../../components/buttons/profile';
 import { height, width } from '../../util/scale';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/core';
 
 const ProfileScreen = () => {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = auth().currentUser;
 
@@ -37,30 +40,17 @@ const ProfileScreen = () => {
                     Sign out
                 </Text>
             </TouchableWithoutFeedback>
-            {/* <View style={[styles.profile]}>
-                <ProfileIcon profile={'blue1'} />
-            </View>
-            <View style={[styles.profile]}>
-                <ProfileIcon profile={'blue2'} />
-            </View>
-            <View style={[styles.profile]}>
-                <ProfileIcon profile={'blue2'} />
-            </View>
-            <View style={{ ...styles.profile }}>
-                <ProfileIcon profile={'blue3'} />
-            </View>
-            <View style={{ ...styles.profile }}>
-                <ProfileIcon profile={'pink1'} />
-            </View>
-            <View style={{ ...styles.profile }}>
-                <ProfileIcon profile={'pink2'} />
-            </View>
-            <View style={{ ...styles.profile }}>
-                <ProfileIcon profile={'pink3'} />
-            </View>
-            <View style={{ ...styles.profile }}>
-                <ProfileIcon profile={'pink4'} />
-            </View> */}
+            <TouchableWithoutFeedback onPress={() => {
+            }}>
+                <Text>
+                    Change Profile Image
+                </Text>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback>
+                <Text>
+                    Set Email
+                </Text>
+            </TouchableWithoutFeedback>
         </TopNavigationLayout>
     );
 }
