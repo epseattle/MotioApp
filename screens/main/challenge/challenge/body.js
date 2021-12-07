@@ -24,8 +24,11 @@ import ChallengeBodyOngoingChallengeList from './section/ongoingChallengeList';
 import ChallengeBodyUpcomingChallengeList from './section/upcomingChallengeList';
 
 const ChallengeBody = () => {
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
     const dispatch = useDispatch();
-    useEffect(() => {
+
+    const loadChallenges = () => {
         getUserChallenges(auth().currentUser.uid)
             .then((res) => {
                 return res.json();
@@ -36,7 +39,11 @@ const ChallengeBody = () => {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }
+
+    useEffect(() => {
+        loadChallenges();
+    }, [updateState]);
 
     const UPCOMING_CHALLENGES = useSelector(state => state.challenge.upcomingChallenges);
     const ONGOING_CHALLENGES = useSelector(state => state.challenge.ongoingChallenges);
@@ -45,6 +52,7 @@ const ChallengeBody = () => {
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);
+        loadChallenges();
         setRefreshing(false);
     }, []);
 
@@ -77,7 +85,7 @@ const ChallengeBody = () => {
                         challengeCount > 0
                             ?
                             <>
-                                <ChallengeBodyOngoingChallengeList challenges={UPCOMING_CHALLENGES}/>
+                                <ChallengeBodyOngoingChallengeList challenges={ONGOING_CHALLENGES}/>
                                 <ChallengeBodyUpcomingChallengeList challenges={UPCOMING_CHALLENGES} />
                             </>
                             :

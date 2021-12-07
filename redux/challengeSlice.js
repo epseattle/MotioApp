@@ -13,7 +13,7 @@ export const challengeSlice = createSlice({
             challenges.forEach((challenge) => {
                 var startDate = new Date(challenge.schedule.startDate);
                 var today = new Date();
-                if(startDate > today)
+                if(challenge.state == 'Pending')
                 {
                     var upcomingChallenges = state.upcomingChallenges;
                     upcomingChallenges[challenge.id] = challenge;

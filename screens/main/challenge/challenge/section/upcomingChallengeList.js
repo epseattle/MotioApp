@@ -17,6 +17,8 @@ const ChallengeBodyUpcomingChallengeList = (props) => {
     const title = props.title;
     const challenges = props.challenges
 
+    // console.log(challenges);
+
     return (
         <>
             {
@@ -31,7 +33,7 @@ const ChallengeBodyUpcomingChallengeList = (props) => {
                                     key={item.id}
                                     challenge={item}
                                     onPress={() => {
-                                        console.log(item);
+                                        // console.log(item);
                                         dispatch(selectChallenge(item))
                                         navigation.navigate('DetailsScreen', { challenge: item })
                                     }} />

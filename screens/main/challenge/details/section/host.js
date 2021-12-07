@@ -7,7 +7,7 @@ import {
 
 import { useSelector } from 'react-redux'
 
-import { width, height} from '../../../../../util/scale';
+import { width, height } from '../../../../../util/scale';
 import Color from '../../../../../styles/color';
 import Font from '../../../../../styles/font';
 
@@ -24,6 +24,7 @@ const DetailsBodyHostSection = () => {
                     <Text style={[styles.sectionTitle]}>Host</Text>
                     <View style={[styles.sectionContent]}>
                         <ProfileButton
+                            disabled
                             highlight
                             style={{
                                 width: width(50),
