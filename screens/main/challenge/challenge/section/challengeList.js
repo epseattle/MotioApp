@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
-import selectChallenge from '../../../../../redux/challengeSlice';
+import { selectChallenge } from '../../../../../redux/challengeSlice';
 
 import { useNavigation } from '@react-navigation/core';
 
@@ -31,10 +31,9 @@ const ChallengeBodyChallengeList = (props) => {
                                     key={item.id}
                                     challenge={item}
                                     onPress={() => {
+                                        console.log(item);
                                         dispatch(selectChallenge(item))
-                                            .then(() => {
-                                                navigation.navigate('DetailsScreen', { challenge: item })
-                                            });
+                                        navigation.navigate('DetailsScreen', { challenge: item })
                                     }} />
                             );
                         })}

@@ -110,7 +110,7 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.inputSectionContainer]}>
                     <View style={[styles.inputSectionHeaderContainer]}>
                         <Text style={{ ...Font.B3 }}>Challenge Name</Text>
-                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>0/40 Characters</Text>
+                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>{title.length}/40 Characters</Text>
                     </View>
                     <TextInput setValue={setTitle} />
                 </View>
