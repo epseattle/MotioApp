@@ -4,17 +4,21 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         firebaseUser: {},
+        motiUser: {},
         isSignedIn: false,
     },
     reducers: {
         signIn: (state, action) => {
-            state.isSignedIn = true
+            const user = action.payload;
+            state.isSignedIn = true;
+            state.motiUser = user;
         },
         signOut: (state) => {
-            state.isSignedIn = false
+            state.isSignedIn = false;
+            state.motiUser = {};
         }
     }
 });
 
-export const { signIn, signOut, setUser } = userSlice.actions;
+export const { signIn, signOut } = userSlice.actions;
 export default userSlice.reducer;

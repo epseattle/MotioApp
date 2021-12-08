@@ -5,6 +5,8 @@ import {
     StyleSheet
 } from 'react-native';
 
+import { useSelector } from 'react-redux';
+
 import { height, width } from '../../../../util/scale';
 import Font from '../../../../styles/font';
 import Color from '../../../../styles/color';
@@ -31,6 +33,8 @@ const getDate = () => {
 }
 
 const ChallengeHeader = () => {
+    const user = useSelector(state => state.user.motiUser);
+
     return (
         <View style={[styles.headerContainer]}>
             <View>
@@ -55,7 +59,9 @@ const ChallengeHeader = () => {
                     }}
                     onPress={() => {
                         navigation.navigate('ProfileScreen')
-                    }} />
+                    }}
+                    icon={user.profilePicture}
+                    user={user} />
             </View>
         </View>
     );

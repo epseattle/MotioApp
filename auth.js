@@ -6,14 +6,10 @@ import auth from '@react-native-firebase/auth';
 import { View } from "react-native";
 
 const Auth = (props) => {
-    const dispatch = useDispatch();
     const [initializing, setInitializing] = useState(false);
-    const [user, setUser] = useState();
 
     // Handle user state changes
     function onAuthStateChanged(user) {
-        console.log(user);
-        setUser(user);
         if (initializing) {
             setInitializing(true);
         }

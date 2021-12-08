@@ -14,14 +14,30 @@ import ProfileIcon from '../../assets/icons/profile/profileIcon';
 
 const ProfileButton = (props) => {
     const navigation = useNavigation();
+    const src = props.url;
+    const icon = props.icon;
+
     return (
         <TouchableWithoutFeedback onPress={() => {
             if (!props.disabled) {
-                navigation.navigate("ProfileScreen")
+                navigation.navigate("ProfileScreen", { user: props.user })
             }
         }}>
             <View style={[styles.container, props.style, props.highlight ? styles.highlight : null]}>
-                <ProfileIcon random />
+                {
+                    icon
+                        ?
+                        <ProfileIcon profile={icon} />
+                        :
+                        <ProfileIcon random />
+                }
+                {
+                    src
+                        ?
+                        <ProfileIcon source={src} />
+                        :
+                        null
+                }
             </View>
         </TouchableWithoutFeedback>
     );

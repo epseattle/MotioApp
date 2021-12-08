@@ -28,3 +28,16 @@ export const updateUser = async(user) => {
         });
     return res;
 }
+
+export const getUser = async(userId) => {
+    var res = await fetch(
+        MotiServiceUrl + userId,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'GET'
+        });
+    return res;
+}

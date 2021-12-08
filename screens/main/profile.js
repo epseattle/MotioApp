@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    View,
     StyleSheet,
     Text
 } from 'react-native';
@@ -11,21 +10,23 @@ import { signOut } from '../../redux/userSlice';
 import auth from '@react-native-firebase/auth';
 
 import TopNavigationLayout from '../../components/layouts/TopNavigation';
-import ProfileIcon from '../../assets/icons/profile/profileIcon';
-import ProfileButton from '../../components/buttons/profile';
 import { height, width } from '../../util/scale';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/core';
 
-const ProfileScreen = () => {
-    const navigation = useNavigation();
+const ProfileScreen = ({ route }) => {
     const dispatch = useDispatch();
-    const user = auth().currentUser;
+    const { user } = route.params;
 
     return (
         <TopNavigationLayout>
             <Text>
                 {user.displayName}
+            </Text>
+            <Text>
+                {user.id}
+            </Text>
+            <Text>
+                {user.profilePicture}
             </Text>
             <TouchableWithoutFeedback
                 onPress={() => {
