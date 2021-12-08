@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn, signOut } from '../redux/userSlice';
-
-import { getUser } from '../clients/userClient';
-
 import { NavigationContainer } from '@react-navigation/native';
 
 import auth from '@react-native-firebase/auth';
@@ -18,25 +15,15 @@ const RootNavigation = (props) => {
 
     useEffect(() => {
         if (auth().currentUser) {
-            getUser(auth().currentUser.uid)
-                .then((res) => {
-                    return res.json();
-                })
-                .then((json) => {
-                    dispatch(signIn(json));
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            dispatch(signIn());
         }
         else {
             dispatch(signOut());
         }
     }, []);
 
-    // console.log(auth().currentUser);
+    console.log(auth().currentUser);
     console.log(signedIn);
-    console.log(user)
     // console.log(auth().currentUser?.displayName);
 
     return (

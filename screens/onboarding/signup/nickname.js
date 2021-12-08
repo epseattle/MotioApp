@@ -47,15 +47,7 @@ const NicknameScreen = ({ navigation, route }) => {
                         user.updateProfile({
                             displayName: nickName
                         })
-                            .then(() => {
-                                createUser({
-                                    'Id': user.uid,
-                                    'DisplayName': nickName
-                                })
-                                    .then(() => {
-                                        navigation.navigate('ProfilePictureScreen')
-                                    });
-                            });
+                        navigation.navigate('ProfilePictureScreen')
                     }} />
             </View>
         </TopNavigationLayout>

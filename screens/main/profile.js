@@ -15,7 +15,7 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const ProfileScreen = ({ route }) => {
     const dispatch = useDispatch();
-    const { user } = route.params;
+    const user = auth().currentUser;
 
     return (
         <TopNavigationLayout>
@@ -23,10 +23,10 @@ const ProfileScreen = ({ route }) => {
                 {user.displayName}
             </Text>
             <Text>
-                {user.id}
+                {user.uid}
             </Text>
             <Text>
-                {user.profilePicture}
+                {user.photoURL}
             </Text>
             <TouchableWithoutFeedback
                 onPress={() => {

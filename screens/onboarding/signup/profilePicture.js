@@ -24,8 +24,7 @@ import ProfileIcon from "../../../assets/icons/profile/profileIcon";
 const ProfilePictureScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState('');
-    console.log(auth().curentUser);
-    const user = useSelector(state => state.user.motiUser);
+    const user = auth().currentUser;
 
     return (
         <TopNavigationLayout
@@ -41,15 +40,17 @@ const ProfilePictureScreen = ({ navigation }) => {
                         <View style={styles.input}>
                             {[1, 2, 3, 4].map((index) => {
                                 return (
-                                    <TouchableWithoutFeedback onPress={() => {
-                                        console.log(selected);
-                                        if (selected == item + index) {
-                                            setSelected('');
-                                        }
-                                        else {
-                                            setSelected(item + index);
-                                        }
-                                    }}>
+                                    <TouchableWithoutFeedback
+                                        key={item + index}
+                                        onPress={() => {
+                                            console.log(selected);
+                                            if (selected == item + index) {
+                                                setSelected('');
+                                            }
+                                            else {
+                                                setSelected(item + index);
+                                            }
+                                        }}>
                                         <View
                                             style={[{
                                                 alignItems: 'center',
@@ -86,6 +87,14 @@ const ProfilePictureScreen = ({ navigation }) => {
                 <OvalButton
                     title='Complete'
                     onPress={() => {
+                        if (selected) {
+                            user.updateProfile({
+                                photoURL: selected
+                            })
+                            .then(() => {
+                                console.log('Update profile picture!')
+                            })
+                        }
                         console.log('complete')
                         dispatch(signIn());
                     }} />

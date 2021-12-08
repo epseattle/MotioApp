@@ -8,14 +8,13 @@ export const userSlice = createSlice({
         isSignedIn: false,
     },
     reducers: {
-        signIn: (state, action) => {
-            const user = action.payload;
+        signIn: (state) => {
             state.isSignedIn = true;
-            state.motiUser = user;
         },
         signOut: (state) => {
             state.isSignedIn = false;
             state.motiUser = {};
+            state.firebaseUser = {};
         }
     }
 });

@@ -41,3 +41,18 @@ export const getUser = async(userId) => {
         });
     return res;
 }
+
+export const createOrUpdateUser = async (user) => {
+    var res = await fetch(
+        MotiServiceUrl + userId,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            body: JSON.stringify(user)
+        }
+    );
+    return res;
+}

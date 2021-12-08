@@ -7,6 +7,8 @@ import {
 
 import { useSelector } from 'react-redux';
 
+import auth from '@react-native-firebase/auth';
+
 import { height, width } from '../../../../util/scale';
 import Font from '../../../../styles/font';
 import Color from '../../../../styles/color';
@@ -33,7 +35,7 @@ const getDate = () => {
 }
 
 const ChallengeHeader = () => {
-    const user = useSelector(state => state.user.motiUser);
+    const user = auth().currentUser;
 
     return (
         <View style={[styles.headerContainer]}>
@@ -60,7 +62,7 @@ const ChallengeHeader = () => {
                     onPress={() => {
                         navigation.navigate('ProfileScreen')
                     }}
-                    icon={user.profilePicture}
+                    icon={user.photoURL}
                     user={user} />
             </View>
         </View>
