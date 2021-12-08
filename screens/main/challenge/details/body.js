@@ -24,12 +24,18 @@ const sections = {
         <DetailsBodyRuleSection />,
         <DetailsBodyLeaderboardSection />
     ],
+    "Started": [
+        <DetailsBodyCalendarSection />,
+        <DetailsBodyHostSection />,
+        <DetailsBodyRuleSection />,
+        <DetailsBodyLeaderboardSection />
+    ],
     "Completed": []
 }
 
 const DetailsBody = (props) => {
     const challenge = useSelector(state => state.challenge.selectedChallenge);
-    console.log(challenge);
+    // console.log(challenge);
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = useCallback(() => {
         setRefreshing(true);

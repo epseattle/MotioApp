@@ -59,17 +59,21 @@ const DetailsHeader = (props) => {
             }}>
                 <CategoriesIcon category={challenge.category} />
             </View>
-            <View>
+            <View style={{
+                width: width(150)
+            }}>
                 <Text style={{
                     ...Font.B3,
                     color: Color.LightGrey
                 }}>
                     {challenge.schedule.frequency.count} / {challenge.schedule.frequency.unit}
                 </Text>
-                <Text style={{
-                    ...Font.H2,
-                    color: Color.LightBlack
-                }}>
+                <Text
+                    numberOfLines={1}
+                    style={{
+                        ...Font.H2,
+                        color: Color.LightBlack
+                    }}>
                     {challenge.title}
                 </Text>
                 <Text style={{
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: height(34),
-        marginBottom: height(8)
+        marginBottom: height(8),
     },
 });
 

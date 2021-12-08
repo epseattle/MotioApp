@@ -49,7 +49,7 @@ const ChallengeCard = (props) => {
                         width: width(75),
                         height: height(75),
                         borderRadius: width(8),
-                        backgroundColor: Color.Fog
+                        backgroundColor: Color.Concrete
                     }}>
                         <CategoriesIcon category={category ? category : ''} />
                     </View>
@@ -70,7 +70,7 @@ const ChallengeCard = (props) => {
                                 <Text style={{
                                     ...Font.B2,
                                     marginTop: height(15)
-                                }}>45%</Text>
+                                }}>10% Completed</Text>
                                 :
                                 <Text style={{
                                     ...Font.B2,
