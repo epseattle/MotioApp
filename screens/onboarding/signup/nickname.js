@@ -16,6 +16,7 @@ import OvalButton from "../../../components/buttons/oval";
 import { height } from "../../../util/scale";
 import Color from "../../../styles/color";
 import Font from '../../../styles/font'
+import { createUser } from "../../../clients/userClient";
 
 const NicknameScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
@@ -23,8 +24,7 @@ const NicknameScreen = ({ navigation, route }) => {
     const [nickName, setNickName] = useState('');
     const user = auth().currentUser;
 
-    if(user.displayName != null)
-    {
+    if (user.displayName != null) {
         navigation.navigate('ProfilePictureScreen')
     }
 
@@ -47,7 +47,15 @@ const NicknameScreen = ({ navigation, route }) => {
                         user.updateProfile({
                             displayName: nickName
                         })
-                        navigation.navigate('ProfilePictureScreen')
+                            .then(() => {
+                                createUser({
+                                    'Id': user.uid,
+                                    'DisplayName': nickName
+                                })
+                                    .then(() => {
+                                        navigation.navigate('ProfilePictureScreen')
+                                    });
+                            });
                     }} />
             </View>
         </TopNavigationLayout>

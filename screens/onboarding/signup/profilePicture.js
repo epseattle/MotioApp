@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../../redux/userSlice';
 import auth from '@react-native-firebase/auth';
+import { useSelector } from "react-redux";
 
 import {
     View,
@@ -24,6 +25,7 @@ const ProfilePictureScreen = ({ navigation }) => {
     const dispatch = useDispatch();
     const [selected, setSelected] = useState('');
     console.log(auth().curentUser);
+    const user = useSelector(state => state.user.motiUser);
 
     return (
         <TopNavigationLayout
