@@ -26,12 +26,13 @@ const DetailsBodyHostSection = () => {
                         <ProfileButton
                             disabled
                             highlight
+                            icon={challenge.owner.photoUrl}
                             style={{
                                 width: width(50),
                                 height: height(50),
                                 marginRight: width(8)
                             }} />
-                        <Text style={[Font.B4]}>{'rhsl'}</Text>
+                        <Text style={[Font.B4]}>{challenge.owner.displayName}</Text>
                     </View>
                 </View>
                 <View style={[styles.section]}>
