@@ -25,7 +25,7 @@ const BottomTabNavigationLayout = (props) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <KeyboardAvoidingView
                     behavior={'padding'}
-                    style={styles.container}>
+                    style={{ ...styles.container, ...props.style }}>
                     <View style={{ flex: 1 }}>
                         {props.children}
                     </View>

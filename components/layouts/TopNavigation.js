@@ -31,6 +31,7 @@ const TopNavigationLayout = (props) => {
                                 <Arrow width={width(25)} height={height(25)} color="black" />
                             </View>
                         </TouchableWithoutFeedback>
+                        {props.secondary}
                     </View>
                     {
                         props.header
@@ -56,7 +57,9 @@ const styles = StyleSheet.create({
         marginHorizontal: width(16)
     },
     navigation: {
-        marginTop: height(16)
+        marginTop: height(16),
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     header: {
         marginVertical: height(16),
