@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, ColorPropType } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Challenge from '../../assets/icons/custom/flame.svg';
-import Notification from '../../assets/icons/custom/notification.svg';
+import Notification from '../../assets/icons/evericons/bell.svg';
 import Settings from '../../assets/icons/custom/nav_setting.svg';
 import { height, width } from '../../util/scale';
 
@@ -20,7 +20,8 @@ function TabBar({ state, descriptors, navigation }) {
             },
             shadowOpacity: 0.5,
             shadowRadius: 3.84,
-            paddingVertical: 10
+            paddingVertical: height(16),
+            height: height(106)
         }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
@@ -66,7 +67,7 @@ function TabBar({ state, descriptors, navigation }) {
                     >
                         <View style={{
                             alignItems: 'center',
-                            marginBottom: height(4.5)
+                            marginBottom: height(4)
                         }}>
                             {icon}
                         </View>
