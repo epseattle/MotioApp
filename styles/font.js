@@ -30,6 +30,11 @@ const Font = StyleSheet.create({
         fontSize: height(22),
         fontWeight: FontWeight.Regular
     },
+    H4: {
+        fontFamily: 'Roboto-Black',
+        fontSize: height(20),
+        fontWeight: FontWeight.Bold
+    },
     B1: {
         fontFamily: 'Roboto-Black',
         fontSize: height(20),
@@ -52,9 +57,9 @@ const Font = StyleSheet.create({
     },
     B5: {
         fontFamily: 'Roboto-Thin',
-        fontSize: height(14),
+        fontSize: height(12),
         fontWeight: FontWeight.Light
-    }
+    },
 });
 
 export default Font;
