@@ -21,20 +21,20 @@ import Font from "../../styles/font";
 const LeaderBoard = (props) => {
     const challenge = useSelector(state => state.challenge.selectedChallenge);
     const [expanded, setExpanded] = useState(false);
-    const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState(challenge.memberships);
     const maxMemberCount = challenge.maxMemberCount;
     
-    useEffect(() => {
-        getChallengeMembersRequest(challenge.id)
-            .then((res) => {
-                return res.json();
-            })
-            .then((json) => {
-                var members = JSON.parse(json);
-                setMembers(members)
-                return members;
-            });
-    }, [])
+    // useEffect(() => {
+    //     getChallengeMembersRequest(challenge.id)
+    //         .then((res) => {
+    //             return res.json();
+    //         })
+    //         .then((json) => {
+    //             var members = JSON.parse(json);
+    //             setMembers(members)
+    //             return members;
+    //         });
+    // }, [])
 
     const ExpandedLeaderboard = () => {
         return (
@@ -60,8 +60,8 @@ const LeaderBoard = (props) => {
                                     height: height(50),
                                     marginVertical: height(8)
                                 }]}>
-                                    <ProfileButton key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
-                                    <Text>{item.displayName}</Text>
+                                    <ProfileButton icon={item.user.photoUrl} key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                    <Text>{item.user.displayName}</Text>
                                 </View>
                                 <View style={[styles.rightColumn, {
                                     height: height(50),
@@ -85,7 +85,7 @@ const LeaderBoard = (props) => {
                     {
                         members.slice(0, 5).map((item) => {
                             return (
-                                <ProfileButton key={item.id} disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                                <ProfileButton icon={item.user.photoUrl} key={item.id} disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
                             );
                         })
                     }
