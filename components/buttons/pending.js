@@ -28,7 +28,7 @@ const PendingButton = (props) => {
                 }}>
                     <MoreHorizontal color={Color.White} width={width(26)} height={height(26)} />
                 </View>
-                <Text style={{ color: color, ...Font.B3 }}>Pending</Text>
+                <Text style={{ color: color, ...Font.B4 }}>Pending</Text>
             </View>
         </TouchableWithoutFeedback>
     );

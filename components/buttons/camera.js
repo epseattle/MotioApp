@@ -33,7 +33,7 @@ const CameraButton = (props) => {
                 }}>
                     <Camera color={Color.White} width={width(26)} height={height(26)} />
                 </View>
-                <Text style={{ color: color, ...Font.B3 }}>Submit</Text>
+                <Text style={{ color: color, ...Font.B4 }}>Submit</Text>
             </View>
         </TouchableWithoutFeedback>
     );

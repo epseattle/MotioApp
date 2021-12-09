@@ -28,7 +28,7 @@ const ApprovedButton = (props) => {
                 }}>
                     <CheckMark color={Color.White} width={width(26)} height={height(26)} />
                 </View>
-                <Text style={{ color: color, ...Font.B3 }}>Done</Text>
+                <Text style={{ color: color, ...Font.B4 }}>Done</Text>
             </View>
         </TouchableWithoutFeedback>
     );
