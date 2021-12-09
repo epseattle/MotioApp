@@ -42,9 +42,9 @@ const ChallengeBodySectionHeader = (props) => {
                             title={props.buttonLabel}
                             negative
                             disabled={props.buttonDisabled}
-                            containerStyle={{ width: width(124), height: height(45) }}
+                            containerStyle={{ width: width(102), height: height(48) }}
                             textStyle={{
-                                ...Font.B3
+                                ...Font.B4
                             }}
                             onPress={() => {
                                 setModalVisible(true)
@@ -63,12 +63,13 @@ const styles = new StyleSheet.create({
         flexDirection: 'row',
         marginTop: height(8),
         height: height(45),
+        alignItems: 'center'
     },
     headerLabelContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingRight: width(16),
+        paddingRight: width(24),
     },
     headerButtonContainer: {
         flex: 1,

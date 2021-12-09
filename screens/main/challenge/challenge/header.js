@@ -21,11 +21,11 @@ import ProfileButton from '../../../../components/buttons/profile';
 const getGreeting = () => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
-        return 'Good Morning';
+        return 'Good morning';
     } else if (currentHour < 18) {
-        return 'Good Afternoon';
+        return 'Good afternoon';
     } else {
-        return 'Good Evening';
+        return 'Good evening';
     }
 }
 
@@ -42,22 +42,30 @@ const ChallengeHeader = () => {
             <View>
                 <View>
                     <Text style={{
-                        ...Font.H2,
-                        color: Color.LightBlack
-                    }}>{getGreeting()}!</Text>
+                        ...Font.H4,
+                        color: Color.LightBlack,
+                        marginBottom: height(8)
+                    }}>{getGreeting()},</Text>
+                    <Text style={{
+                        ...Font.H4,
+                        color: Color.LightBlack,
+                        marginBottom: height(16)
+                    }}>
+                        {user.displayName}
+                    </Text>
                 </View>
                 <View>
                     <Text style={{
                         ...Font.B3,
-                        color: Color.LightBlack
+                        color: Color.LightGrey
                     }}>{getDate()}</Text>
                 </View>
             </View>
             <View>
                 <ProfileButton
                     style={{
-                        width: width(70),
-                        height: height(70)
+                        width: width(84),
+                        height: height(84)
                     }}
                     onPress={() => {
                         navigation.navigate('ProfileScreen')
@@ -73,7 +81,9 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginTop: height(24),
+        marginHorizontal: width(16)
     }
 });
 

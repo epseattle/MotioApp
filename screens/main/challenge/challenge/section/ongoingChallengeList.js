@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    View,
     StyleSheet
 } from 'react-native';
 
@@ -7,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { selectChallenge } from '../../../../../redux/challengeSlice';
 
 import { useNavigation } from '@react-navigation/core';
+
+import { width } from '../../../../../util/scale';
 
 import ChallengeBodySectionHeader from './header';
 import ChallengeCard from '../../../../../components/cards/challenge';
@@ -17,8 +20,6 @@ const ChallengeBodyOngoingChallengeList = (props) => {
     const title = props.title;
     const challenges = props.challenges
 
-    // console.log(challenges);
-
     return (
         <>
             {
@@ -26,20 +27,22 @@ const ChallengeBodyOngoingChallengeList = (props) => {
                     ?
                     <>
                         <ChallengeBodySectionHeader title={'Ongoing'} />
-                        {Object.values(challenges).map((item) => {
-                            return (
-                                <ChallengeCard
-                                    ongoing
-                                    key={item.id}
-                                    challenge={item}
-                                    state={item.state}
-                                    onPress={() => {
-                                        // console.log(item);
-                                        dispatch(selectChallenge(item))
-                                        navigation.navigate('DetailsScreen', { challenge: item })
-                                    }} />
-                            );
-                        })}
+                        <View style={[styles.challengeListContainer]}>
+                            {Object.values(challenges).map((item) => {
+                                return (
+                                    <ChallengeCard
+                                        ongoing
+                                        key={item.id}
+                                        challenge={item}
+                                        state={item.state}
+                                        onPress={() => {
+                                            // console.log(item);
+                                            dispatch(selectChallenge(item))
+                                            navigation.navigate('DetailsScreen', { challenge: item })
+                                        }} />
+                                );
+                            })}
+                        </View>
                     </>
                     :
                     null
@@ -49,7 +52,9 @@ const ChallengeBodyOngoingChallengeList = (props) => {
 }
 
 const styles = StyleSheet.create({
-
+    challengeListContainer: {
+        alignItems: 'center'
+    }
 });
 
 export default ChallengeBodyOngoingChallengeList;

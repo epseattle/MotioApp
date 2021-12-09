@@ -6,7 +6,7 @@ import ChallengeBody from './body';
 const ChallengeScreen = ({ navigation }) => {
 
     return (
-        <BottomTabNavigationLayout>
+        <BottomTabNavigationLayout style={{ marginHorizontal: 0 }}>
             <ChallengeHeader />
             <ChallengeBody />
         </BottomTabNavigationLayout>
