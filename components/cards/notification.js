@@ -56,7 +56,7 @@ const JoinRequest = () => {
     return (
         <View>
             <View style={[styles.itemContainer]}>
-                <ProfileButton style={{ width: width(75), height: height(75) }} />
+                <ProfileButton style={{ width: width(60), height: height(60) }} />
                 <View style={[styles.textContainer]}>
                     <Text style={[styles.text]}>Steve Nash wants to join your</Text>
                     <Text style={[styles.text]}>Drink Water challenge.</Text>
@@ -108,14 +108,18 @@ const NotificationCard = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomWidth: 1,
         borderColor: Color.LightGrey,
-        paddingBottom: height(20),
-        paddingTop: height(28)
+        paddingBottom: height(16),
+        paddingTop: height(24),
+        borderRadius: width(8),
+        paddingHorizontal: width(16),
+        paddingVertical: height(16),
+        marginVertical: height(4),
+        backgroundColor: Color.Concrete
     },
     icon: {
-        width: width(75),
-        height: height(75),
+        width: width(60),
+        height: height(60),
         backgroundColor: Color.LightGrey,
         borderRadius: width(75)
     },
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
         ...Font.B3
     },
     textContainer: {
-        paddingLeft: width(15)
+        paddingLeft: width(16)
     },
     itemContainer: {
         flexDirection: 'row',
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginTop: height(7)
+        marginTop: height(8)
     }
 });
 
