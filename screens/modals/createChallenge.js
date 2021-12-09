@@ -162,7 +162,9 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.inputSectionContainer]}>
                     <View style={[styles.inputSectionHeaderContainer]}>
                         <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
-                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 members</Text>
+                        <View style={[styles.inputSectionHeaderContainer]}>
+                            <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 members</Text>
+                        </View>
                     </View>
                     <View style={[styles.inputContainer]}>
                         <Picker
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
         alignItems: 'baseline'
     },
     inputSectionContainer: {
-        marginBottom: height(30)
+        marginBottom: height(24)
     },
     inputSectionHeaderContainer: {
         flexDirection: 'row',

@@ -16,7 +16,6 @@ import OvalButton from "../../../components/buttons/oval";
 import { height } from "../../../util/scale";
 import Color from "../../../styles/color";
 import Font from '../../../styles/font'
-import { createUser } from "../../../clients/userClient";
 
 const NicknameScreen = ({ navigation, route }) => {
     const dispatch = useDispatch();
