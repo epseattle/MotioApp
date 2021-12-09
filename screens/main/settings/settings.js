@@ -27,9 +27,9 @@ const SettingsScreen = () => {
             }}>
                 <Text style={{ ...Font.H2 }}>Settings</Text>
             </View>
-            <View style={{ marginBottom: height(16) }}>
+            {/* <View style={{ marginBottom: height(16) }}>
                 <TextInput style={{ backgroundColor: Color.Concrete, borderWidth: 0 }} />
-            </View>
+            </View> */}
             <View style={[styles.listContainer]}>
                 <TouchableWithoutFeedback>
                     <View style={[styles.itemContainer]}>
@@ -115,11 +115,9 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     label: {
-        ...Font.B2
+        ...Font.B3
     },
     logout: {
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
         borderTopColor: Color.LightGrey,
         borderBottomColor: Color.LightGrey,
     },
