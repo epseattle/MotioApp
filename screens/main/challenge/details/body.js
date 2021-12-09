@@ -24,7 +24,7 @@ const sections = {
         <DetailsBodyRuleSection />,
         <DetailsBodyLeaderboardSection />
     ],
-    "Started": [
+    "Ongoing": [
         <DetailsBodyCalendarSection />,
         <DetailsBodyHostSection />,
         <DetailsBodyRuleSection />,

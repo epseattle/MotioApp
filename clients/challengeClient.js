@@ -1,9 +1,10 @@
-const MotiServiceUrl = 'http://localhost:19516/challenge/';
-const MotiServiceUrlProd = 'https://motiservice.azurewebsites.net/challenge/'
+const local = 'http://localhost:19516/challenge/';
+const prod = 'https://motiservice.azurewebsites.net/challenge/'
+const baseUrl = local;
 
 export const createChallenge = async (challenge) => {
     var res = await fetch(
-        MotiServiceUrlProd,
+        baseUrl,
         {
             headers: {
                 'Accept': 'application/json',
@@ -17,7 +18,7 @@ export const createChallenge = async (challenge) => {
 
 export const getUserChallenges = async (userId) => {
     var res = await fetch(
-        MotiServiceUrlProd + `user/${userId}`,
+        baseUrl + `user/${userId}`,
         {
             headers: {
                 'Accept': 'application/json',
@@ -31,7 +32,7 @@ export const getUserChallenges = async (userId) => {
 
 export const getChallengeMembersRequest = async (challengeId) => {
     var res = await fetch(
-        MotiServiceUrlProd + `${challengeId}/members`,
+        baseUrl + `${challengeId}/members`,
         {
             headers: {
                 'Accept': 'application/json',
