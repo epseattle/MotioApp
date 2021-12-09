@@ -40,7 +40,7 @@ const OvalButton = (props) => {
                     {props.children}
                 </View>
             </View>
-        </TouchableWithoutFeedback >
+        </TouchableWithoutFeedback>
     );
 };
 
