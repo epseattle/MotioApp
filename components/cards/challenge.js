@@ -23,8 +23,8 @@ const ChallengeCard = (props) => {
         <TouchableWithoutFeedback onPress={() => props.onPress()}>
             <View style={{
                 flexDirection: 'row',
-                height: height(120),
-                width: width(330),
+                height: height(123),
+                width: width(343),
                 alignItems: 'center',
                 marginVertical: height(8),
                 paddingVertical: height(20),
@@ -38,7 +38,7 @@ const ChallengeCard = (props) => {
                 shadowOpacity: 0.25,
                 shadowRadius: 3,
                 paddingVertical: 10,
-                borderRadius: width(8)
+                borderRadius: width(8),
             }}>
                 <View style={{
                     flexDirection: 'row',
@@ -58,9 +58,9 @@ const ChallengeCard = (props) => {
                         props.upcoming ? styles.upcomingCardText : null
                     ]}>
                         <Text
-                            numberOfLines={1}
+                            numberOfLines={props.ongoing ? 2 : 1}
                             style={{
-                                ...Font.H3
+                                ...Font.B4
                             }}>
                             {title}
                         </Text>
@@ -68,25 +68,25 @@ const ChallengeCard = (props) => {
                             props.ongoing
                                 ?
                                 <Text style={{
-                                    ...Font.B2,
+                                    ...Font.B5,
                                     marginTop: height(15)
                                 }}>10% Completed</Text>
                                 :
                                 <Text style={{
-                                    ...Font.B2,
+                                    ...Font.B5,
                                     marginTop: height(15)
                                 }}>Starting in 5 days</Text>
                         }
                     </View>
                 </View>
                 {
-                    props.ongoing
+                    props.ongoing// props.ongoing
                         ?
                         {
                             'Pending': <PendingButton />,
                             'Approved': <ApprovedButton />,
                             'Incomplete': <CameraButton />,
-                        }[props.state]
+                        }['Incomplete']//[props.state]
                         :
                         null
                 }
@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
     container: {
     },
     ongoingCardText: {
-        marginLeft: width(15),
-        width: width(130), //width: width(130)
+        marginLeft: width(16),
+        width: width(144), //width: width(130)
         justifyContent: 'center'
     },
     upcomingCardText: {
