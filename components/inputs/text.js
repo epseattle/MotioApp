@@ -17,6 +17,7 @@ const TextInput = (props) => {
                 onChangeText={(text) => {
                     props.setValue(text)
                 }}
+                defaultValue={props.defaultValue}
                 style={[styles.container, props.style]}
             />
             {
