@@ -79,13 +79,13 @@ const ChallengeBody = () => {
                             }}>
                                 ({challengeCount} / 5)
                             </Text>}
-                        buttonLabel={challengeCount > 5 ? null : 'Add' }
+                        buttonLabel={challengeCount > 5 ? null : 'Add'} // when max is reached keep the button and notify the user that max has been reached?
                         buttonDisabled={challengeCount > 5} />
                     {
                         challengeCount > 0
                             ?
                             <>
-                                <ChallengeBodyOngoingChallengeList challenges={ONGOING_CHALLENGES}/>
+                                <ChallengeBodyOngoingChallengeList challenges={ONGOING_CHALLENGES} />
                                 <ChallengeBodyUpcomingChallengeList challenges={UPCOMING_CHALLENGES} />
                             </>
                             :
@@ -99,8 +99,8 @@ const ChallengeBody = () => {
 
 const styles = StyleSheet.create({
     contentContainer: {
-        alignItems: 'center',
-        paddingVertical: height(8)
+        paddingVertical: height(8),
+        marginHorizontal: width(16)
     }
 });
 
