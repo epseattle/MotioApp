@@ -44,10 +44,68 @@ export const getChallengeMembersRequest = async (challengeId) => {
     return res;
 }
 
-export const joinChallenge = async (challenge) => {
+export const shareChallenge = async (challenge) => {
+    var res = await fetch(
+        baseUrl + `${challengeId}/share`,
+        {
+            header: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        }
+    )
 
+    return res;
+}
+
+export const getChallengeWithCode = async (code) => {
+    console.log(baseUrl)
+    console.log(code)
+    var res = await fetch(
+        baseUrl + `code/${code}`,
+        {
+            header: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        }
+    )
+
+    return res;
+}
+
+export const joinChallengeWithCode = async (challengeCode, userId) => {
+    var res = await fetch(
+        baseUrl + `code/${challengeCode}/user/${userId}/join`,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }
+    );
+
+    return res;
+}
+
+export const joinChallenge = async (challengeid, userId) => {
+    var res = await fetch(
+        baseUrl + `${challengeId}/user/${userId}/join`,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }
+    );
+    return res;
 };
 
 export const quitChallenge = async (challenge) => {
-
+    var res = await fetch();
+    return res;
 };

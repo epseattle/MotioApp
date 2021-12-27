@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Text
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import { useSelector } from "react-redux";
 
@@ -17,13 +18,15 @@ import ChevronBottom from '../../assets/icons/evericons/chevron-bottom.svg'
 import ChevronTop from '../../assets/icons/evericons/chevron-top.svg'
 import Color from "../../styles/color";
 import Font from "../../styles/font";
+import OvalButton from "../buttons/oval";
 
 const LeaderBoard = (props) => {
     const challenge = useSelector(state => state.challenge.selectedChallenge);
     const [expanded, setExpanded] = useState(false);
     const [members, setMembers] = useState(challenge.memberships);
     const maxMemberCount = challenge.maxMemberCount;
-    
+    const isOwner = challenge.owner.id == auth().currentUser.uid;
+
     // useEffect(() => {
     //     getChallengeMembersRequest(challenge.id)
     //         .then((res) => {
@@ -52,27 +55,126 @@ const LeaderBoard = (props) => {
                 </View>
                 {
                     members.map((item) => {
-                        return (
-                            <View key={item.id} style={[styles.row]}>
-                                <View style={[styles.leftColumn, {
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    height: height(50),
-                                    marginVertical: height(8)
-                                }]}>
-                                    <ProfileButton icon={item.user.photoUrl} key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
-                                    <Text>{item.user.displayName}</Text>
+                        if (item.membershipState == 'Owner') {
+                            return (
+                                <View key={item.id} style={[styles.row]}>
+                                    <View style={[styles.leftColumn, {
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        height: height(50),
+                                        marginVertical: height(8)
+                                    }]}>
+                                        <ProfileButton highlight icon={item.user.photoUrl} key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                        <Text>{item.user.displayName}</Text>
+                                    </View>
+                                    <View style={[styles.rightColumn, {
+                                        height: height(50),
+                                        width: width(40),
+                                        justifyContent: 'center'
+                                    }]}>
+                                        <Text>-</Text>
+                                    </View>
                                 </View>
-                                <View style={[styles.rightColumn, {
-                                    height: height(50),
-                                    width: width(40),
-                                    justifyContent: 'center'
-                                }]}>
-                                    <Text>-</Text>
-                                </View>
-                            </View>
-                        );
+                            );
+                        }
                     })
+                }
+                {
+                    members.map((item) => {
+                        if (item.membershipState == 'Approved') {
+                            return (
+                                <View key={item.id} style={[styles.row]}>
+                                    <View style={[styles.leftColumn, {
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        height: height(50),
+                                        marginVertical: height(8)
+                                    }]}>
+                                        <ProfileButton icon={item.user.photoUrl} key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                        <Text>{item.user.displayName}</Text>
+                                    </View>
+                                    <View style={[styles.rightColumn, {
+                                        height: height(50),
+                                        width: width(40),
+                                        justifyContent: 'center'
+                                    }]}>
+                                        <Text>-</Text>
+                                    </View>
+                                </View>
+                            );
+                        }
+                    })
+                }
+                {
+                    isOwner
+                        ?
+                        <>
+                            <View style={{
+                                borderWidth: 1,
+                                borderColor: Color.Fog,
+                                marginVertical: height(8)
+                            }}>
+                            </View>
+                            {
+                                members.map((item) => {
+                                    if (item.membershipState == 'Pending') {
+                                        return (
+                                            <View key={item.id} style={[styles.row]}>
+                                                <View style={[styles.leftColumn, {
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                    height: height(50),
+                                                    marginVertical: height(8)
+                                                }]}>
+                                                    <ProfileButton icon={item.user.photoUrl} key={item.id} style={{ width: width(50), height: height(50), marginRight: width(8) }} />
+                                                    <Text>{item.user.displayName}</Text>
+                                                </View>
+                                                <View style={[styles.rightColumn, {
+                                                    height: height(50),
+                                                    width: 'auto',
+                                                    justifyContent: 'space-between',
+                                                    alignContent: 'center',
+                                                    alignItems: 'flex-end',
+                                                    flexDirection: 'row'
+                                                }]}>
+                                                    <OvalButton
+                                                        negative
+                                                        onPress={() => {
+                                                            alert('Approved')
+                                                        }}
+                                                        title='Approve'
+                                                        textStyle={{
+                                                            ...Font.B5
+                                                        }}
+                                                        containerStyle={{
+                                                            width: width(60),
+                                                            height: height(30),
+                                                            marginRight: width(8),
+                                                            borderWidth: width(1)
+                                                        }} />
+                                                    <OvalButton
+                                                        negative
+                                                        onPress={() => {
+                                                            alert('Rejected')
+                                                        }}
+                                                        title='Reject'
+                                                        textStyle={{
+                                                            ...Font.B5
+                                                        }}
+                                                        containerStyle={{
+                                                            width: width(60),
+                                                            height: height(30),
+                                                            borderWidth: width(1)
+                                                        }} />
+                                                </View>
+                                            </View>
+                                        );
+                                    }
+                                })
+                            }
+                        </>
+                        :
+                        null
                 }
             </View>
         );

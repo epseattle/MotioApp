@@ -77,9 +77,9 @@ const ChallengeBody = () => {
                                 color: Color.LightGrey,
                                 marginLeft: width(8)
                             }}>
-                                ({challengeCount} / 5)
+                                ({challengeCount}/5)
                             </Text>}
-                        buttonLabel={challengeCount > 5 ? null : 'Add'} // when max is reached keep the button and notify the user that max has been reached?
+                        buttonLabel={challengeCount > 10 ? null : 'Add'}
                         buttonDisabled={challengeCount > 5} />
                     {
                         challengeCount > 0

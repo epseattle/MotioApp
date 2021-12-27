@@ -133,6 +133,7 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.inputSectionContainer]}>
                     <View style={[styles.inputSectionHeaderContainer]}>
                         <Text style={{ ...Font.B3 }}>Set the rule</Text>
+                        <Text style={{ color: Color.LightGrey, ...Font.B5 }}>{rule.length}/100 Characters</Text>
                     </View>
                     <TextInput multiline={false} setValue={setRule} style={{}} />
                 </View>
@@ -153,7 +154,7 @@ const CreateChallengeScreen = () => {
                     </View>
                 </View>
                 <View style={[styles.inputSectionContainer]}>
-                    <Text style={{ ...Font.B3 }}>When are we starting it?</Text>
+                    <Text style={{ ...Font.B3 }}>When should we start?</Text>
                     <View style={[styles.inputSectionHeaderContainer]}>
                         <Text style={{ color: Color.LightGrey, ...Font.B5 }}>The challenge will automatically end after 4 weeks</Text>
                     </View>
@@ -162,9 +163,9 @@ const CreateChallengeScreen = () => {
                 <View style={[styles.inputSectionContainer]}>
                     <View style={[styles.inputSectionHeaderContainer]}>
                         <Text style={{ ...Font.B3 }}>How many people can join you?</Text>
-                        <View style={[styles.inputSectionHeaderContainer]}>
+                        {/* <View style={[styles.inputSectionHeaderContainer]}>
                             <Text style={{ color: Color.LightGrey, ...Font.B5 }}>*max 10 members</Text>
-                        </View>
+                        </View> */}
                     </View>
                     <View style={[styles.inputContainer]}>
                         <Picker

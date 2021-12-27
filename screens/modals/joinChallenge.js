@@ -11,23 +11,17 @@ import {
 import auth from '@react-native-firebase/auth';
 
 import { useDispatch } from 'react-redux';
-import { createChallenge as createChallengeAction } from '../../redux/challengeSlice';
+import { selectChallenge } from '../../redux/challengeSlice';
 
-import { createChallenge as createChallengeRequest } from '../../clients/challengeClient';
+import { getChallengeWithCode } from '../../clients/challengeClient';
 
 import Font from '../../styles/font';
 import Color from '../../styles/color';
 import { height, width } from '../../util/scale';
 
-import Categories from '../../constants/categories';
-
-import CategoriesIcon from '../../assets/icons/categories/categoriesIcon';
-
 import ModalLayout from '../../components/layouts/Modal';
 import TextInput from '../../components/inputs/text';
 import OvalButton from '../../components/buttons/oval'
-import DatePicker from '../../components/inputs/datePicker';
-import Picker from '../../components/inputs/picker';
 
 const FrequencyUnits = [
     'Day',
@@ -39,6 +33,8 @@ const JoinChallengeScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [challengeCode, setChallengeCode] = useState('');
+    const openChallenge = () => {
+    }
 
     return (
         <ModalLayout>
@@ -72,7 +68,16 @@ const JoinChallengeScreen = () => {
                 <OvalButton
                     title='Join'
                     onPress={() => {
-                        createChallenge();
+                        getChallengeWithCode(challengeCode)
+                            .then((res) => {
+                                console.log(res)
+                                return res.json();
+                            })
+                            .then((json) => {
+                                console.log(json);
+                                dispatch(selectChallenge(json))
+                                navigation.navigate('DetailsScreen', { challenge: json })
+                            })
                     }} />
             </KeyboardAvoidingView>
         </ModalLayout>
