@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import auth from '@react-native-firebase/auth';
 
 export const challengeSlice = createSlice({
     name: 'challenge',
@@ -88,9 +89,20 @@ export const challengeSlice = createSlice({
         },
         selectChallenge: (state, action) => {
             state.selectedChallenge = action.payload;
+        },
+        joinChallenge: (state, action) => {
+            // get created membership and add to selected challenge
+            var createdMembership = action.payload;
+            var challenge = state.selectedChallenge;
+            challenge.memberships.push(createdMembership);
+            state.selectedChallenge = challenge;
+            // once membership is added to selecte challenge, add to upcoming challenges.
+            var upcomingChallenges = state.upcomingChallenges;
+            upcomingChallenges[challenge.id] = challenge;
+            state.upcomingChallenges = upcomingChallenges;
         }
     }
 });
 
-export const { createChallenge, startChallenge, completeChallenge, quitOngoingChallenge, quitUpcomingChallenge, initializeChallenges, selectChallenge } = challengeSlice.actions;
+export const { createChallenge, startChallenge, completeChallenge, quitOngoingChallenge, quitUpcomingChallenge, initializeChallenges, selectChallenge, joinChallenge } = challengeSlice.actions;
 export default challengeSlice.reducer;
