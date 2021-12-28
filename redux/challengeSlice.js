@@ -91,15 +91,17 @@ export const challengeSlice = createSlice({
             state.selectedChallenge = action.payload;
         },
         joinChallenge: (state, action) => {
-            // get created membership and add to selected challenge
-            var createdMembership = action.payload;
+            var membership = action.payload;
             var challenge = state.selectedChallenge;
-            challenge.memberships.push(createdMembership);
+            // get created membership and add to selected challenge
+            challenge.memberships.push(membership);
             state.selectedChallenge = challenge;
             // once membership is added to selecte challenge, add to upcoming challenges.
             var upcomingChallenges = state.upcomingChallenges;
             upcomingChallenges[challenge.id] = challenge;
             state.upcomingChallenges = upcomingChallenges;
+            console.log(state.selectedChallenge);
+            console.log(upcomingChallenges);
         }
     }
 });

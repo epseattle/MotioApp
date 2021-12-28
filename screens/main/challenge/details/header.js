@@ -5,7 +5,10 @@ import {
     StyleSheet
 } from 'react-native';
 
-import { useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { joinChallenge } from '../../../../redux/challengeSlice';
 
 import { height, width } from '../../../../util/scale';
 import Font from '../../../../styles/font';
@@ -18,22 +21,38 @@ import CategoriesIcon from '../../../../assets/icons/categories/categoriesIcon';
 import OvalButton from '../../../../components/buttons/oval';
 import JoinConfirmationModal from '../../../../components/modals/joinConfirmation';
 
+import { createMembership } from '../../../../clients/membershipClient';
 
 const DetailsHeader = (props) => {
     const challenge = useSelector(state => state.challenge.selectedChallenge);
     const [joinRequestSent, setJoinRequestSent] = useState(false);
     const [joinModalVisible, setJoinModalVisible] = useState(false);
+    const matchingMemberships = challenge.memberships.filter(membership => membership.userId == auth().currentUser.uid);
+    const dispatch = useDispatch();
+
+    var ActionButton;
+
+    console.log(JSON.stringify(challenge));
 
     const JoinButton = () => {
         return (
             <OvalButton
                 onPress={() => {
-                    setJoinModalVisible(true);
+                    createMembership(challenge.id, auth().currentUser.uid)
+                        .then((res) => {
+                            return res.json();
+                        })
+                        .then((json) => {
+                            // console.log(JSON.stringify(json));
+                            dispatch(joinChallenge(json));
+                            // setJoinModalVisible(true);
+                        })
                 }}
                 title='Join'
                 containerStyle={{ width: width(92) }} />
         );
     }
+
     const PendingButton = () => {
         return (
             <OvalButton containerStyle={{ width: width(92) }}>
@@ -41,12 +60,32 @@ const DetailsHeader = (props) => {
             </OvalButton>
         );
     }
+
     const CheckButton = () => {
         return (
             <OvalButton containerStyle={{ width: width(92) }}>
                 <CircleChecked color={Color.White} width={width(24)} height={height(24)} />
             </OvalButton>
         );
+    }
+
+    if (matchingMemberships.length == 0) {
+        ActionButton = JoinButton();
+    }
+    else {
+        var currentUserMembership = matchingMemberships[0]
+        if (currentUserMembership.membershipState == 'Owner') {
+            ActionButton = CheckButton();
+        }
+        else if (currentUserMembership.membershipState == 'Pending') {
+            ActionButton = PendingButton();
+        }
+        else if (currentUserMembership.membershipState == 'Approved') {
+            ActionButton = CheckButton();
+        }
+        else {
+            ActionButton = JoinButton();
+        }
     }
 
     return (
@@ -84,11 +123,7 @@ const DetailsHeader = (props) => {
                 </Text>
             </View>
             {
-                !joinRequestSent
-                    ?
-                    <JoinButton />
-                    :
-                    <PendingButton />
+                ActionButton
             }
             <JoinConfirmationModal visible={joinModalVisible} setVisible={setJoinModalVisible} setJoinRequestSent={setJoinRequestSent} />
         </View>

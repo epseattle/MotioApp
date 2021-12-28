@@ -25,7 +25,9 @@ const LeaderBoard = (props) => {
     const [expanded, setExpanded] = useState(false);
     const [members, setMembers] = useState(challenge.memberships);
     const maxMemberCount = challenge.maxMemberCount;
+    const memberCount = members.filter(member => member.membershipState != 'Pending' && member.membershipState != 'Rejected').length;
     const isOwner = challenge.owner.id == auth().currentUser.uid;
+    console.log(members);
 
     // useEffect(() => {
     //     getChallengeMembersRequest(challenge.id)
@@ -185,10 +187,17 @@ const LeaderBoard = (props) => {
             <View style={[styles.row, { justifyContent: 'center' }]}>
                 <View style={{ flexDirection: 'row' }}>
                     {
-                        members.slice(0, 5).map((item) => {
-                            return (
-                                <ProfileButton icon={item.user.photoUrl} key={item.id} disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
-                            );
+                        members.filter(member => member.membershipState == 'Approved' || member.membershipState == 'Owner').slice(0, 5).map((item) => {
+                            if (item.membershipState == 'Owner') {
+                                return (
+                                    <ProfileButton highlight icon={item.user.photoUrl} key={item.id} disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                                );
+                            }
+                            else {
+                                return (
+                                    <ProfileButton icon={item.user.photoUrl} key={item.id} disabled style={{ width: width(50), height: height(50), marginLeft: width(-10) }} />
+                                );
+                            }
                         })
                     }
                     {
@@ -218,7 +227,7 @@ const LeaderBoard = (props) => {
                         setExpanded(!expanded)
                     }}>
                     <View style={[styles.rightColumn, { flexDirection: 'row', alignItems: 'flex-start' }]}>
-                        <Text style={[styles.sectionTitle, Font.B4, { color: Color.LightBlack }]}>{members.length}</Text>
+                        <Text style={[styles.sectionTitle, Font.B4, { color: Color.LightBlack }]}>{memberCount}</Text>
                         <Text style={[styles.sectionTitle, Font.B4]}> / {maxMemberCount}</Text>
                         <View style={{ marginLeft: width(5) }}>
                             {

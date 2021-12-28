@@ -3,9 +3,6 @@ const prod = 'https://motiservice.azurewebsites.net/membership/'
 const baseUrl = local;
 
 export const createMembership = async (challengeId, userId) => {
-    console.log(challengeId);
-    console.log(userId);
-    console.log(baseUrl + `challenge/${challengeId}/user/${userId}`);
     var res = await fetch(
         baseUrl + `challenge/${challengeId}/user/${userId}`,
         {
