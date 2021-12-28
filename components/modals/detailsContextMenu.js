@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
     View,
     Text,
@@ -12,8 +13,11 @@ import {
 import { width, height } from '../../util/scale';
 import Color from '../../styles/color';
 import Font from '../../styles/font';
+import { shareChallenge } from '../../clients/challengeClient';
 
 const DetailsContextMenuModal = (props) => {
+    const challenge = useSelector(state => state.challenge.selectedChallenge);
+
     return (
         <Modal
             visible={props.visible}
@@ -58,10 +62,17 @@ const DetailsContextMenuModal = (props) => {
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback
                         onPress={async () => {
-                            const result = await Share.share({
-                                url: 'deep link to join Moti',
-                                message: 'You are now sharing a moti challenge',
-                            })
+                            shareChallenge(challenge.id)
+                                .then((res) => {
+                                    return res.json();
+                                })
+                                .then(async (json) => {
+                                    console.log(JSON.stringify(json));
+                                    var code = json.code;
+                                    await Share.share({
+                                        message: `Use Code:${code} to Join This Challenge`,
+                                    })
+                                })
                         }}>
                         <View style={{
                             alignItems: 'center',

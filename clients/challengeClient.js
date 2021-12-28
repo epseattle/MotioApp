@@ -44,7 +44,7 @@ export const getChallengeMembersRequest = async (challengeId) => {
     return res;
 }
 
-export const shareChallenge = async (challenge) => {
+export const shareChallenge = async (challengeId) => {
     var res = await fetch(
         baseUrl + `${challengeId}/share`,
         {
@@ -52,7 +52,7 @@ export const shareChallenge = async (challenge) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            method: 'GET',
+            method: 'POST',
         }
     )
 
