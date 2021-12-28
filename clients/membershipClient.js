@@ -1,6 +1,6 @@
 const local = 'http://localhost:19516/membership/';
 const prod = 'https://motiservice.azurewebsites.net/membership/'
-const baseUrl = local;
+const baseUrl = prod;
 
 export const createMembership = async (challengeId, userId) => {
     var res = await fetch(
